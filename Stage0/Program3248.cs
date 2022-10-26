@@ -8,8 +8,7 @@ namespace Stage0
 
         static partial void welcome3248()
         {
-            string str = Console.ReadLine();
-            Console.WriteLine("I am also here!" + str);
+            Console.WriteLine("I am also here!");
         }
     }
 
