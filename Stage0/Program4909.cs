@@ -4,12 +4,12 @@ namespace Stage0
 {
     partial class program//מחלקה חלקית
     {
-        // static void Main(string[] args)
-        //{
-        //    Welcome4909();
-        //    Welcome3248();
-        //    Console.ReadKey();
-        //}
+         static void Main(string[] args)
+        {
+            Welcome4909();
+            Welcome3248();
+            Console.ReadKey();
+        }
         static partial void Welcome3248();//פונקציית מחלקה
         private static void Welcome4909()//refactor method
         {
