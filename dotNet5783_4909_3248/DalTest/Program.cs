@@ -4,11 +4,10 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Runtime.CompilerServices;
 using DO;
 
-//יש לנו בעיה
-//אי אפשר להגדיר טיפוסים ממחלקת גישה לישיות
+
 namespace Dal;
 
-class Program
+class Program//התוכנית הראשית
 {
   private static DalProduct prod=new DalProduct();
   private static DalOrderItem item=new DalOrderItem();
