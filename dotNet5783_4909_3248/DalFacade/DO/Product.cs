@@ -9,15 +9,15 @@ public struct Product
     /// <summary>
     /// מספר מזהה של מוצר/הברקוד של המוצר
     /// </summary>
-    public int ProductID { get; set; }
+    public int ProductID { get; set; }      
     /// <summary>
     /// שם המוצר
     /// </summary>
-    public string ProductName { get; set; }
+    public string? ProductName { get; set; }
     /// <summary>
     /// קטגוריה
     /// </summary>
-    public string category { get; set; }
+    public string? category { get; set; }
     /// <summary>
     /// מחיר המוצר
     /// </summary>

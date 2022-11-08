@@ -8,62 +8,66 @@ public class DalOrderItem//נתון פריט בהזמנה
 */
     public int Add(OrderItem ord)
     {
-        int x = DataSource.Config.index2foritems;
+        ord.ID = DataSource.Config.NextOrderNumberOrderItem;
+        int x = DataSource.Config.index2foritems;//האינדקס הפנוי הראשון שיש במערך
         DataSource.items[x]= ord;
-        return ord.OrderID;
+        DataSource.Config.index2foritems++;
+        return ord.ID;
     }
-    public OrderItem get(int Productid)
+    public OrderItem get(int id)
     {
-        for (int i = 0; i < DataSource.products.Length; i++)
+        for (int i = 0; i < DataSource.Config.index2foritems; i++)
         {
-            if (DataSource.items[i].ProductID == Productid)
+            if (DataSource.items[i].ID == id)
             {
                 return DataSource.items[i];
             }
         }
         throw new Exception(" the object not exist in array!");
     }
-    public void print()//קריאה של רשימת כל האובייקטים של הישות (ללא פרמטרים
+    public int numElementOrderItem()
     {
-        for (int i = 0; i < DataSource.items.Length; i++)
-        {
-            Console.WriteLine(DataSource.items[i].ToString());
-        }
+        return DataSource.Config.index2foritems;
     }
-    public void delete(int Productid)
+    public OrderItem[] GetItemslist()
     {
-        if (Exist(Productid))
+        return DataSource.items;
+    }
+    public void delete(int id)
+    {
+        if (Exist(id))
         {
-            int ind = 0;
+            
             OrderItem[] newitems = new OrderItem[DataSource.items.Length - 1];
-            for (int i = 0; i < DataSource.items.Length; i++)
+            for (int i = 0; i < DataSource.Config.index2foritems; i++)
             {
-                if (DataSource.items[i].ProductID ==  Productid)
+                if (DataSource.items[i].ID ==  id)
                 {
                     for (int j = 0; j < i; j++)
                     {
-                        newitems[ind] = DataSource.items[j];
-                        ind++;
+                        newitems[DataSource.Config.ind2] = DataSource.items[j];
+                        DataSource.Config.ind2++;
                     }
-                    for (int k = i + 1; k < DataSource.items.Length; k++)
+                    for (int k = i + 1; k < DataSource.Config.index2foritems; k++)
                     {
-                        newitems[ind] = DataSource.items[k];
-                        ind++;
+                        newitems[DataSource.Config.ind2] = DataSource.items[k];
+                        DataSource.Config.ind2++;
                     }
                 }
             }
             DataSource.items = newitems;
+            DataSource.Config.index2foritems--;
         }
         else//אם הערך למחיקה לא קיים במערך
         {
             throw new Exception("the value is not exist in array");
         }
     }
-    public bool Exist(int Productid)
+    public bool Exist(int id)
     {
-        for (int i = 0; i < DataSource.items.Length; ++i)
+        for (int i = 0; i < DataSource.Config.index2foritems; ++i)
         {
-            if (DataSource.items[i].ProductID ==  Productid)
+            if (DataSource.items[i].ID ==  id)
             {
                 return true;
             }
@@ -72,13 +76,13 @@ public class DalOrderItem//נתון פריט בהזמנה
     }
     public void update(OrderItem p)//מתודת עדכון
     {
-        if (Exist(p.ProductID))
+        if (Exist(p.ID))
         {
-            for (int i = 0; i < DataSource.items.Length; i++)
+            for (int i = 0; i < DataSource.Config.index2foritems; i++)
             {
-                if (DataSource.items[i].ProductID == p.ProductID)
+                if (DataSource.items[i].ID == p.ID)
                 {
-                    DataSource.items[i] = p;
+                    DataSource.items[i] = p;//דריסה של האובייקט הישן על ידי החדש
                 }
             }
         }

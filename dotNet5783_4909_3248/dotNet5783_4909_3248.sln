@@ -3,15 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.3.32922.545
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DalFacade", "DalFacade\DalFacade.csproj", "{5D544660-3A8A-4D85-805E-351EBF0AD80B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DalFacade", "DalFacade\DalFacade.csproj", "{5D544660-3A8A-4D85-805E-351EBF0AD80B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DalList", "DalList\DalList.csproj", "{D71DF422-406E-42F4-8400-02B24FE69899}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DalList", "DalList\DalList.csproj", "{D71DF422-406E-42F4-8400-02B24FE69899}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DalTest", "DalTest\DalTest.csproj", "{E25928F1-4147-4763-B15A-B059154FEC5E}"
-	ProjectSection(ProjectDependencies) = postProject
-		{5D544660-3A8A-4D85-805E-351EBF0AD80B} = {5D544660-3A8A-4D85-805E-351EBF0AD80B}
-		{D71DF422-406E-42F4-8400-02B24FE69899} = {D71DF422-406E-42F4-8400-02B24FE69899}
-	EndProjectSection
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DalTest", "DalTest\DalTest.csproj", "{E25928F1-4147-4763-B15A-B059154FEC5E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

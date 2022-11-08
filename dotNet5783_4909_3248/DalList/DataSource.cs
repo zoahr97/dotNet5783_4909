@@ -7,18 +7,22 @@ namespace Dal;
 internal static class DataSource//מחלקת מקור מידע
 {
     internal static readonly int randomnumber = 0;//יצירת מספרים רנדומליים
-    internal static Product[] products = new Product[5]; 
-    internal static OrderItem[] items = new OrderItem[5];//מערך פריטים בהזמנה
-    internal static Order[] orders = new Order[5];//מערך הזמנות
+    internal static Product[] products = new Product[100];
+    internal static OrderItem[] items = new OrderItem[70];
+    internal static Order[] orders = new Order[40];
 
     internal static class Config//inehr class
     {
         /// <summary>
         /// מציינים (אינדקסים) של האלמנט הפנוי הראשון בכל אחד ממערכי הישויות - כמובן השדות יאותחלו ל-0
         /// </summary>
-        static internal int index1forproducts=0;
-        static internal int index2foritems=0;
-        static internal int index3fororders= 0;
+        internal  static int index1forproducts =0;
+        internal static int index2foritems=0;
+        internal static int index3fororders= 0;
+        internal static int ind1= 0;
+        internal static int ind2= 0;
+        internal static int ind3= 0;
+
         /// <summary>
         /// הוסיפו למחלקה שדות סטטיים פרטיים עבור מספר מזהה אחרון עבור הישויות שיש להם מזהה רץ אוטומטי (השדות יאותחלו למספר מזהה הקטן ביותר לפי דרישות כל ישות)
         /// </summary>
@@ -33,45 +37,48 @@ internal static class DataSource//מחלקת מקור מידע
 
     static private void AddProduct(Product[] products)
     {
-        Random random = new Random();
-        for (int i = 0; i < products.Length; i++)
+        Random random = new Random();//יצירת אובייקט הגרלה
+        for (int i = 0; i <8;i++)
         {
             products[i] = new Product();
             products[i].ProductID = random.Next();
-            products[i].ProductName = Console.ReadLine();
-            products[i].category = Console.ReadLine();
-            products[i].Price = double.Parse(Console.ReadLine());
-            products[i].InStock=int.Parse(Console.ReadLine());
+            products[i].ProductName = "p_" + (char)i;
+            products[i].category = "c_" + (char)i;
+            products[i].Price = i + 7;
+            products[i].InStock = i * 10 + 1;
+            DataSource.Config.index1forproducts++;
 
         }
     }
     static private void AddOrderItem(OrderItem[] items)
     {
-        Random random = new Random();
-        for (int i = 0; i < items.Length; i++)
+        Random random = new Random();//יצירת אובייקט הגרלה
+        for (int i = 0; i < 4; i++)
         {
             items[i] = new OrderItem();
             items[i].ID = Config.NextOrderNumberOrderItem;
             items[i].ProductID = random.Next();
             items[i].OrderID = random.Next();
-            items[i].Price = double.Parse(Console.ReadLine());
-            items[i].Amount = int.Parse(Console.ReadLine());
+            items[i].Price = i + 20;
+            items[i].Amount = i * 3 + 1;
+            DataSource.Config.index2foritems++;
 
         }
     }
     static private void AddOrders(Order[] orders)
     {
-        Random random = new Random();
-        for (int i = 0; i < orders.Length; i++)
+        Random random = new Random();//יצירת אובייקט הגרלה
+        for (int i = 0; i < 5; i++)
         {
             orders[i] = new Order();
             orders[i].ID = Config.NextOrderNumberOrders;
-            orders[i].CustomerName = Console.ReadLine();
-            orders[i].CustomerEmail = Console.ReadLine();
-            orders[i].CustomerAdress = Console.ReadLine();
+            orders[i].CustomerName = "Customer_" + (char)i;
+            orders[i].CustomerEmail = "Email_" + (char)i * 3;
+            orders[i].CustomerAdress = "Adress_" + (char)(i + 2);
             orders[i].OrderDate = DateTime.MinValue;
             orders[i].ShipDate= DateTime.MinValue;
             orders[i].DeliveryDate= DateTime.MinValue;
+            DataSource.Config.index3fororders++;
         }
     }
     static private void s_Initialize()

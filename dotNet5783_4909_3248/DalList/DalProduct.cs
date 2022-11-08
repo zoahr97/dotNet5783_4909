@@ -8,21 +8,22 @@ public class DalProduct//נתון מוצר
 {
     public int Add(Product p)
     {
-        for(int i = 0; i <DataSource.products.Length; i++)
+        int x = DataSource.Config.index1forproducts;
+        for (int i = 0; i <x;i++)
         {
             if (DataSource.products[i].ProductID == p.ProductID)
             {
                 throw new Exception(" the object already exist in array!");
             }       
         }
-        int x = DataSource.Config.index1forproducts;
         DataSource.products[x] = p;
+        DataSource.Config.index1forproducts++;
         return p.ProductID;
     }
     //מתודת בקשה\קריא של אובייקט בודד שתקבל מספר מזהה של הישות (שימו לב - לא מדובר במציין\אינדקס במערך!) ותחזיר את האובייקט המתאים
     public Product get(int ID)
     {
-        for (int i = 0; i < DataSource.products.Length; i++)
+        for (int i = 0; i < DataSource.Config.index1forproducts; i++)
         {
             if (DataSource.products[i].ProductID == ID)
             {
@@ -31,47 +32,48 @@ public class DalProduct//נתון מוצר
         }
         throw new Exception(" the object not exist in array!");
     }
-    public void print()//קריאה של רשימת כל האובייקטים של הישות (ללא פרמטרים
+    public int numElement()
     {
-        for (int i = 0; i < DataSource.products.Length; i++)
-        {
-            Console.WriteLine(DataSource.products[i].ToString());
-        }
-        
+        return DataSource.Config.index1forproducts; 
+    }
+    public Product[] GetProductslist()
+    {
+        return DataSource.products;
     }
     //מתודת מחיקת אובייקט של ישות שתקבל מספר מזהה של הישות
     public void delete(int id)
     {
-        if(Exist(id))
+        
+        if (Exist(id))
         {
-            int ind = 0;
             Product[] newproducts = new Product[DataSource.products.Length - 1];
-            for (int i = 0; i < DataSource.products.Length; i++)
+            for (int i = 0; i < DataSource.Config.index1forproducts; i++)
             {
                 if (DataSource.products[i].ProductID == id)
                 {
                     for (int j = 0; j < i; j++)
                     {
-                        newproducts[ind] = DataSource.products[j];
-                        ind++;
+                        newproducts[DataSource.Config.ind1]= DataSource.products[j];
+                        DataSource.Config.ind1++;
                     }
-                    for (int k = i + 1; k < DataSource.products.Length; k++)
+                    for (int k = i + 1; k < DataSource.Config.index1forproducts; k++)
                     {
-                        newproducts[ind] = DataSource.products[k];
-                        ind++;
+                        newproducts[DataSource.Config.ind1]= DataSource.products[k];
+                        DataSource.Config.ind1++;
                     }
                 }
             }
             DataSource.products = newproducts;
+            DataSource.Config.index1forproducts--;
         }
         else//אם הערך למחיקה לא קיים במערך
         {
-            throw new Exception("the value is not exist in array");
+            throw new Exception("the value of delete is not exist in array");
         }
     }
     public bool Exist(int id)
     {
-      for (int i = 0; i < DataSource.products.Length; ++i)
+      for (int i = 0; i < DataSource.Config.index1forproducts; ++i)
         {
             if (DataSource.products[i].ProductID == id)
             {
@@ -85,7 +87,7 @@ public class DalProduct//נתון מוצר
     {
         if(Exist( p.ProductID ))
         {
-            for (int i = 0; i < DataSource.products.Length; i++)
+            for (int i = 0; i < DataSource.Config.index1forproducts; i++)
             {
                 if (DataSource.products[i].ProductID == p.ProductID)
                 {
@@ -96,9 +98,8 @@ public class DalProduct//נתון מוצר
         else//כאשר האיבר לא נמצא
             throw new Exception("the value is not exist in array");
     }
-    
-
 }
+
 /*בכל מחלקות גישה לנתוני הישויות
 הוסף מתודות בסיסיות של גישה לנתונים ע"פ שיטת (CRUD (Add,delete,update,get :
 כל המתודות יהיו בהרשאה public

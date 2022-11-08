@@ -13,11 +13,11 @@ public struct OrderItem
     /// <summary>
     /// מספר מזהה של מוצר/ברקוד
     /// </summary>
-    public int ProductID { get; set; }
+    public int? ProductID { get; set; }
     /// <summary>
     /// מספר מזהה של הזמנה
     /// </summary>
-    public int OrderID { get; set; }
+    public int? OrderID { get; set; }
     /// <summary>
     /// מחיר ליחידה
     /// </summary>
