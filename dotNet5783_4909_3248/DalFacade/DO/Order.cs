@@ -4,7 +4,7 @@
 /// יישות הזמנה
 /// </summary>
 
-public struct Order
+public struct Order//יישות הזמנה
 {
     /// <summary>
     /// מספר מזהה ייחודי/מספר רץ אוטומטי
