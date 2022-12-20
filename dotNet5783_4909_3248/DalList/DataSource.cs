@@ -1,91 +1,164 @@
-﻿
+﻿using DalApi;
 using DO;
+using static DO.Enums;
 
 
 namespace Dal;
 
-internal static class DataSource//מחלקת מקור מידע
+public class DataSource//מחלקת מקור מידע
 {
-    internal static readonly int randomnumber = 0;//יצירת מספרים רנדומליים
-    internal static Product[] products = new Product[100];
-    internal static OrderItem[] items = new OrderItem[70];
-    internal static Order[] orders = new Order[40];
+    static readonly Random R = new Random();
 
-    internal static class Config//inehr class
+    internal static DataSource s_instance { get; } = new DataSource();
+    private static DataSource? instance;
+    private static readonly object key = new();
+
+    public static DataSource GetInstance()
     {
-        /// <summary>
-        /// מציינים (אינדקסים) של האלמנט הפנוי הראשון בכל אחד ממערכי הישויות - כמובן השדות יאותחלו ל-0
-        /// </summary>
-        internal  static int index1forproducts =0;
-        internal static int index2foritems=0;
-        internal static int index3fororders= 0;
-        internal static int ind1= 0;
-        internal static int ind2= 0;
-        internal static int ind3= 0;
+        if (instance == null)
+        {
+            lock (key)
+            {
+                if (instance == null)
+                    instance = new DataSource();
+            }
+        }
+        return instance;
+    }
 
+    internal List<Product> products { get; } = new List<Product> { };//רשימת המוצרים
+    internal List<OrderItem> items { get; } = new List<OrderItem> { };//רשימת פריטים בהזמנות
+    internal List<Order> orders { get; } = new List<Order> { };//רשימת הזמנות
+  
+    internal static class Config//inner class
+    {
         /// <summary>
         /// הוסיפו למחלקה שדות סטטיים פרטיים עבור מספר מזהה אחרון עבור הישויות שיש להם מזהה רץ אוטומטי (השדות יאותחלו למספר מזהה הקטן ביותר לפי דרישות כל ישות)
         /// </summary>
-        private static int LastIDnumberOrderitem = 1000;//מספר ההזמנה האחרון שיש לפריט בהזמנה
-        internal static int NextOrderNumberOrderItem { get => ++LastIDnumberOrderitem; }//מ"ס הזמנה הבאה
-        
-        private static int LastIDnumberOrders = 100;//מספר המזהה האחרון שיש להזמנה
+        internal const int startIdOrderitem = 1000;
+        private static int StartIDnumberOrderitem = startIdOrderitem;//מספר ההזמנה ההתחלתי שיש לפריט בהזמנה
+        internal static int NextOrderNumberOrderItem { get => ++StartIDnumberOrderitem; }//מ"ס מזהה של פריט בהזמנה הבאה
 
-        internal static int NextOrderNumberOrders { get => ++LastIDnumberOrders; }//מ"ס הזמנה הבאה
+        internal const int startIdOrders = 100;
+        private static int StartIDnumberOrders = startIdOrders;//מספר המזהה ההתחלתי שיש להזמנה
+        internal static int NextOrderNumberOrders { get => ++StartIDnumberOrders; }//מ"ס הזמנה הבאה
     }
-   
+    private DataSource()
+    {
+        s_Initialize();
+    }
 
-    static private void AddProduct(Product[] products)
+    private void s_Initialize()
     {
-        Random random = new Random();//יצירת אובייקט הגרלה
-        for (int i = 0; i <8;i++)
-        {
-            products[i] = new Product();
-            products[i].ProductID = random.Next();
-            products[i].ProductName = "p_" + (char)i;
-            products[i].category = "c_" + (char)i;
-            products[i].Price = i + 7;
-            products[i].InStock = i * 10 + 1;
-            DataSource.Config.index1forproducts++;
-
-        }
-    }
-    static private void AddOrderItem(OrderItem[] items)
-    {
-        Random random = new Random();//יצירת אובייקט הגרלה
-        for (int i = 0; i < 4; i++)
-        {
-            items[i] = new OrderItem();
-            items[i].ID = Config.NextOrderNumberOrderItem;
-            items[i].ProductID = random.Next();
-            items[i].OrderID = random.Next();
-            items[i].Price = i + 20;
-            items[i].Amount = i * 3 + 1;
-            DataSource.Config.index2foritems++;
-
-        }
-    }
-    static private void AddOrders(Order[] orders)
-    {
-        Random random = new Random();//יצירת אובייקט הגרלה
-        for (int i = 0; i < 5; i++)
-        {
-            orders[i] = new Order();
-            orders[i].ID = Config.NextOrderNumberOrders;
-            orders[i].CustomerName = "Customer_" + (char)i;
-            orders[i].CustomerEmail = "Email_" + (char)i * 3;
-            orders[i].CustomerAdress = "Adress_" + (char)(i + 2);
-            orders[i].OrderDate = DateTime.MinValue;
-            orders[i].ShipDate= DateTime.MinValue;
-            orders[i].DeliveryDate= DateTime.MinValue;
-            DataSource.Config.index3fororders++;
-        }
-    }
-    static private void s_Initialize()
-    {
-        AddProduct(products);
-        AddOrderItem(items);
-        AddOrders(orders);
+        AddProduct();
+        AddOrderItem();
+        AddOrders();
         return;
     }
+    
+
+    private void AddProduct()//הוספת מוצרים לרשימת המוצרים
+    {
+        string[] NameOfProduct = { "Anemone", "Sunflower", "Narcissus", "Anthurium", " Orchid", "Nurit", "Gozmania", "Savyon", "Roses", "Chrysanthemum" };
+
+        for (int i = 0; i < 10; i++)//הוספת עשרה מוצרים לרשימת המוצרים
+        {
+            Product Prod = new Product
+            {
+                ProductID = R.Next(100, 1000),//הגרלת מספר מ100 עד 999
+                ProductName = NameOfProduct[i],
+                category = (Enums.CATEGORY)R.Next(0, 7),//הגרלת מספר מ0 עד6
+                Price = R.Next(50, 701),//הגרלת מספר מ50 עד700
+                InStock = (i != 0) ? R.Next(50, 151) : 0,
+                IsDeleted = null
+            }; 
+            if(Prod.ProductName == "Sunflower")
+            {
+                Prod.category = (Enums.CATEGORY)3;
+            }
+            #region filter for a product that exists with the same ID number
+            int SameId = products.FindIndex(x => x.ProductID == Prod.ProductID);
+            while (SameId != -1)
+            {
+                Prod.ProductID = R.Next(100, 1000);
+                SameId = products.FindIndex(x => x.ProductID == Prod.ProductID);
+            }
+            #endregion
+            products.Add(Prod);
+        }
+    }
+    private void AddOrderItem() //הוספת פריט בהזמנה
+    {
+        for (int i = 0; i < 40; i++)//הוספת 40 פריטים בהזמנה
+        {
+            Product? product = products[R.Next(products.Count)];
+            OrderItem orderitem = new OrderItem//יצירת אובייקט פריט בהזמנה ע"י אתחול מהיר
+            {
+                ID = Config.NextOrderNumberOrderItem,
+                ProductID = product?.ProductID ?? 0,
+                OrderID = R.Next( 111, 1000 ),
+                Price = product?.Price ?? 0,
+                Amount = R.Next(1, 11),
+                IsDeleted = null
+            };
+            items.Add(orderitem);
+        }
+    }
+    private void AddOrders()//הוספת הזמנות לרשימת ההזמנות
+    { 
+        #region Arrays: CustomerNames,Address .
+        string[] CustomerNames = { "ZOAHR", "NOAM", "SHIRA", "NURIT", "HILA", "OSHERIT", "EILON", "ARIEL", "TAL", "ADI", "MAOR", "YEHUDA" };
+        string[] Address = { "Bilo15ASHDOD", "ROSH_PINA14ASHDOD", "BIT_HADFUS14Jerusalem", "Rothschild18TelAviv", "BNI_BRIT12PetahTikva" };
+        #endregion
+        for (int i = 0; i < 20; i++)//הוספת 20 הזמנות לרשימת ההזמנות
+        {
+            Order order = new Order//יצירת אובייקט הזמנה ע"י אתחול מהיר
+            {
+                ID = Config.NextOrderNumberOrders,
+                CustomerName = CustomerNames[R.Next(0, 12)],
+                CustomerAdress = Address[R.Next(0, 5)],
+                OrderDate = DateTime.Now - new TimeSpan(R.Next(11, 41), R.Next(24), R.Next(60), R.Next(60)),
+                IsDeleted = null
+            };
+
+            order.CustomerEmail = order.CustomerName +i+ "@gmail.com";
+            order.ShipDate = (i < 8) ? DateTime.Now - new TimeSpan(R.Next(6, 11), R.Next(24), R.Next(6), R.Next(60)) : null;
+            order.DeliveryDate = (i < 5) ? DateTime.Now - new TimeSpan(R.Next(6), R.Next(24), R.Next(6), R.Next(60)) : null;
+            orders.Add(order);
+        }
+    }
 }
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,123 +1,245 @@
-﻿
+﻿using DalApi;
 using DO;
-
+using System.Collections.Generic;
 
 namespace Dal;
 
-public class DalProduct//נתון מוצר
+internal class DalProduct: IProduct
 {
-    public int Add(Product p)
+    DataSource DS = DataSource.GetInstance(); //מופע של מקור הנתונים 
+
+    private bool IsExist(int ProductID)//מתודת עזר המחזירה אמת אם האיבר קיים אחרת יוחזר שקר
     {
-        int x = DataSource.Config.index1forproducts;
-        for (int i = 0; i <x;i++)
+        int indexOfSameId = DS.products.FindIndex(x => x.ProductID == ProductID);
+        if (indexOfSameId == -1)//כאשר האיבר לא קיים ברשימה
         {
-            if (DataSource.products[i].ProductID == p.ProductID)
-            {
-                throw new Exception(" the object already exist in array!");
-            }       
+            return false;
         }
-        DataSource.products[x] = p;
-        DataSource.Config.index1forproducts++;
-        return p.ProductID;
-    }
-    //מתודת בקשה\קריא של אובייקט בודד שתקבל מספר מזהה של הישות (שימו לב - לא מדובר במציין\אינדקס במערך!) ותחזיר את האובייקט המתאים
-    public Product get(int ID)
-    {
-        for (int i = 0; i < DataSource.Config.index1forproducts; i++)
+        else//האיבר קיים ברשימה
         {
-            if (DataSource.products[i].ProductID == ID)
+            return true;
+        }
+    }
+   
+    public int Add(Product P)
+    {
+        int index = DS.products.FindIndex(x => x.ProductID == P.ProductID);
+        if(index == -1)
+        {
+            DS.products.Add(P);
+            return P.ProductID;
+        }
+        else
+        {
+            if (DS.products[index].IsDeleted!=true)
             {
-                return DataSource.products[i];
+                throw new AlreadyExistException("The product for Adding already exists in the list of products");
+            }
+            else
+            {
+                DS.products.Add(P);
+                return P.ProductID;
             }
         }
-        throw new Exception(" the object not exist in array!");
     }
-    public int numElement()
+     
+    public Product GetById(int id)
     {
-        return DataSource.Config.index1forproducts; 
-    }
-    public Product[] GetProductslist()
-    {
-        return DataSource.products;
-    }
-    //מתודת מחיקת אובייקט של ישות שתקבל מספר מזהה של הישות
-    public void delete(int id)
-    {
-        
-        if (Exist(id))
+        Product? ProductById = DS.products.Find(x => x.ProductID == id && x.IsDeleted != true);
+        if (ProductById.Value.ProductID==0)
         {
-            Product[] newproducts = new Product[DataSource.products.Length - 1];
-            for (int i = 0; i < DataSource.Config.index1forproducts; i++)
+            throw new DoesntExistException("the product is not exist in list of products!!!");
+        }         
+        else
+        {
+            return (Product)ProductById;
+        }
+       
+    }
+    public List<Product> GetAll()
+    {
+        if (DS.products.Count == 0)
+        {
+            throw new notExistElementInList("The list for Products is Empty!!");
+        }      
+        else
+        {
+            List<Product>? allproducts = DS.products.FindAll(x => x.IsDeleted != true);
+            return allproducts;
+        }   
+    }
+    public void Delete(int id)
+    {       
+        int index = DS.products.FindIndex(x => x.ProductID == id&& x.IsDeleted!=true);
+        if (index == -1)
+        {
+            throw new DoesntExistException("the product for Delete is not exist in list of products!!!");
+        }
+
+        else//האיבר קיים ברשימה
+        {
+            if (DS.products[index].IsDeleted!=true)
             {
-                if (DataSource.products[i].ProductID == id)
-                {
-                    for (int j = 0; j < i; j++)
-                    {
-                        newproducts[DataSource.Config.ind1]= DataSource.products[j];
-                        DataSource.Config.ind1++;
-                    }
-                    for (int k = i + 1; k < DataSource.Config.index1forproducts; k++)
-                    {
-                        newproducts[DataSource.Config.ind1]= DataSource.products[k];
-                        DataSource.Config.ind1++;
-                    }
-                }
+                Product p = DS.products[index];
+                p.IsDeleted = true;
+                DS.products[index] = p;
             }
-            DataSource.products = newproducts;
-            DataSource.Config.index1forproducts--;
-        }
-        else//אם הערך למחיקה לא קיים במערך
-        {
-            throw new Exception("the value of delete is not exist in array");
-        }
-    }
-    public bool Exist(int id)
-    {
-      for (int i = 0; i < DataSource.Config.index1forproducts; ++i)
-        {
-            if (DataSource.products[i].ProductID == id)
+            else//המוצר כבר מחוק
             {
-                return true;
+                throw new DoesntExistException("the product for Delete already deleted!!!");
             }
         }
-      return false;
     }
-    //מתודת עדכון אובייקט שתקבל אובייקט חדש
-    public void update(Product p)
-    {
-        if(Exist( p.ProductID ))
+    public void Update(Product item)
+    {      
+        try
         {
-            for (int i = 0; i < DataSource.Config.index1forproducts; i++)
-            {
-                if (DataSource.products[i].ProductID == p.ProductID)
-                {
-                    DataSource.products[i]=p;
-                }
-            }
+            GetById(item.ProductID);
         }
-        else//כאשר האיבר לא נמצא
-            throw new Exception("the value is not exist in array");
+        catch
+        {
+            throw new DoesntExistException("the product for Update is not exist in list of products!!!");
+        }
+        Delete(item.ProductID);
+        Add(item);
     }
+
 }
 
-/*בכל מחלקות גישה לנתוני הישויות
-הוסף מתודות בסיסיות של גישה לנתונים ע"פ שיטת (CRUD (Add,delete,update,get :
-כל המתודות יהיו בהרשאה public
-מתודת הוספת אובייקט שתקבל אובייקט של ישות ותחזיר את המספר המזהה של האובייקט שנוסף
-אם לא מדובר בישות עם מספר מזהה רץ אוטומטי, יש לבדוק שהאובייקט עם המספר המזהה הזה עוד לא קיים
-אובייקט חדש יתווסף במקום הפנוי הראשון במערך ע"פ השדה המתאים במחלקה הפנימית Config שב-DataSource*/
-//המתודה תדרוס את האובייקט הישן ע"י האובייקט החדש באותו מקום במערך
-//בתחילת העדכון יש לוודא שהאובייקט קיים - לפי מספר מזהה
 
-/*הוסף מתודות בסיסיות של גישה לנתונים ע"פ שיטת (CRUD (Add,delete,update,get :
-כל המתודות יהיו בהרשאה public
-מתודת הוספת אובייקט שתקבל אובייקט של ישות ותחזיר את המספר המזהה של האובייקט שנוסף
-אם לא מדובר בישות עם מספר מזהה רץ אוטומטי, יש לבדוק שהאובייקט עם המספר המזהה הזה עוד לא קיים
-אובייקט חדש יתווסף במקום הפנוי הראשון במערך ע"פ השדה המתאים במחלקה הפנימית Config שב-DataSource
-מתודת בקשה\קריא של אובייקט בודד שתקבל מספר מזהה של הישות (שימו לב - לא מדובר במציין\אינדקס במערך!) ותחזיר את האובייקט המתאים
-מתודת בקשה\קריאה של רשימת כל האובייקטים של הישות (ללא פרמטרים)
-מתודת מחיקת אובייקט של ישות שתקבל מספר מזהה של הישות
-מתודת עדכון אובייקט שתקבל אובייקט חדש
-המתודה תדרוס את האובייקט הישן ע"י האובייקט החדש באותו מקום במערך
-בתחילת העדכון יש לוודא שהאובייקט קיים - לפי מספר מזהה
-*/
+
+
+
+
+
+//int Add(T item);
+//T GetById(int id);
+//void Update(T item);
+//void Delete(int id);
+//IEnumerable<T> GetAll();
+
+
+//if (IsExist(id))
+//{
+//    int index= DS.products.FindIndex(x => x.ProductID == id);
+//    return DS.products[index];
+//}
+//else
+//{
+//    throw new DoesntExistException("the product is not exist in list of products!!!");
+//}
+
+//if(IsExist(id))
+//{
+//    int index = DS.products.FindIndex(x => x.ProductID == id);
+//    DS.products.RemoveAt(index);
+//}
+//else
+//{
+//    throw new DoesntExistException("the product for Delete is not exist in list of products!!!");
+//}
+
+//if(IsExist(item.ProductID))
+//{
+//    int index = DS.products.FindIndex(x => x.ProductID == item.ProductID);
+//    DS.products[index] = item;
+//}
+//else
+//{
+//    throw new DoesntExistException("the product for Update is not exist in list of products!!!");
+//}
+//public class DalProduct//נתון מוצר
+//{
+//    public int Add(Product p)
+//    {
+//        int x = DataSource.Config.index1forproducts;
+//        for (int i = 0; i < x; i++)
+//        {
+//            if (DataSource.products[i].ProductID == p.ProductID)
+//            {
+//                throw new Exception(" the object already exist in array!");
+//            }
+//        }
+//        DataSource.products[x] = p;
+//        DataSource.Config.index1forproducts++;
+//        return p.ProductID;
+//    }
+//    //מתודת בקשה\קריא של אובייקט בודד שתקבל מספר מזהה של הישות (שימו לב - לא מדובר במציין\אינדקס במערך!) ותחזיר את האובייקט המתאים
+//    public Product get(int ID)
+//    {
+//        for (int i = 0; i < DataSource.Config.index1forproducts; i++)
+//        {
+//            if (DataSource.products[i].ProductID == ID)
+//            {
+//                return DataSource.products[i];
+//            }
+//        }
+//        throw new Exception(" the object not exist in array!");
+//    }
+//    public int numElement()
+//    {
+//        return DataSource.Config.index1forproducts;
+//    }
+//    public Product[] GetProductslist()
+//    {
+//        return DataSource.products;
+//    }
+//    //מתודת מחיקת אובייקט של ישות שתקבל מספר מזהה של הישות
+//    public void delete(int id)
+//    {
+
+//        if (Exist(id))
+//        {
+//            Product[] newproducts = new Product[DataSource.products.Length - 1];
+//            for (int i = 0; i < DataSource.Config.index1forproducts; i++)
+//            {
+//                if (DataSource.products[i].ProductID == id)
+//                {
+//                    for (int j = 0; j < i; j++)
+//                    {
+//                        newproducts[DataSource.Config.ind1] = DataSource.products[j];
+//                        DataSource.Config.ind1++;
+//                    }
+//                    for (int k = i + 1; k < DataSource.Config.index1forproducts; k++)
+//                    {
+//                        newproducts[DataSource.Config.ind1] = DataSource.products[k];
+//                        DataSource.Config.ind1++;
+//                    }
+//                }
+//            }
+//            DataSource.products = newproducts;
+//            DataSource.Config.index1forproducts--;
+//        }
+//        else//אם הערך למחיקה לא קיים במערך
+//        {
+//            throw new Exception("the value of delete is not exist in array");
+//        }
+//    }
+//    public bool Exist(int id)
+//    {
+//        for (int i = 0; i < DataSource.Config.index1forproducts; ++i)
+//        {
+//            if (DataSource.products[i].ProductID == id)
+//            {
+//                return true;
+//            }
+//        }
+//        return false;
+//    }
+//    //מתודת עדכון אובייקט שתקבל אובייקט חדש
+//    public void update(Product p)
+//    {
+//        if (Exist(p.ProductID))
+//        {
+//            for (int i = 0; i < DataSource.Config.index1forproducts; i++)
+//            {
+//                if (DataSource.products[i].ProductID == p.ProductID)
+//                {
+//                    DataSource.products[i] = p;
+//                }
+//            }
+//        }
+//        else//כאשר האיבר לא נמצא
+//            throw new Exception("the value is not exist in array");
+//    }
+//}

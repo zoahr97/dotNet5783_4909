@@ -13,7 +13,7 @@ public struct OrderItem
     /// <summary>
     /// מספר מזהה של מוצר/ברקוד
     /// </summary>
-    public int? ProductID { get; set; }
+    public int ProductID { get; set; }
     /// <summary>
     /// מספר מזהה של הזמנה
     /// </summary>
@@ -21,12 +21,15 @@ public struct OrderItem
     /// <summary>
     /// מחיר ליחידה
     /// </summary>
-    public double? Price { get; set; }
+    public double Price { get; set; }
     /// <summary>
     /// כמות
     /// </summary>
-    public int? Amount { get; set; }
-
+    public int Amount { get; set; }
+    /// <summary>
+    /// האם האיבר מחוק או לא
+    /// </summary>
+    public bool? IsDeleted { get; set; }
     /***********ToString***************/
 
     public override string ToString() => $@"

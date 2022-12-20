@@ -33,16 +33,21 @@ public struct Order//יישות הזמנה
     /// <summary>
     /// תאריך מסירה
     /// </summary>
-    public DateTime? DeliveryDate { get; set; } 
+    public DateTime? DeliveryDate { get; set; }
+    /// <summary>
+    /// ?האם האיבר מחוק או לא
+    /// </summary>
+    public bool? IsDeleted { get; set; }
 
     /***************ToString*****************************/
 
     public override string ToString() => $@"
-	 ID:{ID}
+	
+     ID:{ID}
      Customer Name:{CustomerName}, 
-	 Customer Email: {CustomerEmail}
-     Customer Adress: {CustomerAdress}
-     Order Date: {OrderDate}
+     Customer Email:{CustomerEmail}
+     Customer Adress:{CustomerAdress}
+     Order Date:{OrderDate}
      Ship Date: {ShipDate}
      Delivery Date: {DeliveryDate}
 	";  

@@ -17,15 +17,19 @@ public struct Product
     /// <summary>
     /// קטגוריה
     /// </summary>
-    public string? category { get; set; }
+    public Enums.CATEGORY? category { get; set; }
     /// <summary>
-    /// מחיר המוצר
+    /// מחיר המוצר ליחידה
     /// </summary>
-    public double? Price { get; set; }
+    public double Price { get; set; }
     /// <summary>
     /// כמות במלאי
     /// </summary>
     public int? InStock { get; set; }
+    /// <summary>
+    /// האם האיבר מחוק או לא
+    /// </summary>
+    public bool? IsDeleted { get; set; }
 
     /***********ToString***************/
 
@@ -35,6 +39,7 @@ public struct Product
 	category - {category}
     Price: {Price}
     Amount in stock: {InStock}
+    IsDeleted:{IsDeleted}
 	";
 
 }
