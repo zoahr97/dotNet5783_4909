@@ -9,5 +9,5 @@ public interface ICrud<T> where T : struct
     void Delete(int id);
 
     //IEnumerable<T?> GetAll(Func<T?, bool>? filter = null);
-    List<T> GetAll();
+    IEnumerable<T> GetAll();
 }

@@ -7,48 +7,66 @@ using System.Security.Cryptography;
 using System.Collections.Generic;
 using System.Collections;
 using BlApi;
-
+using System.Linq;
 namespace BlImplementation;
 
 internal class Order : BlApi.IOrder
 {
-    private IDal? Dal = DalList.Instance;//שדה פרטי
+    private IDal Dal = DalList.Instance;//שדה פרטי
 
     //    בקשת רשימת הזמנות(מסך מנהל)
     //תבקש רשימת הזמנות משכבת הנתונים
     //תבנה על בסיס הנתונים רשימת הזמנות מטיפוס OrderForList(ישות לוגית)
     //תחזיר את הרשימה שנבנתה
-    public List<BO.OrderForList> GetAllOrderForList()//בקשת רשימת ההזמנות של הלקוחות
+    public IEnumerable<BO.OrderForList> GetAllOrderForList()//בקשת רשימת ההזמנות של הלקוחות
     {
         try
         {
-            List<DO.Order>? orders = Dal.Order.GetAll();
-            List<DO.OrderItem>? orderItems = Dal.OrderItem.GetAll();
-            List<BO.OrderForList> orderForLists = new List<BO.OrderForList>();
-
-            foreach (DO.Order order in orders)
+            IEnumerable<DO.Order> orders = Dal.Order.GetAll();
+            IEnumerable<DO.OrderItem> orderItems = Dal.OrderItem.GetAll();
+            return orders.Select(order => new BO.OrderForList
             {
-                BO.OrderForList orderForList = new BO.OrderForList
-                {
-                    OrderID = order.ID,
-                    CustomerName = order.CustomerName,
-                    OrderStatus = GetStatus(order),
-                    AmountItems = count(order.ID),
-                    TotalOrder = SumOrder(order.ID)
-                };
-                if(orderForList.AmountItems!=0)
-                {
-                    orderForLists.Add(orderForList);
-                }        
-            }
-            return orderForLists;
+                OrderID = order.ID,
+                CustomerName = order.CustomerName,
+                OrderStatus = GetStatus(order),
+                AmountItems = count(order.ID),
+                TotalOrder = SumOrder(order.ID)
+            });
+
+            //return from DO.Order order in orders
+            //       select new BO.OrderForList
+            //       {
+            //           OrderID = order.ID,
+            //           CustomerName = order.CustomerName,
+            //           OrderStatus = GetStatus(order),
+            //           AmountItems = count(order.ID),
+            //           TotalOrder = SumOrder(order.ID)
+            //       };
+
+            //foreach (DO.Order order in orders)
+            //{
+            //    BO.OrderForList orderForList = new BO.OrderForList
+            //    {
+            //        OrderID = order.ID,
+            //        CustomerName = order.CustomerName,
+            //        OrderStatus = GetStatus(order),
+            //        AmountItems = count(order.ID),
+            //        TotalOrder = SumOrder(order.ID)
+            //    };
+            //    if(orderForList.AmountItems!=0)
+            //    {
+            //        orderForLists.Add(orderForList);
+            //    }        
+            //}
+            //return orderForLists;
         }
         catch (DO.notExistElementInList ex)
         {
             throw new BO.notExistElementInList(ex.Message, ex);
         }
-
+        
     }
+    
     private int count(int id)//כמות פריטי הזמנה של הלקוח
     {
         try
@@ -71,11 +89,11 @@ internal class Order : BlApi.IOrder
         }
     }
   
-    public double SumOrder(int orderid)//מתודה המחזירה את הסכום הכולל לתשלום של ההזמנה
+    public double? SumOrder(int orderid)//מתודה המחזירה את הסכום הכולל לתשלום של ההזמנה
     {    
         try
         {          
-            double sum1 = 0;
+            double? sum1 = 0;
             foreach (DO.OrderItem orderItem in Dal.OrderItem.GetAll())
             {
                 if (orderItem.OrderID == orderid)
@@ -108,7 +126,7 @@ internal class Order : BlApi.IOrder
         //return order.DeliveryDate != null ? BO.Enums.OrderStatus.ProvidedOrder : order.ShipDate != null ?
         //    BO.Enums.OrderStatus.SentOrder : BO.Enums.OrderStatus.ConfirmOrder;
     }
-
+    //GetListOrderItemById ללא ביטוי לינק
     private List<BO.OrderItem> GetListOrderItemById(int id)//מתודה המחזירה את רשימת פרטי הזמנה ששייכים להזמנה של הלקוח
     {
         List<BO.OrderItem> list = new List<BO.OrderItem>();
@@ -225,7 +243,7 @@ public BO.Order ShipUpdate(int orderId)//עדכון שילוח הזמנה
                 };
                
                 Dal.Order.Update(order);//update the order in DO
-                double? priceTemp = 0;
+                double priceTemp = 0;
 
                 foreach (DO.OrderItem temp in Dal.OrderItem.GetAll())
                 {
@@ -240,7 +258,7 @@ public BO.Order ShipUpdate(int orderId)//עדכון שילוח הזמנה
                     CustomerAdress = order1.CustomerAdress,
                     CustomerEmail = order1.CustomerEmail,
                     CustomerName = order1.CustomerName,
-                    OrderDate = order1.OrderDate.Value,//לבדוקק עם הערך 
+                    OrderDate = order1.OrderDate,//  מחקתי את .value בשורה זו לבדוקק עם הערך 
                     ShipDate = DateTime.Now,
                     OrderStatus = GetStatus(order),
                     TotalOrder = priceTemp,

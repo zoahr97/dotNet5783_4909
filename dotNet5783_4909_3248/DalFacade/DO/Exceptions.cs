@@ -35,4 +35,12 @@ namespace DO
         override public string ToString() =>
        "The list is Empty!! ";
     }
+
+    [Serializable]
+    public class DalConfigException : Exception
+    {
+        public DalConfigException(string msg) : base(msg) { }
+        public DalConfigException(string msg, Exception ex) : base(msg, ex) { }
+    }
+
 }

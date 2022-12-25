@@ -94,8 +94,8 @@ internal class DalOrderItem:IOrderItem
             return (OrderItem)OrderItemById;
         }
     }
-    // את ?לבדוקקקקק
-    public List<OrderItem>? GetAll()//החזרת רשימת פריטים בהזמנה
+    // את ?לבדוקקקקקקקקקק
+    public IEnumerable<OrderItem> GetAll()//החזרת רשימת פריטים בהזמנה
     {      
         if (DS.items.Count==0)
         {
@@ -103,8 +103,11 @@ internal class DalOrderItem:IOrderItem
         }
         else
         {
-            List<OrderItem>? items = DS.items.FindAll(x => x.IsDeleted != true);
+            IEnumerable<OrderItem> items = (from OrderItem orderitem in DS.items where orderitem.IsDeleted == false select orderitem).ToList();
             return items;
+
+            //List<OrderItem>? items = DS.items.FindAll(x => x.IsDeleted != true);
+            //return items;
         }
     }
 
@@ -113,10 +116,10 @@ internal class DalOrderItem:IOrderItem
         List<OrderItem>? List = new List<OrderItem>();
         foreach (OrderItem item in DS.items)
         {
-            if (item.OrderID == OrderID && item.IsDeleted==false )
+            if (item.OrderID == OrderID && item.IsDeleted == false)
                 List.Add(item);
         }
-        if (List.Count==0)
+        if (List.Count == 0)
         {
             throw new notExistElementInList("There is no item/s with this order ID number!!");
         }
@@ -127,15 +130,15 @@ internal class DalOrderItem:IOrderItem
     }
     public OrderItem GetByOrderIDProductID(int OrderID, int ProductID)
     {
-        OrderItem item = DS.items.Find(x => x.OrderID == OrderID && x.ProductID == ProductID && x.IsDeleted==false);
-        if (item.ID==0)
+        OrderItem item = DS.items.Find(x => x.OrderID == OrderID && x.ProductID == ProductID && x.IsDeleted == false);
+        if (item.ID == 0)
         {
             throw new DoesntExistException("The order item for OrderID and ProductID is not exist in List of items!!!");
         }
         else//מצאנו
         {
             return (OrderItem)item;
-        }   
+        }
     }
 }
 

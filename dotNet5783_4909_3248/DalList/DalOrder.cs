@@ -56,7 +56,7 @@ internal class DalOrder:IOrder
         }
     }
     //לבדוקקקקקקק
-    public List<Order>? GetAll()
+    public IEnumerable<Order> GetAll()
     {
         if (DS.orders.Count == 0)
         {
@@ -64,8 +64,10 @@ internal class DalOrder:IOrder
         }
         else
         {
-            List<Order>? orders = DS.orders.FindAll(x => x.IsDeleted != true);
+            IEnumerable<Order> orders = (from Order order in DS.orders where order.IsDeleted == false select order).ToList();
             return orders;
+            //List<Order>? orders = DS.orders.FindAll(x => x.IsDeleted != true);
+            //return orders;
         }
     }
     public void Delete(int id)

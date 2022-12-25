@@ -26,7 +26,7 @@ public class OrderTracking//ישות עזר של מעקב הזמנה
     {
         string s = " ";
         s += "OrderID:" + OrderID + "\n" + "OrderStatus:" + OrderStatus + "\n";
-         foreach(Tuple<DateTime?, string?>  t in tracking)
+        foreach(Tuple<DateTime?, string?>  t in tracking)
         {
             s += "\n" + t + "\n";
         }

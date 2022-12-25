@@ -6,16 +6,16 @@ using System.Linq;
 //נחליף את יצירת מופע של מחלקה DalList לקבלתו ממחלקת היצרן: () DalApi.Factory.Get
 internal class Product: BlApi.IProduct//מחלקת מוצר שממשת את ממשק מוצר
 {
-    private IDal? Dal = DalList.Instance;//שדה פרטי
+    private IDal Dal = DalList.Instance;//שדה פרטי
 
-    public IEnumerable<BO.ProductForList> GetProductsForList()
+    public IEnumerable<BO.ProductForList> GetProductsForList()//לבדוק את ה IEnumerable
     {
         return Dal.Product.GetAll().Select(product => new BO.ProductForList
         {
            ProductID = product.ProductID,
            ProductName = product.ProductName,
            Price = product.Price,
-           category = (BO.Enums.CATEGORY)product.category
+           category = (BO.Enums.CATEGORY?)product.category
         });     
     }
 
@@ -35,7 +35,7 @@ internal class Product: BlApi.IProduct//מחלקת מוצר שממשת את ממ
                 {
                     ProductID = product.ProductID,
                     ProductName = product.ProductName,
-                    category = (BO.Enums.CATEGORY)product.category,
+                    category = (BO.Enums.CATEGORY?)product.category,
                     Price = product.Price,
                     InStock = product.InStock,
                     IsDeleted = product.IsDeleted
@@ -65,7 +65,7 @@ internal class Product: BlApi.IProduct//מחלקת מוצר שממשת את ממ
                     ProductID = product.ProductID,
                     ProductName = product.ProductName,
                     Price = product.Price,
-                    category = (BO.Enums.CATEGORY)product.category,
+                    category = (BO.Enums.CATEGORY?)product.category,
                     IsStock = product.InStock > 0 ? true : false,
                     AmountInCartOfCostumer = c.Items.Count()
                 };
@@ -85,7 +85,7 @@ internal class Product: BlApi.IProduct//מחלקת מוצר שממשת את ממ
             DO.Product product1 = new DO.Product();//המרה לישות נתונים
             product1.ProductID = product.ProductID;
             product1.ProductName = product.ProductName;
-            product1.category = (DO.Enums.CATEGORY)product.category;
+            product1.category = (DO.Enums.CATEGORY?)product.category;
             product1.Price = product.Price;
             product1.InStock = product.InStock;
             product1.IsDeleted = false;//האם המוצר נמחק?לבדוקקקקקקק
@@ -123,7 +123,7 @@ internal class Product: BlApi.IProduct//מחלקת מוצר שממשת את ממ
             DO.Product product1 = new DO.Product();//המרה לישות נתונים
             product1.ProductID = product.ProductID;
             product1.ProductName = product.ProductName;
-            product1.category = (DO.Enums.CATEGORY)product.category;//שינוי?
+            product1.category = (DO.Enums.CATEGORY?)product.category;//שינוי?
             product1.Price = product.Price;
             product1.InStock = product.InStock;
             product1.IsDeleted = false;//המוצר עבור עדכון עדיין לא נמחק

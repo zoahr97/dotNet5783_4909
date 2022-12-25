@@ -15,7 +15,7 @@ namespace BlImplementation;
 
 internal class Cart : BlApi.ICart//מימוש סל הקניות
 {
-    private IDal? Dal = DalList.Instance;//שדה פרטי
+    private IDal Dal = DalList.Instance;//שדה פרטי
 
     public BO.Cart AddProductToCart(int productId, BO.Cart cart)//הוספת מוצר לסל הקניות
     {
@@ -207,55 +207,240 @@ internal class Cart : BlApi.ICart//מימוש סל הקניות
     //תבנה אובייקטים של פריט בהזמנה (ישות נתונים) על פי הנתונים מהסל ומספר ההזמה הנ"ל ותבצע ניסיונות בקשת הוספת פריט הזמנה
     //באישור\ביצוע ההזמנה, המוצרים שבהזמנה צריכים לרדת מהמלאי, לכן: תְּבַצֵּעַ ניסיון בקשות מוצרים מתאימים משכבת הנתונים ובקשות עדכון מוצרים אלה לאחר עדכון המלאי
     //תזרוק חריגה מתאימה במקרה של בעיה כלשהי (לפי הבדיקות כנ"ל)
-
-
-    public void MakeOrder(BO.Cart myCart)//אישור סל להזמנה \ ביצוע הזמנה
+   
+    public void CartPayment(BO.Cart? cart)
     {
-        if (myCart.CustomerName == "" || myCart.CustomerEmail == "" || myCart.CustomerAdress == "")//check input
+        //בדיקת תקינות
+        //1/שם וכתובת קונה לא ריקים
+        //2/כתובת דוא"ל ריקה או לפי פורמט חוקי
+        if (cart.CustomerName == "" || cart.CustomerEmail == "" || cart.CustomerAdress == "")//check input
         {
             throw new BO.RequestFailed("Error Input");
         }
-        DO.OrderItem oi = new DO.OrderItem();//create order item
-        DO.Order order = new DO.Order();
-        order.CustomerName = myCart.CustomerName;
-        order.CustomerEmail = myCart.CustomerEmail;
-        order.CustomerAdress = myCart.CustomerAdress;
-        order.OrderDate = DateTime.Now;
-        order.IsDeleted = false;
-        int orderid = Dal.Order.Add(order);//add to DO orderlist and get order id
-        foreach (BO.OrderItem item in myCart.Items)//go over orderItems in the cart
+        //-------add new DO order--------
+        int new_order_id;
+        try
         {
-            if (item.ProductID == Dal.Product.GetById(item.ProductID).ProductID && item.Amount > 0 && item.Amount <= Dal.Product.GetById(item.ProductID).InStock)//if orderItem exists and is instock
+            DO.Order new_order = new DO.Order()
             {
-                oi.Amount = item.Amount;
-                oi.Price = item.Price;
-                oi.ProductID = item.ProductID;//save product id
-                oi.OrderID = orderid;//save order id
-                Dal.OrderItem.Add(oi);//add to DO order item list 
-                //DO.Product p = Dal.Product.GetById(oi.ProductID);//get matching product
-                //p.InStock -= item.Amount;//subtract the amount of products in stock
-                //Dal.Product.Update(p);//update product in DO
-            }
-            else
-            {
-                throw new BO.RequestFailed("Error");
-            }
-
+                ID = 0,
+                CustomerName = cart.CustomerName,
+                CustomerAdress = cart.CustomerAdress,
+                CustomerEmail = cart.CustomerEmail,
+                OrderDate = DateTime.Now,
+                ShipDate = null,
+                DeliveryDate = null,
+                IsDeleted = false
+            };
+            new_order_id = Dal.Order.Add(new_order);
         }
-        //foreach (DO.Order item in Dal.Order.GetAll())//go over orderItems in the cart
-        //{
-        //    Console.WriteLine(item.ToString());
-        //}
-        //foreach (DO.Product item in Dal.Product.GetAll())//go over orderItems in the cart
-        //{
-        //    Console.WriteLine(item.ToString());
-        //}
+        catch (DO.DoesntExistException ex)
+        {
+            throw new BO.DoesntExistException("Cannot make a new order", ex);
+        }
+
+        foreach (BO.OrderItem? t in cart.Items)
+        {
+            //-------add new DO orderItem---------
+            try
+            {
+                DO.OrderItem new_order_item = new DO.OrderItem()
+                {
+                    ID = 0,
+                    OrderID = new_order_id,
+                    ProductID = t.ProductID,
+                    Price = t.Price,
+                    Amount = t.Amount,
+                    IsDeleted = false
+                };
+                Dal.OrderItem.Add(new_order_item);
+            }
+            catch (DO.DoesntExistException ex)
+            {
+                throw new BO.DoesntExistException("Cannot make a new order item", ex);
+            }
+        }
     }
 }
 
 
 
+//בדיקת תקינות
+//1/כל המוצרים קיימים
+//2/כמויות חיוביות
+//3/יש מספיק במלאי
+//foreach (BO.OrderItem? t in cart.Items)
+//{
+//    try
+//    {
+//        DO.Product p = Dal.Product.GetById(t.ProductID);
+//        if (t.Amount <= 0)
+//        {
+//            throw new BO.RequestFailed("Product {p.ID} is in cart with zero or negative amount, need to be removed");
+//        }
+//        if (p.InStock < t.Amount)
+//        {
+//            throw new BO.RequestFailed("Product {p.ID} doesn't have enough in stock");
+//        }
+//    }
+//    catch (DO.DoesntExistException ex)
+//    {
+//        throw new BO.DoesntExistException("Product with ID {t.ProductID} but doesn't exist in catalog", ex);
+//    }
+//}
 
+//-------update amount of DO product---------
+//try
+//{
+//    DO.Product p = Dal.Product.GetById(t.ProductID);
+//    p.InStock -= t.Amount;
+//    Dal.Product.Update(p);
+//}
+//catch (DO.DoesntExistException ex)
+//{
+//    throw new BO.DoesntExistException("Product with ID {t.ProductID} but doesn't exist in catalog", ex);
+//}
+
+
+
+
+//public void MakeOrder(BO.Cart myCart)//אישור סל להזמנה \ ביצוע הזמנה
+//{
+//    if (myCart.CustomerName == "" || myCart.CustomerEmail == "" || myCart.CustomerAdress == "")//check input
+//    {
+//        throw new BO.RequestFailed("Error Input");
+//    }
+//    DO.OrderItem oi = new DO.OrderItem();//create order item
+//    DO.Order order = new DO.Order();
+//    order.CustomerName = myCart.CustomerName;
+//    order.CustomerEmail = myCart.CustomerEmail;
+//    order.CustomerAdress = myCart.CustomerAdress;
+//    order.OrderDate = DateTime.Now;
+//    order.IsDeleted = false;
+//    int orderid = Dal.Order.Add(order);//add to DO orderlist and get order id
+//    foreach (BO.OrderItem item in myCart.Items)//go over orderItems in the cart
+//    {
+//        if (item.ProductID == Dal.Product.GetById(item.ProductID).ProductID && item.Amount > 0 && item.Amount <= Dal.Product.GetById(item.ProductID).InStock)//if orderItem exists and is instock
+//        {
+//            oi.Amount = item.Amount;
+//            oi.Price = item.Price;
+//            oi.ProductID = item.ProductID;//save product id
+//            oi.OrderID = orderid;//save order id
+//            Dal.OrderItem.Add(oi);//add to DO order item list 
+//            //DO.Product p = Dal.Product.GetById(oi.ProductID);//get matching product
+//            //p.InStock -= item.Amount;//subtract the amount of products in stock
+//            //Dal.Product.Update(p);//update product in DO
+//        }
+//        else
+//        {
+//            throw new BO.RequestFailed("Error");
+//        }
+
+//    }
+//    //foreach (DO.Order item in Dal.Order.GetAll())//go over orderItems in the cart
+//    //{
+//    //    Console.WriteLine(item.ToString());
+//    //}
+//    //foreach (DO.Product item in Dal.Product.GetAll())//go over orderItems in the cart
+//    //{
+//    //    Console.WriteLine(item.ToString());
+//    //}
+//}
+
+//public void CartPayment(BO.Cart? cart)
+//{
+//    //בדיקת תקינות
+//    //1/שם וכתובת קונה לא ריקים
+//    //2/כתובת דוא"ל ריקה או לפי פורמט חוקי
+//    if (cart?.CustomerName == null)
+//        throw new BO.FormatIsIncorrectException("Missing customer name");
+//    if (cart?.CustomerAddress == null)
+//        throw new BO.FormatIsIncorrectException("Missing customer address");
+//    if (emailIsInCorrectFormat(cart?.CustomerEmail))
+//        throw new BO.FormatIsIncorrectException("Customer email is in incorrect format");
+//    //בדיקת תקינות
+//    //1/כל המוצרים קיימים
+//    //2/כמויות חיוביות
+//    //3/יש מספיק במלאי
+//    foreach (BO.OrderItem? t in cart.items)
+//    {
+//        try
+//        {
+//            DO.Product p = dal.Product.GetById(t.ProductID);
+//            if (t.Amount <= 0)
+//            {
+//                throw new BO.FormatIsIncorrectException("Product {p.ID} is in cart with zero or negative amount, need to be removed");
+//            }
+//            if (p.InStock < t.Amount)
+//            {
+//                throw new BO.ObjectPropertyOverflowException("Product {p.ID} doesn't have enough in stock");
+//            }
+//        }
+//        catch (DalApi.ObjectNotFoundException ex)
+//        {
+//            throw new BO.ObjectNotFoundException("Product with ID {t.ProductID} but doesn't exist in catalog", ex);
+//        }
+//    }
+
+//    //-------add new DO order--------
+//    int new_order_id;
+//    try
+//    {
+//        DO.Order new_order = new DO.Order()
+//        {
+//            ID = 0,
+//            CustomerName = cart.CustomerName,
+//            CustomerAddress = cart.CustomerAddress,
+//            CustomerEmail = cart.CustomerEmail,
+//            OrderDate = DateTime.Now,
+//            ShipDate = null,
+//            DeliveryDate = null,
+//            IsDeleted = false
+//        };
+//        new_order_id = dal.Order.Add(new_order);
+//    }
+//    catch (DalApi.DoubleFoundException ex)
+//    {
+//        throw new BO.DoubleFoundException("Cannot make a new order", ex);
+//    }
+
+//    foreach (BO.OrderItem? t in cart.items)
+//    {
+//        //-------add new DO orderItem---------
+//        try
+//        {
+//            DO.OrderItem new_order_item = new DO.OrderItem()
+//            {
+//                ID = 0,
+//                OrderID = new_order_id,
+//                ProductID = t.ProductID,
+//                Price = t.Price,
+//                Amount = t.Amount,
+//                IsDeleted = false
+//            };
+//            dal.OrderItem.Add(new_order_item);
+//        }
+//        catch (DalApi.DoubleFoundException ex)
+//        {
+//            throw new BO.DoubleFoundException("Cannot make a new order item", ex);
+//        }
+//        //-------update amount of DO product---------
+//        try
+//        {
+//            DO.Product p = dal.Product.GetById(t.ProductID);
+//            p.InStock -= t.Amount;
+//            dal.Product.Update(p);
+//        }
+//        catch (DalApi.ObjectNotFoundException ex)
+//        {
+//            throw new BO.ObjectNotFoundException("Product with ID {t.ProductID} but doesn't exist in catalog", ex);
+//        }
+//        catch (DalApi.DoubleFoundException ex)
+//        {
+//            throw new BO.DoubleFoundException("Product {t.ProductID} failed to update amount", ex);
+//        }
+//    }
+//}
 
 
 

@@ -15,7 +15,7 @@ public class OrderForList//ישות עזר של הזמנה ברשימה OrderFor
     /// <summary>
     /// שם הלקוח המזמין
     /// </summary>
-    public string CustomerName { get; set; }
+    public string? CustomerName { get; set; }
     /// <summary>
     /// מצב הזמנה
     /// </summary>

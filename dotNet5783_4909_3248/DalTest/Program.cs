@@ -5,6 +5,7 @@ using System.Security.Cryptography;
 using static DO.Enums;
 using System.Diagnostics;
 using System;
+using System.Diagnostics.Metrics;
 
 
 namespace Dal;
@@ -16,18 +17,18 @@ public class Program//התוכנית הראשית
     {
         Random random = new Random();
         Console.WriteLine("Enter your choice from a-e:");
-        char choice = char.Parse(Console.ReadLine());
+        char choice = GetNumberFromUser2();
         if (choice == 'a')//אפשרות הוספת אובייקט לרשימה של ישות
         {
             int category = random.Next(0, 7);
             Product p = new Product();
             Console.WriteLine("enter values to add object:");
-            p.ProductID = int.Parse(Console.ReadLine());
+            p.ProductID =int.Parse(Console.ReadLine()); 
             p.ProductName = Console.ReadLine();
             p.category = (Enums.CATEGORY)category;
             p.Price = double.Parse(Console.ReadLine());
             p.InStock = int.Parse(Console.ReadLine());
-            p.IsDeleted = null;
+            p.IsDeleted = false;
             try
             {
                 int num = myP.Product.Add(p);
@@ -40,8 +41,8 @@ public class Program//התוכנית הראשית
         }
         if (choice == 'b')//אפשרות תצוגת אובייקט ע"פ מזהה
         {
-            Console.WriteLine("enter IdProduct:");
-            int id = int.Parse(Console.ReadLine());
+            //Console.WriteLine("enter IdProduct:");
+            int id = GetNumberFromUser("enter IdProduct:");
             try
             {
                 Product pr = myP.Product.GetById(id);
@@ -58,12 +59,13 @@ public class Program//התוכנית הראשית
             {
                 IEnumerable<Product> products = myP.Product.GetAll();
                 foreach (Product product in products)
-                    Console.WriteLine("\n" + product + "\n");
+                    Console.WriteLine("\n" + product.ToString() + "\n");
             }
             catch(notExistElementInList ex)
             {
                 Console.WriteLine(ex.Message);
-            }           
+            }
+          
         }
         if (choice == 'd')//אפשרות עדכון נתוני אובייקט
         {
@@ -75,7 +77,7 @@ public class Program//התוכנית הראשית
             p1.category = (Enums.CATEGORY)category;
             p1.Price = double.Parse(Console.ReadLine());
             p1.InStock = int.Parse(Console.ReadLine());
-            p1.IsDeleted = null;
+            p1.IsDeleted = false;
             try
             {
                 myP.Product.Update(p1);         
@@ -87,8 +89,8 @@ public class Program//התוכנית הראשית
         }
         if (choice == 'e')//אפשרות מחיקת אובייקט מרשימת של ישות
         {
-            Console.WriteLine("enter ProductID to delete object:");
-            int id = int.Parse(Console.ReadLine());
+            //Console.WriteLine("enter ProductID to delete object:");
+            int id = GetNumberFromUser("enter ProductID to delete object:");
             try
             {
                 myP.Product.Delete(id);
@@ -99,19 +101,20 @@ public class Program//התוכנית הראשית
             }
         }
     }
+
     public static void MenuOrderItem()//תת תפריט של פריט בהזמנה
     {
-        Console.WriteLine("Enter your choice from a-g:");
-        char choice = char.Parse(Console.ReadLine());
+        Console.WriteLine("Enter your choice from a-e:");
+        char choice = GetNumberFromUser2();
         if (choice == 'a')//אפשרות הוספת אובייקט לרשימה של ישות
         {
             OrderItem p = new OrderItem();
             Console.WriteLine("enter values to add object:");
-            p.ID = int.Parse(Console.ReadLine());
-            p.ProductID = int.Parse(Console.ReadLine());
-            p.OrderID = int.Parse(Console.ReadLine());
-            p.Price = double.Parse(Console.ReadLine());
-            p.Amount = int.Parse(Console.ReadLine());
+            p.ID = GetNumberFromUser();
+            p.ProductID = GetNumberFromUser();
+            p.OrderID = GetNumberFromUser();
+            p.Price = GetNumberFromUser1();
+            p.Amount = GetNumberFromUser();
             p.IsDeleted = false;//כרגע הפריט אינו מחוק
             try
             {
@@ -126,8 +129,8 @@ public class Program//התוכנית הראשית
 
         if (choice == 'b')//אפשרות תצוגת אובייקט ע"פ מזהה
         {
-            Console.WriteLine("enter Id of OrderItem:");
-            int id = int.Parse(Console.ReadLine());
+            //Console.WriteLine("enter Id of OrderItem:");
+            int id = GetNumberFromUser("enter Id of OrderItem:");
             try
             {
                 OrderItem pr = myP.OrderItem.GetById(id);
@@ -143,7 +146,7 @@ public class Program//התוכנית הראשית
         {
             try
             {
-                IEnumerable<OrderItem>? OrderItems = myP.OrderItem.GetAll();
+                IEnumerable<OrderItem> OrderItems = myP.OrderItem.GetAll();
                 foreach (OrderItem ord in OrderItems)
                     Console.WriteLine("\n" + ord + "\n");
             }
@@ -158,11 +161,11 @@ public class Program//התוכנית הראשית
         {
             OrderItem p = new OrderItem();
             Console.WriteLine("enter values to update object:");
-            p.ID = int.Parse(Console.ReadLine());
-            p.ProductID = int.Parse(Console.ReadLine());
-            p.OrderID = int.Parse(Console.ReadLine());
-            p.Price = double.Parse(Console.ReadLine());
-            p.Amount = int.Parse(Console.ReadLine());
+            p.ID = GetNumberFromUser();
+            p.ProductID = GetNumberFromUser();
+            p.OrderID = GetNumberFromUser() ;
+            p.Price = GetNumberFromUser1();
+            p.Amount = GetNumberFromUser();
             p.IsDeleted = false;
             try
             {
@@ -176,8 +179,8 @@ public class Program//התוכנית הראשית
 
         if (choice == 'e')//אפשרות מחיקת אובייקט מרשימת של ישות
         {
-            Console.WriteLine("enter Id for OrderItem to delete object:");
-            int id = int.Parse(Console.ReadLine());
+            //Console.WriteLine("enter Id for OrderItem to delete object:");
+            int id = GetNumberFromUser("enter Id for OrderItem to delete object:");
             try
             {
                 myP.OrderItem.Delete(id);
@@ -188,56 +191,56 @@ public class Program//התוכנית הראשית
             }
         }
 
-        if(choice == 'f')//אפשרות תצוגת פריטים בהזמנה של מ"ס הזמנה מסויים
-        {
-            try
-            {
-                Console.WriteLine("enter OrderID:");
-                int OrderID = int.Parse(Console.ReadLine());
-                List<OrderItem> list = myP.OrderItem.GetListByOrderID(OrderID);
-                foreach (OrderItem item in list)
-                {
-                    Console.WriteLine("\t" + item + "\t");
-                }
-            }
-            catch(notExistElementInList ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
-        }
+        //if(choice == 'f')//אפשרות תצוגת פריטים בהזמנה של מ"ס הזמנה מסויים
+        //{
+        //    try
+        //    {
+        //        //Console.WriteLine("enter OrderID:");
+        //        int OrderID = GetNumberFromUser("enter OrderID:");
+        //        List<OrderItem> list = myP.OrderItem.GetListByOrderID(OrderID);
+        //        foreach (OrderItem item in list)
+        //        {
+        //            Console.WriteLine("\t" + item + "\t");
+        //        }
+        //    }
+        //    catch(notExistElementInList ex)
+        //    {
+        //        Console.WriteLine(ex.Message);
+        //    }
+        //}
 
-        if(choice=='g')//אפשרות תצוגת אוביקט ע"פ מ"ס מזהה של הזמנה ומ"ס מזהה של מוצר
-        {
-            try
-            {
-                Console.WriteLine("enter OrderID AND ProductId:");
-                int OrderID = int.Parse(Console.ReadLine());
-                int ProductID=int.Parse(Console.ReadLine());
-                OrderItem item1 = myP.OrderItem.GetByOrderIDProductID(OrderID, ProductID);         
-                Console.WriteLine("\t" + item1 + "\t");                
-            }
-            catch(DoesntExistException ex) 
-            {
-                Console.WriteLine(ex.Message);
-            }
-        }
+        //if(choice=='g')//אפשרות תצוגת אוביקט ע"פ מ"ס מזהה של הזמנה ומ"ס מזהה של מוצר
+        //{
+        //    try
+        //    {
+        //        //Console.WriteLine("enter OrderID AND ProductId:");
+        //        int OrderID = GetNumberFromUser("enter OrderID");
+        //        int ProductID= GetNumberFromUser("enter ProductId");
+        //        OrderItem item1 = myP.OrderItem.GetByOrderIDProductID(OrderID, ProductID);         
+        //        Console.WriteLine("\t" + item1 + "\t");                
+        //    }
+        //    catch(DoesntExistException ex) 
+        //    {
+        //        Console.WriteLine(ex.Message);
+        //    }
+        //}
     }
 
     public static void MenuOrder()//תת תפריט של הזמנה
     {
         Console.WriteLine("Enter your choice from a-e:");
-        char choice = char.Parse(Console.ReadLine());
+        char choice = GetNumberFromUser2();
         if (choice == 'a')//אפשרות הוספת אובייקט לרשימה של ישות
         {
             Order p = new Order();
             Console.WriteLine("enter values to add object:");
-            p.ID = int.Parse(Console.ReadLine());
+            p.ID = GetNumberFromUser();
             p.CustomerName = Console.ReadLine();
             p.CustomerEmail = p.CustomerName + "@gmail.com";
             p.CustomerAdress = Console.ReadLine();
-            p.OrderDate = DateTime.Parse(Console.ReadLine());
-            p.ShipDate = DateTime.Parse(Console.ReadLine());
-            p.DeliveryDate = DateTime.Parse(Console.ReadLine());
+            p.OrderDate = GetNumberFromUser3();
+            p.ShipDate = GetNumberFromUser3();
+            p.DeliveryDate = GetNumberFromUser3();
             p.IsDeleted = false;
             try
             {
@@ -251,8 +254,8 @@ public class Program//התוכנית הראשית
         }
         if (choice == 'b')//אפשרות תצוגת אובייקט ע"פ מזהה
         {
-            Console.WriteLine("enter Id of Order:");
-            int id = int.Parse(Console.ReadLine());
+            //Console.WriteLine("enter Id of Order:");
+            int id = GetNumberFromUser("enter Id of Order:");
             try
             {
                 Order pr = myP.Order.GetById(id);
@@ -266,7 +269,7 @@ public class Program//התוכנית הראשית
         if (choice == 'c')//אפשרות תצוגת הרשימה של ישות
         {
             try
-            { 
+            {
                 IEnumerable<Order> Orders = myP.Order.GetAll();
                 foreach (Order order in Orders)
                     Console.WriteLine("\n" + order + "\n");
@@ -280,13 +283,13 @@ public class Program//התוכנית הראשית
         {
             Order p = new Order();
             Console.WriteLine("enter values to update object:");
-            p.ID = int.Parse(Console.ReadLine());
+            p.ID = GetNumberFromUser();
             p.CustomerName = Console.ReadLine();
             p.CustomerEmail = p.CustomerName + "@gmail.com";
             p.CustomerAdress = Console.ReadLine();
-            p.OrderDate = DateTime.Parse(Console.ReadLine());
-            p.ShipDate = DateTime.Parse(Console.ReadLine());
-            p.DeliveryDate = DateTime.Parse(Console.ReadLine());
+            p.OrderDate = GetNumberFromUser3();
+            p.ShipDate = GetNumberFromUser3();
+            p.DeliveryDate = GetNumberFromUser3();
             p.IsDeleted = false;
             try
             {
@@ -299,8 +302,8 @@ public class Program//התוכנית הראשית
         }
         if (choice == 'e')//אפשרות מחיקת אובייקט מרשימת של ישות
         {
-            Console.WriteLine("enter Id for Order to delete object:");
-            int id = int.Parse(Console.ReadLine());
+            //Console.WriteLine("enter Id for Order to delete object:");
+            int id = GetNumberFromUser("enter Id for Order to delete object:");
             try
             {
                 myP.Order.Delete(id);
@@ -312,12 +315,55 @@ public class Program//התוכנית הראשית
         }
 
     }
-    
+
+    static int GetNumberFromUser(string txt = "")//the programer sends what he needs
+    {
+        Console.WriteLine(txt);
+        int num;
+        while (!System.Int32.TryParse(Console.ReadLine(), out num))//if not int
+        {
+            Console.WriteLine("ERROR format\n");//error
+        }
+        return num;//read users number
+    }
+
+    static double GetNumberFromUser1(string txt = "")//the programer sends what he needs
+    {
+        Console.WriteLine(txt);
+        double num1;
+        while (!System.Double.TryParse(Console.ReadLine(), out num1))//if not int
+        {
+            Console.WriteLine("ERROR format\n");//error
+        }
+        return num1;//read users number
+    }
+
+    static char GetNumberFromUser2(string txt = "")//the programer sends what he needs
+    {
+        Console.WriteLine(txt);
+        char num1;
+        while (!System.Char.TryParse(Console.ReadLine(), out num1))//if not int
+        {
+            Console.WriteLine("ERROR format\n");//error
+        }
+        return num1;//read users number
+    }
+
+    static DateTime GetNumberFromUser3(string txt = "")//the programer sends what he needs
+    {
+        Console.WriteLine(txt);
+        DateTime num;
+        while (!System.DateTime.TryParse(Console.ReadLine(), out num))//if not int
+        {
+            Console.WriteLine("ERROR format\n");//error
+        }
+        return num;//read users number
+    }
+
     static void Main(string[] args)
     {      
         for (int i = 0; i < 30; i++)
         {
-
             Console.WriteLine("Enter your choice from 0-3:");
             int ch = int.Parse(Console.ReadLine());
             if (ch == 0)

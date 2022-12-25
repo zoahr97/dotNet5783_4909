@@ -14,8 +14,8 @@ class Program
     public static void MenuProduct()//תת תפריט של מוצר
     {
         Random random = new Random();
-        Console.WriteLine("Enter your choice from a-e:");
-        char choice = char.Parse(Console.ReadLine());
+        //Console.WriteLine("Enter your choice from a-e:");
+        char choice = GetNumberFromUser2("Enter your choice from a-e:");
 
         if(choice=='a')//הדפסת מוצרים בהזמנה
         {
@@ -37,8 +37,8 @@ class Program
         {
             try
             {
-                Console.WriteLine("Enter Product ID: ");
-                int ProductID = int.Parse(Console.ReadLine());
+                //Console.WriteLine("Enter Product ID: ");
+                int ProductID = GetNumberFromUser("Enter Product ID: ");
                 BO.Product p = bl.Product.ManagerDetailsProduct(ProductID);
                 Console.WriteLine(p);
             }
@@ -56,32 +56,32 @@ class Program
         {
             BO.Product? p = new BO.Product();
             Console.WriteLine("Enter proudctId of new product:");
-            p.ProductID=int.Parse(Console.ReadLine());
+            p.ProductID= /*GetNumberFromUser("Enter proudctId of new product:")*/int.Parse(Console.ReadLine());
             Console.WriteLine("Enter name of product:");
             p.ProductName = Console.ReadLine();
             Console.WriteLine("Enter price of Product");
-            double price = double.Parse(Console.ReadLine());
+            double price = /*GetNumberFromUser1()*/ double.Parse(Console.ReadLine());
             while (price <= 0)
             {
                 Console.WriteLine("Invalid input,enter again!!");
-                price = double.Parse(Console.ReadLine());
+                price = /*GetNumberFromUser1("Invalid input,enter again!!")*/ double.Parse(Console.ReadLine());
             }
             p.Price = price;
             Console.WriteLine("Enter category of new product:");
 
-            int category = int.Parse(Console.ReadLine());
+            int category = /*GetNumberFromUser("Enter category of new product:")*/int.Parse(Console.ReadLine());
             while (category < 0 || category > 6)
             {
                 Console.WriteLine("Invalid input,enter again!!");
-                category = int.Parse(Console.ReadLine());
+                category = /*GetNumberFromUser("Invalid input,enter again!!")*/int.Parse(Console.ReadLine());
             }
             p.category = (BO.Enums.CATEGORY)category;
             Console.WriteLine("Enter In stock:");
-            int InStock = int.Parse(Console.ReadLine());
+            int InStock = /*GetNumberFromUser("Enter In stock:")*/int.Parse(Console.ReadLine());
             while (InStock < 0)
             {
                 Console.WriteLine("Invalid input,enter again!!");
-                InStock = int.Parse(Console.ReadLine());
+                InStock =/* GetNumberFromUser("Invalid input,enter again!!")*/int.Parse(Console.ReadLine());
             }
             p.InStock = InStock;
             p.IsDeleted = false;
@@ -101,12 +101,12 @@ class Program
         }
         if (choice =='d')//מחיקת מוצר
         {
-            Console.WriteLine("Please enter product ID To Delete:");
-            int productID = int.Parse(Console.ReadLine());
+            //Console.WriteLine("Please enter product ID To Delete:");
+            int productID = GetNumberFromUser("Please enter product ID To Delete:");
             while(productID <= 0)
             {
-                Console.WriteLine("Invalid input,enter again!!");
-                productID = int.Parse(Console.ReadLine());
+                //Console.WriteLine("Invalid input,enter again!!");
+                productID = GetNumberFromUser("Invalid input,enter again!!");
             }
             try
             {
@@ -132,7 +132,7 @@ class Program
             Console.WriteLine("Enter in stock:");
             p.InStock = GetNumberFromUser();
             Console.WriteLine("Enter price of Product");
-            p.Price = double.Parse(Console.ReadLine());
+            p.Price = GetNumberFromUser1();
 
             p.IsDeleted = false;
 
@@ -155,17 +155,19 @@ class Program
     public static void MenuOrder()//תת תפריט של הזמנה
     {
         Random random = new Random();
-        Console.WriteLine("Enter your choice from a-e:");
-        char choice = char.Parse(Console.ReadLine());
+        //Console.WriteLine("Enter your choice from a-e:");
+        char choice = GetNumberFromUser2("Enter your choice from a-e:");
 
         if(choice=='a')//הדפסת רשימת ההזמנות
         {
             try
             {
-
                 foreach (BO.OrderForList orderForList in bl.Order.GetAllOrderForList())
                 {
-                    Console.WriteLine("\t" + orderForList + "\t");
+                    if(orderForList.AmountItems!=0)
+                    {
+                        Console.WriteLine("\t" + orderForList + "\t");
+                    }     
                 }
             }
             catch (BO.notExistElementInList ex)
@@ -182,7 +184,7 @@ class Program
         {
             try              
             {
-                int id = int.Parse(Console.ReadLine());
+                int id = GetNumberFromUser();
                 Console.WriteLine(bl.Order.GetBoOrder(id));
             }
             catch (BO.DoesntExistException ex)
@@ -202,7 +204,7 @@ class Program
 
         if(choice =='c')//עדכון שילוח הזמנה ללקוח
         {
-            int id = int.Parse(Console.ReadLine());
+            int id = GetNumberFromUser();
             try
             {
                 Console.WriteLine(bl.Order.ShipUpdate(id));
@@ -223,7 +225,7 @@ class Program
 
         if(choice=='d')//עדכון אספקת/מסירת הזמנה ללקוח
         {
-            int id = int.Parse(Console.ReadLine());
+            int id = GetNumberFromUser();
             try
             {
                 Console.WriteLine(bl.Order.DeliveredUpdate(id));
@@ -246,11 +248,11 @@ class Program
         {
             try
             {
-                int id = int.Parse(Console.ReadLine());
+                int id = GetNumberFromUser();
                 BO.OrderTracking p = bl.Order.OrderTracking(id);
                 foreach(Tuple<DateTime?, string?> ? r in p.tracking)
                 {
-                    Console.WriteLine(r.ToString());
+                    Console.WriteLine(r?.ToString());
                 }
             }
             catch (DO.DoesntExistException ex)
@@ -277,8 +279,8 @@ class Program
         cart.TotalPriceCart = 0.0;//כרגע הסכום הכולל של סל הקניות הינו :0 כי עדיין לא נוספו מוצרים לסל הקניות
         
 
-        Console.WriteLine("Enter your choice from a-e if you are to exist enter f:");
-        char choice = char.Parse(Console.ReadLine());
+        //Console.WriteLine("Enter your choice from a-e if you are to exist enter f:");
+        char choice = GetNumberFromUser2("Enter your choice from a-e if you want to exit enter f:");
 
         for (int i = 0; i < 50; i++)
         {
@@ -286,10 +288,10 @@ class Program
             {
                 try
                 {
-                    Console.WriteLine("Enter productId/barcode of the product you want to add to cart :");
-                    int ProductId = int.Parse(Console.ReadLine());
+                    //Console.WriteLine("Enter productId/barcode of the product you want to add to cart :");
+                    int ProductId = GetNumberFromUser("Enter productId/barcode of the product you want to add to cart :");
                     AddProductToCart(ProductId, cart);
-                }
+                }/*GetNumberFromUser()*/
                 catch (BO.RequestFailed ex)
                 {
                     Console.WriteLine(ex.Message);
@@ -318,14 +320,14 @@ class Program
             {
                 try
                 {
-                    Console.WriteLine("Enter productId/barcode of the product !!");
-                    int ProductId = int.Parse(Console.ReadLine());
-                    Console.WriteLine("Enter amount for Update of product !!");
-                    int amount = int.Parse(Console.ReadLine());
+                    //Console.WriteLine("Enter productId/barcode of the product !!");
+                    int ProductId = GetNumberFromUser("Enter productId/barcode of the product !!");
+                    //Console.WriteLine("Enter amount for Update of product !!");
+                    int amount = GetNumberFromUser("Enter amount for Update of product !!");
                     while(amount<0)
                     {
-                        Console.WriteLine("Error ,A positive amount must be inserted!!");
-                        amount= int.Parse(Console.ReadLine());
+                        //Console.WriteLine("Error ,A positive amount must be inserted!!");
+                        amount = GetNumberFromUser("Error ,A positive amount must be inserted!!");
                     }
                     Console.WriteLine(bl.Cart.UpdateAmountProuductInCart(cart, ProductId, amount));
                 }
@@ -340,11 +342,11 @@ class Program
                 }
                 
             }
-            if(choice=='e')
+            if(choice=='e')//אישור סל להזמנה/ביצוע הזמנה
             {
                 try
                 {
-                   bl.Cart.MakeOrder(cart);
+                    bl.Cart.CartPayment(cart);
                 }
                 catch(BO.RequestFailed ex)
                 {
@@ -356,9 +358,9 @@ class Program
                 return;
             }
 
-            Console.WriteLine("Enter your choice from a-e if you are to exist enter f:");
+            //Console.WriteLine("Enter your choice from a-e if you are to exist enter f:");
 
-            choice = char.Parse(Console.ReadLine()); 
+            choice = GetNumberFromUser2("Enter your choice from a-e if you want to exit enter f:"); 
             if (choice == 'f')
                 return;
         }
@@ -392,16 +394,38 @@ class Program
         return num;//read users number
     }
 
+    static double GetNumberFromUser1(string txt = "")//the programer sends what he needs
+    {
+        Console.WriteLine(txt);
+        double num1;
+        while (!System.Double.TryParse(Console.ReadLine(), out num1))//if not int
+        {
+            Console.WriteLine("ERROR format\n");//error
+        }
+        return num1;//read users number
+    }
+
+    static char GetNumberFromUser2(string txt = "")//the programer sends what he needs
+    {
+        Console.WriteLine(txt);
+        char num1;
+        while (!System.Char.TryParse(Console.ReadLine(), out num1))//if not int
+        {
+            Console.WriteLine("ERROR format\n");//error
+        }
+        return num1;//read users number
+    }
+    
     static void Main(string[] args)
     {
         for (int i= 0; i < 50; i++)
         {
-            Console.WriteLine("Enter your choice from 0-3:");
-            int ch = int.Parse(Console.ReadLine());   
+            //Console.WriteLine("Enter your choice from 0-3:");
+            int ch = GetNumberFromUser("Enter your choice from 0-3:");   
             while(ch!=0 && ch!=1 && ch!=2 && ch!=3)
             {
-                Console.WriteLine(" ERROR ,enter again your choice from 0-3:");
-                ch = int.Parse(Console.ReadLine());
+                //Console.WriteLine(" ERROR ,enter again your choice from 0-3:");
+                ch = GetNumberFromUser(" ERROR ,enter again your choice from 0-3:");
             }
             if (ch == 0)
             {

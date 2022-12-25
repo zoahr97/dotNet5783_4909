@@ -15,15 +15,15 @@ public class Order//ישות לוגית ראשית של הזמנה
     /// <summary>
     /// שם הלקוח המזמין
     /// </summary>
-    public String CustomerName { get; set; }
+    public String? CustomerName { get; set; }
     /// <summary>
     //כתובת דוא"ל של הלקוח המזמין
     /// </summary>
-    public String CustomerEmail { get; set; }
+    public String? CustomerEmail { get; set; }
     /// <summary>
     /// כתובת(איזור מגורים) של הלקוח הקונה
     /// </summary>
-    public String CustomerAdress { get; set; }
+    public String? CustomerAdress { get; set; }
     /// <summary>
     /// מצב הזמנה
     /// </summary>
@@ -43,7 +43,7 @@ public class Order//ישות לוגית ראשית של הזמנה
     /// <summary>
     /// רשימת פרטי הזמנה
     /// </summary>
-    public List<OrderItem> Items { get; set; }
+    public List<OrderItem>? Items { get; set; }//הוספתי ?
     /// <summary>
     /// מחיר כולל של ההזמנה
     /// </summary>

@@ -70,7 +70,7 @@ public class DataSource//מחלקת מקור מידע
                 category = (Enums.CATEGORY)R.Next(0, 7),//הגרלת מספר מ0 עד6
                 Price = R.Next(50, 701),//הגרלת מספר מ50 עד700
                 InStock = (i != 0) ? R.Next(50, 151) : 0,
-                IsDeleted = null
+                IsDeleted = false
             }; 
             if(Prod.ProductName == "Sunflower")
             {
@@ -96,10 +96,10 @@ public class DataSource//מחלקת מקור מידע
             {
                 ID = Config.NextOrderNumberOrderItem,
                 ProductID = product?.ProductID ?? 0,
-                OrderID = R.Next( 111, 1000 ),
+                OrderID = R.Next(Config.startIdOrders,140),//במקום (111,1000)ל
                 Price = product?.Price ?? 0,
                 Amount = R.Next(1, 11),
-                IsDeleted = null
+                IsDeleted = false
             };
             items.Add(orderitem);
         }
@@ -118,7 +118,7 @@ public class DataSource//מחלקת מקור מידע
                 CustomerName = CustomerNames[R.Next(0, 12)],
                 CustomerAdress = Address[R.Next(0, 5)],
                 OrderDate = DateTime.Now - new TimeSpan(R.Next(11, 41), R.Next(24), R.Next(60), R.Next(60)),
-                IsDeleted = null
+                IsDeleted = false
             };
 
             order.CustomerEmail = order.CustomerName +i+ "@gmail.com";

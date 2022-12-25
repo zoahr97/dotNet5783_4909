@@ -8,7 +8,7 @@ public class Cart//ישות לוגית ראשית של סל הקניות
     /// <summary>
     /// שם הלקוח הקונה
     /// </summary>
-    public string CustomerName { get; set; }
+    public string? CustomerName { get; set; }
 
     /// <summary>
     ///כתובת דוא"ל(מייל) של הלקוח הקונה
