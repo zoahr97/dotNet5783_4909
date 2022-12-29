@@ -14,7 +14,7 @@ internal class DalOrderItem:IOrderItem
 
     public bool IsExist(int id)
     {
-        int index = DS.items.FindIndex(x => x.ID == id&& x.IsDeleted!=true);
+        int index = DS.items.FindIndex(x => x?.ID == id&& x?.IsDeleted!=true);
         if (index == -1)//כאשר האיבר לא קיים ברשימה
         {
             return false;
@@ -26,7 +26,7 @@ internal class DalOrderItem:IOrderItem
     }
     public int Add(OrderItem ord)
     {  
-        int index = DS.items.FindIndex(x => x.ID == ord.ID);
+        int index = DS.items.FindIndex(x => x?.ID == ord.ID);
         if (index == -1)
         {
             ord.ID = DataSource.Config.NextOrderNumberOrderItem;
@@ -35,7 +35,7 @@ internal class DalOrderItem:IOrderItem
         }
         else//הפריט בהזמנה נמצא ברשימה
         {
-            if (DS.items[index].IsDeleted == false)
+            if (DS.items[index]?.IsDeleted == false)
             {
                 throw new AlreadyExistException("Order Item for Adding already exists in the list of items");
             }
@@ -48,18 +48,18 @@ internal class DalOrderItem:IOrderItem
     }
    public void Delete(int id)
    {
-        int index = DS.items.FindIndex(x => x.ID == id && x.IsDeleted != true);
+        int index = DS.items.FindIndex(x => x?.ID == id && x?.IsDeleted != true);
         if (index == -1)
         {
             throw new DoesntExistException("the Order Item for Delete is not exist in list of items!!!");
         }
         else//האיבר קיים ברשימה
         {
-            if (DS.items[index].IsDeleted != true)
+            if (DS.items[index]?.IsDeleted != true)
             {
-                OrderItem p = DS.items[index];
+                OrderItem p =(OrderItem) DS.items[index];
                 p.IsDeleted = true;
-                DS.items[index] = p;
+                DS.items[index] = (OrderItem?)p;
             }
             else//המוצר כבר מחוק
             {
@@ -84,8 +84,8 @@ internal class DalOrderItem:IOrderItem
 
     public OrderItem GetById(int id)
     {
-        OrderItem? OrderItemById = DS.items.Find(x => x.ID == id && x.IsDeleted != true);
-        if (OrderItemById.Value.ID == 0)
+        OrderItem? OrderItemById = DS.items.Find(x => x?.ID == id && x?.IsDeleted != true);
+        if (OrderItemById==null)
         {
             throw new DoesntExistException("the Order Item is not exist in list of OrderItems!!!");
         }
@@ -95,7 +95,7 @@ internal class DalOrderItem:IOrderItem
         }
     }
     // את ?לבדוקקקקקקקקקק
-    public IEnumerable<OrderItem> GetAll()//החזרת רשימת פריטים בהזמנה
+    public IEnumerable<OrderItem?> GetAll(Func<OrderItem?, bool>? filter = null)//החזרת רשימת פריטים בהזמנה
     {      
         if (DS.items.Count==0)
         {
@@ -103,49 +103,68 @@ internal class DalOrderItem:IOrderItem
         }
         else
         {
-            IEnumerable<OrderItem> items = (from OrderItem orderitem in DS.items where orderitem.IsDeleted == false select orderitem).ToList();
-            return items;
-
+            if(filter==null)//כך שתביא אוסף מופעים מלא, אם התקבל בפרמטר הנ"ל null
+            {
+                IEnumerable<OrderItem?> items = (from OrderItem? orderitem in DS.items where orderitem?.IsDeleted == false select orderitem).ToList();
+                return items;
+            }
+            else//אחרת היא תחזיר אוסף "מסונן" ע"י המתודה שבפרמטר הנ"ל
+            {
+                IEnumerable<OrderItem?> items = (from OrderItem? orderitem in DS.items where orderitem?.IsDeleted == false && filter(orderitem) select orderitem).ToList();
+                return items;
+            }    
             //List<OrderItem>? items = DS.items.FindAll(x => x.IsDeleted != true);
             //return items;
         }
     }
+    public OrderItem getbyfilter(Func<OrderItem?, bool> filter)//מתודת בקשה של אובייקט בודד
+    {
+        OrderItem? OrderItemById = DS.items.Find(x => filter(x)&& x?.IsDeleted == false);
+        if (OrderItemById == null)
+        {
+            throw new DoesntExistException("the Order Item is not exist in list of OrderItems!!!");
+        }
+        else
+        {
+            return (OrderItem)OrderItemById;
+        }
+    }
 
-    public List<OrderItem> GetListByOrderID(int OrderID)
-    {
-        List<OrderItem>? List = new List<OrderItem>();
-        foreach (OrderItem item in DS.items)
-        {
-            if (item.OrderID == OrderID && item.IsDeleted == false)
-                List.Add(item);
-        }
-        if (List.Count == 0)
-        {
-            throw new notExistElementInList("There is no item/s with this order ID number!!");
-        }
-        else//כאשר הרשימה אינה ריקה
-        {
-            return List;
-        }
-    }
-    public OrderItem GetByOrderIDProductID(int OrderID, int ProductID)
-    {
-        OrderItem item = DS.items.Find(x => x.OrderID == OrderID && x.ProductID == ProductID && x.IsDeleted == false);
-        if (item.ID == 0)
-        {
-            throw new DoesntExistException("The order item for OrderID and ProductID is not exist in List of items!!!");
-        }
-        else//מצאנו
-        {
-            return (OrderItem)item;
-        }
-    }
+
 }
 
 
 
 
-
+//public List<OrderItem> GetListByOrderID(int OrderID)
+//{
+//    List<OrderItem>? List = new List<OrderItem>();
+//    foreach (OrderItem item in DS.items)
+//    {
+//        if (item.OrderID == OrderID && item.IsDeleted == false)
+//            List.Add(item);
+//    }
+//    if (List.Count == 0)
+//    {
+//        throw new notExistElementInList("There is no item/s with this order ID number!!");
+//    }
+//    else//כאשר הרשימה אינה ריקה
+//    {
+//        return List;
+//    }
+//}
+//public OrderItem GetByOrderIDProductID(int OrderID, int ProductID)
+//{
+//    OrderItem item = DS.items.Find(x => x.OrderID == OrderID && x.ProductID == ProductID && x.IsDeleted == false);
+//    if (item.ID == 0)
+//    {
+//        throw new DoesntExistException("The order item for OrderID and ProductID is not exist in List of items!!!");
+//    }
+//    else//מצאנו
+//    {
+//        return (OrderItem)item;
+//    }
+//}
 
 
 //int Add(T item);

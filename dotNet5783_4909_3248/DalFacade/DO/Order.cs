@@ -37,7 +37,7 @@ public struct Order//יישות הזמנה
     /// <summary>
     /// ?האם האיבר מחוק או לא
     /// </summary>
-    public bool? IsDeleted { get; set; }
+    public bool IsDeleted { get; set; }
 
     /***************ToString*****************************/
 

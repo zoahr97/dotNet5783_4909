@@ -16,7 +16,7 @@ public class Program//התוכנית הראשית
     public static void MenuProduct()//תת תפריט של מוצר
     {
         Random random = new Random();
-        Console.WriteLine("Enter your choice from a-e:");
+        Console.WriteLine("Enter your choice from a-f:");
         char choice = GetNumberFromUser2();
         if (choice == 'a')//אפשרות הוספת אובייקט לרשימה של ישות
         {
@@ -57,8 +57,9 @@ public class Program//התוכנית הראשית
         {
             try
             {
-                IEnumerable<Product> products = myP.Product.GetAll();
-                foreach (Product product in products)
+                Func<Product?,bool> myDelegate = check1;
+                IEnumerable<Product?> products = myP.Product.GetAll();
+                foreach (Product? product in products)
                     Console.WriteLine("\n" + product.ToString() + "\n");
             }
             catch(notExistElementInList ex)
@@ -100,11 +101,24 @@ public class Program//התוכנית הראשית
                 Console.WriteLine(ex.Message);
             }
         }
+        if(choice == 'f')//מתודת בקשה של אובייקט בודד
+        {
+            try
+            {
+                Func<Product?, bool> myDelegate = check1;
+                Console.WriteLine(myP.Product.getbyfilter(myDelegate).ToString());
+            }
+            catch(DoesntExistException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            
+        }
     }
 
     public static void MenuOrderItem()//תת תפריט של פריט בהזמנה
     {
-        Console.WriteLine("Enter your choice from a-e:");
+        Console.WriteLine("Enter your choice from a-f:");
         char choice = GetNumberFromUser2();
         if (choice == 'a')//אפשרות הוספת אובייקט לרשימה של ישות
         {
@@ -146,8 +160,9 @@ public class Program//התוכנית הראשית
         {
             try
             {
-                IEnumerable<OrderItem> OrderItems = myP.OrderItem.GetAll();
-                foreach (OrderItem ord in OrderItems)
+                Func<OrderItem?, bool> myDelegate = check2;
+                IEnumerable<OrderItem?> OrderItems = myP.OrderItem.GetAll();
+                foreach (OrderItem? ord in OrderItems)
                     Console.WriteLine("\n" + ord + "\n");
             }
             catch(notExistElementInList ex)
@@ -190,45 +205,24 @@ public class Program//התוכנית הראשית
                 Console.WriteLine(ex.Message);
             }
         }
+        if (choice == 'f')//מתודת בקשה של אובייקט בודד
+        {
+            try
+            {
+                Func<OrderItem?, bool> myDelegate = check2;
+                Console.WriteLine(myP.OrderItem.getbyfilter(myDelegate).ToString());
+            }
+            catch(DoesntExistException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }   
+        }
 
-        //if(choice == 'f')//אפשרות תצוגת פריטים בהזמנה של מ"ס הזמנה מסויים
-        //{
-        //    try
-        //    {
-        //        //Console.WriteLine("enter OrderID:");
-        //        int OrderID = GetNumberFromUser("enter OrderID:");
-        //        List<OrderItem> list = myP.OrderItem.GetListByOrderID(OrderID);
-        //        foreach (OrderItem item in list)
-        //        {
-        //            Console.WriteLine("\t" + item + "\t");
-        //        }
-        //    }
-        //    catch(notExistElementInList ex)
-        //    {
-        //        Console.WriteLine(ex.Message);
-        //    }
-        //}
-
-        //if(choice=='g')//אפשרות תצוגת אוביקט ע"פ מ"ס מזהה של הזמנה ומ"ס מזהה של מוצר
-        //{
-        //    try
-        //    {
-        //        //Console.WriteLine("enter OrderID AND ProductId:");
-        //        int OrderID = GetNumberFromUser("enter OrderID");
-        //        int ProductID= GetNumberFromUser("enter ProductId");
-        //        OrderItem item1 = myP.OrderItem.GetByOrderIDProductID(OrderID, ProductID);         
-        //        Console.WriteLine("\t" + item1 + "\t");                
-        //    }
-        //    catch(DoesntExistException ex) 
-        //    {
-        //        Console.WriteLine(ex.Message);
-        //    }
-        //}
     }
 
     public static void MenuOrder()//תת תפריט של הזמנה
     {
-        Console.WriteLine("Enter your choice from a-e:");
+        Console.WriteLine("Enter your choice from a-f:");
         char choice = GetNumberFromUser2();
         if (choice == 'a')//אפשרות הוספת אובייקט לרשימה של ישות
         {
@@ -270,8 +264,9 @@ public class Program//התוכנית הראשית
         {
             try
             {
-                IEnumerable<Order> Orders = myP.Order.GetAll();
-                foreach (Order order in Orders)
+                Func<Order?, bool> myDelegate = check3;
+                IEnumerable<Order?> Orders = myP.Order.GetAll();
+                foreach (Order? order in Orders)
                     Console.WriteLine("\n" + order + "\n");
             }
             catch(notExistElementInList ex)
@@ -309,6 +304,18 @@ public class Program//התוכנית הראשית
                 myP.Order.Delete(id);
             }
             catch (DoesntExistException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+        }
+        if (choice == 'f')//מתודת בקשה של אובייקט בודד
+        {
+            try
+            {
+                Func<Order?, bool> myDelegate = check3;
+                Console.WriteLine(myP.Order.getbyfilter(myDelegate).ToString());
+            }
+            catch(DoesntExistException ex)
             {
                 Console.WriteLine(ex.Message);
             }
@@ -359,9 +366,29 @@ public class Program//התוכנית הראשית
         }
         return num;//read users number
     }
-
+    public static bool check1(Product? product)//בדיקה לפי כמות במלאי שגדול מ-100
+    {
+        if (product?.InStock > 100)
+            return true;
+        else
+            return false;
+    }
+    public static bool check2(OrderItem? orderItem)//כל הפריטים בהזמנה שהמחיר שלהם גדול מ350₪ 
+    {
+        if (orderItem?.Price> 350)
+            return true;
+        else
+            return false;
+    }
+    public static bool check3(Order? order)//כל ההזמנות שנשלחו
+    {
+        if (order?.ShipDate !=null)
+            return true;
+        else
+            return false;
+    }
     static void Main(string[] args)
-    {      
+    {
         for (int i = 0; i < 30; i++)
         {
             Console.WriteLine("Enter your choice from 0-3:");
@@ -394,6 +421,39 @@ public class Program//התוכנית הראשית
 
 
 
+//if(choice == 'f')//אפשרות תצוגת פריטים בהזמנה של מ"ס הזמנה מסויים
+//{
+//    try
+//    {
+//        //Console.WriteLine("enter OrderID:");
+//        int OrderID = GetNumberFromUser("enter OrderID:");
+//        List<OrderItem> list = myP.OrderItem.GetListByOrderID(OrderID);
+//        foreach (OrderItem item in list)
+//        {
+//            Console.WriteLine("\t" + item + "\t");
+//        }
+//    }
+//    catch(notExistElementInList ex)
+//    {
+//        Console.WriteLine(ex.Message);
+//    }
+//}
+
+//if(choice=='g')//אפשרות תצוגת אוביקט ע"פ מ"ס מזהה של הזמנה ומ"ס מזהה של מוצר
+//{
+//    try
+//    {
+//        //Console.WriteLine("enter OrderID AND ProductId:");
+//        int OrderID = GetNumberFromUser("enter OrderID");
+//        int ProductID= GetNumberFromUser("enter ProductId");
+//        OrderItem item1 = myP.OrderItem.GetByOrderIDProductID(OrderID, ProductID);         
+//        Console.WriteLine("\t" + item1 + "\t");                
+//    }
+//    catch(DoesntExistException ex) 
+//    {
+//        Console.WriteLine(ex.Message);
+//    }
+//}
 
 
 

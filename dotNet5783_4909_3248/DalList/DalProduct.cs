@@ -11,22 +11,22 @@ internal class DalProduct: IProduct
 {
     DataSource DS = DataSource.GetInstance(); //מופע של מקור הנתונים 
 
-    private bool IsExist(int ProductID)//מתודת עזר המחזירה אמת אם האיבר קיים אחרת יוחזר שקר
-    {
-        int indexOfSameId = DS.products.FindIndex(x => x.ProductID == ProductID);
-        if (indexOfSameId == -1)//כאשר האיבר לא קיים ברשימה
-        {
-            return false;
-        }
-        else//האיבר קיים ברשימה
-        {
-            return true;
-        }
-    }
+    //private bool IsExist(int ProductID)//מתודת עזר המחזירה אמת אם האיבר קיים אחרת יוחזר שקר
+    //{
+    //    int indexOfSameId = DS.products.FindIndex(x => x.ProductID == ProductID);
+    //    if (indexOfSameId == -1)//כאשר האיבר לא קיים ברשימה
+    //    {
+    //        return false;
+    //    }
+    //    else//האיבר קיים ברשימה
+    //    {
+    //        return true;
+    //    }
+    //}
    
     public int Add(Product P)
     {
-        int index = DS.products.FindIndex(x => x.ProductID == P.ProductID);
+        int index = DS.products.FindIndex(x => x?.ProductID == P.ProductID);
         if(index == -1)
         {
             DS.products.Add(P);
@@ -34,7 +34,7 @@ internal class DalProduct: IProduct
         }
         else
         {
-            if (DS.products[index].IsDeleted!=true)
+            if (DS.products[index]?.IsDeleted!=true)
             {
                 throw new AlreadyExistException("The product for Adding already exists in the list of products");
             }
@@ -48,8 +48,8 @@ internal class DalProduct: IProduct
      
     public Product GetById(int id)
     {
-        Product? ProductById = DS.products.Find(x => x.ProductID == id && x.IsDeleted != true);
-        if (ProductById.Value.ProductID==0)
+        Product? ProductById = DS.products.Find(x => x?.ProductID == id && x?.IsDeleted != true);
+        if (ProductById==null)
         {
             throw new DoesntExistException("the product is not exist in list of products!!!");
         }         
@@ -59,37 +59,57 @@ internal class DalProduct: IProduct
         }
        
     }
-    public IEnumerable<Product> GetAll()
-    {
-        
+    //נעדכן את כל המימושים של המתודה הנ"ל (עבור כל ישויות הנתונים) כך שתביא אוסף מופעים מלא, אם התקבל
+    //null בפרמטר הנ"ל, אחרת היא תחזיר אוסף "מסונן" ע"י המתודה שבפרמטר הנ"ל
+
+    public IEnumerable<Product?> GetAll(Func<Product?, bool>? filter = null)
+    {  
         if (DS.products.Count == 0)
         {
             throw new notExistElementInList("The list for Products is Empty!!");
         }
         else
         {
-            IEnumerable<Product> products = (from Product product in DS.products where product.IsDeleted == false select product).ToList();
-            return products;
-
+            if(filter==null)//כך שתביא אוסף מופעים מלא, אם התקבל בפרמטר הנ"ל null
+            {
+                IEnumerable<Product?> products = (from Product? product in DS.products where product?.IsDeleted == false select product).ToList();
+                return products;
+            }
+            else//אחרת היא תחזיר אוסף "מסונן" ע"י המתודה שבפרמטר הנ"ל
+            {
+                IEnumerable<Product?> products = (from Product? product in DS.products where product?.IsDeleted == false&& filter(product) select product).ToList();
+                return products;
+            }
             //List<Product>? allproducts = DS.products.FindAll(x => x.IsDeleted != true);
             //return allproducts;
         }
     }
+    public Product getbyfilter(Func<Product?, bool> filter)//מתודת בקשה של אובייקט בודד
+    {
+        Product? ProductById = DS.products.Find(x => filter(x)&& x?.IsDeleted==false);
+        if (ProductById == null)
+        {
+            throw new DoesntExistException("the product is not exist in list of products!!!");
+        }
+        else
+        {
+            return (Product)ProductById;
+        }
+    }
     public void Delete(int id)
     {       
-        int index = DS.products.FindIndex(x => x.ProductID == id&& x.IsDeleted!=true);
+        int index = DS.products.FindIndex(x => x?.ProductID == id&& x?.IsDeleted!=true);
         if (index == -1)
         {
             throw new DoesntExistException("the product for Delete is not exist in list of products!!!");
         }
-
         else//האיבר קיים ברשימה
         {
-            if (DS.products[index].IsDeleted!=true)
+            if (DS.products[index]?.IsDeleted!=true)
             {
-                Product p = DS.products[index];
+                Product p = (Product)DS.products[index];
                 p.IsDeleted = true;
-                DS.products[index] = p;
+                DS.products[index] = (Product?)p;
             }
             else//המוצר כבר מחוק
             {

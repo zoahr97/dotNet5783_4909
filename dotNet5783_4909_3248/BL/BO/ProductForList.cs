@@ -20,7 +20,7 @@ public class ProductForList//ישות עזר של מוצר ברשימה
     /// <summary>
     /// מחיר המוצר
     /// </summary>
-    public double? Price { get; set; }
+    public double Price { get; set; }
 
     /**********ToString********************/
     public override string ToString() => $@"

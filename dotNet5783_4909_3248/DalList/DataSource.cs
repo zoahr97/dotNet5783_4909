@@ -4,6 +4,10 @@ using static DO.Enums;
 
 
 namespace Dal;
+//נהפוך את סוג האלמנט בכל האוספים ו-\או את האוספים עצמם לטיפוסים מתאפסים(ע"י הוספת "?")
+//רשימות ב-DataSource - רק טיפוסי האלמנטים, למשל: internal List<Student?> s_students
+//סוג ערך מוחזר של מתודות ב-DalApi.ICrud שמחזירות אוספים(רק טיפוסי אלמנטים), למשל: <? IEnumerable<T
+//סוג ערך מוחזר במתודות של BlApi המחזירות אוספים (רק טיפוסי אלמנטים) - כנ"ל לגבי מתודות של DalApi.ICrud
 
 public class DataSource//מחלקת מקור מידע
 {
@@ -26,9 +30,9 @@ public class DataSource//מחלקת מקור מידע
         return instance;
     }
 
-    internal List<Product> products { get; } = new List<Product> { };//רשימת המוצרים
-    internal List<OrderItem> items { get; } = new List<OrderItem> { };//רשימת פריטים בהזמנות
-    internal List<Order> orders { get; } = new List<Order> { };//רשימת הזמנות
+    internal List<Product?> products { get; } = new List<Product?> { };//רשימת המוצרים
+    internal List<OrderItem?> items { get; } = new List<OrderItem?> { };//רשימת פריטים בהזמנות
+    internal List<Order?> orders { get; } = new List<Order?> { };//רשימת הזמנות
   
     internal static class Config//inner class
     {
@@ -71,17 +75,17 @@ public class DataSource//מחלקת מקור מידע
                 Price = R.Next(50, 701),//הגרלת מספר מ50 עד700
                 InStock = (i != 0) ? R.Next(50, 151) : 0,
                 IsDeleted = false
-            }; 
-            if(Prod.ProductName == "Sunflower")
+            };
+            if (Prod.ProductName == "Sunflower")
             {
                 Prod.category = (Enums.CATEGORY)3;
             }
             #region filter for a product that exists with the same ID number
-            int SameId = products.FindIndex(x => x.ProductID == Prod.ProductID);
+            int SameId = products.FindIndex(x => x?.ProductID == Prod.ProductID);
             while (SameId != -1)
             {
                 Prod.ProductID = R.Next(100, 1000);
-                SameId = products.FindIndex(x => x.ProductID == Prod.ProductID);
+                SameId = products.FindIndex(x => x?.ProductID == Prod.ProductID);
             }
             #endregion
             products.Add(Prod);

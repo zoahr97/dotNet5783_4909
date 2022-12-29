@@ -9,8 +9,8 @@ namespace BlTest;
 
 class Program
 {
-     public static IBl bl = new Bl();
-    
+    public static IBl bl = new Bl();
+    //public static BlApi.IBl bl = BlApi.Factory.Get();
     public static void MenuProduct()//תת תפריט של מוצר
     {
         Random random = new Random();
@@ -21,7 +21,7 @@ class Program
         {
             try
             {
-                foreach (ProductForList productForList in bl.Product.GetProductsForList())
+                foreach (ProductForList? productForList in bl.Product.GetProductsForList())
                 {
                     Console.WriteLine("\t" + productForList + "\t");
                 }
@@ -150,6 +150,7 @@ class Program
             }
         }
         
+        
     }
 
     public static void MenuOrder()//תת תפריט של הזמנה
@@ -162,9 +163,9 @@ class Program
         {
             try
             {
-                foreach (BO.OrderForList orderForList in bl.Order.GetAllOrderForList())
+                foreach (BO.OrderForList? orderForList in bl.Order.GetAllOrderForList())
                 {
-                    if(orderForList.AmountItems!=0)
+                    if(orderForList?.AmountItems!=0)
                     {
                         Console.WriteLine("\t" + orderForList + "\t");
                     }     
@@ -310,7 +311,7 @@ class Program
 
             if (choice == 'c')//הדפסת כל המוצרים הקיימים בחנות/קטלוג המוצרים ,יעזור לקונה לבחור איזה מוצר הוא רוצה להוסיף לסל הקניות
             {
-                foreach (DO.Product product in Dal.DalList.Instance.Product.GetAll())
+                foreach (DO.Product? product in Dal.DalList.Instance.Product.GetAll())
                 {
                     Console.WriteLine(product.ToString());
                 }

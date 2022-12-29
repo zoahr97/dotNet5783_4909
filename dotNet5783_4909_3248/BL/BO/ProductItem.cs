@@ -17,7 +17,7 @@ public class ProductItem// (ישות עזר לוגי של פריט מוצר (ה�
     /// <summary>
     /// מחיר המוצר
     /// </summary>
-    public double? Price { get; set; }  
+    public double Price { get; set; }  
     /// <summary>
     /// קטגוריה
     /// </summary>
@@ -26,11 +26,11 @@ public class ProductItem// (ישות עזר לוגי של פריט מוצר (ה�
     /// <summary>
     /// זמין/ האם המוצר קיים במלאי?
     /// </summary>
-    public bool? IsStock { get; set; }
+    public bool IsStock { get; set; }
     /// <summary>
     /// כמות בסל הקניות של הלקוח/הקונה
     /// </summary>
-    public int? AmountInCartOfCostumer { get; set; }
+    public int AmountInCartOfCostumer { get; set; }
 
     public override string ToString() => $@"
      ProductID: {ProductID}, 

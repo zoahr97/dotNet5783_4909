@@ -4,23 +4,51 @@ namespace BlImplementation;
 using System.Linq;
 //נמחוק ;using Dal
 //נחליף את יצירת מופע של מחלקה DalList לקבלתו ממחלקת היצרן: () DalApi.Factory.Get
-internal class Product: BlApi.IProduct//מחלקת מוצר שממשת את ממשק מוצר
+internal class Product : BlApi.IProduct//מחלקת מוצר שממשת את ממשק מוצר
 {
     private IDal Dal = DalList.Instance;//שדה פרטי
 
-    public IEnumerable<BO.ProductForList> GetProductsForList()//לבדוק את ה IEnumerable
+    public IEnumerable<BO.ProductForList?> GetProductsForList(Func<BO.ProductForList?, bool>? filter = null)//לבדוק את ה IEnumerable
     {
-        return Dal.Product.GetAll().Select(product => new BO.ProductForList
+        //return Dal.Product.GetAll().Select(product => new BO.ProductForList
+        //{
+        //   ProductID = product.ProductID,
+        //   ProductName = product.ProductName,
+        //   Price = product.Price,
+        //   category = (BO.Enums.CATEGORY?)product.category
+        //});
+        try
         {
-           ProductID = product.ProductID,
-           ProductName = product.ProductName,
-           Price = product.Price,
-           category = (BO.Enums.CATEGORY?)product.category
-        });     
+            IEnumerable<DO.Product?> products = Dal.Product.GetAll();
+            IEnumerable<BO.ProductForList?> p= from DO.Product product in products
+                   select new BO.ProductForList
+                   {
+                       ProductID = product.ProductID,
+                       ProductName = product.ProductName,
+                       Price = product.Price,
+                       category = (BO.Enums.CATEGORY?)product.category
+                   };
+            if(filter == null)
+            {
+                return p;
+            }
+            else
+            {
+                IEnumerable<BO.ProductForList?> p1 = (from BO.ProductForList? product in p where  filter(product) select product).ToList();
+                return p1;
+            }
+
+            
+        }
+        catch (DO.notExistElementInList ex)
+        {
+            throw new BO.notExistElementInList(ex.Message, ex);
+        }
     }
 
+        
 
-    public BO.Product ManagerDetailsProduct(int productId)//בקשת פרטי מוצר (עבור מסך מנהל ועבור)
+public BO.Product ManagerDetailsProduct(int productId)//בקשת פרטי מוצר (עבור מסך מנהל ועבור)
     {
         if (productId <= 0)
         {

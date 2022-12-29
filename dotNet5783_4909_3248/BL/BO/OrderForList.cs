@@ -27,7 +27,7 @@ public class OrderForList//ישות עזר של הזמנה ברשימה OrderFor
     /// <summary>
     /// סה"כ לתשלום/ מחיר כולל של הזמנה
     /// </summary>
-    public double? TotalOrder { get; set; }
+    public double TotalOrder { get; set; }
 
     /**********ToString********************/
     public override string ToString() => $@"

@@ -28,7 +28,7 @@ public class Cart//ישות לוגית ראשית של סל הקניות
     /// <summary>
     /// סל הקניות /מחיר כולל של סל ההזמנה
     /// </summary>
-    public double? TotalPriceCart { get; set; }
+    public double TotalPriceCart { get; set; }
     
 
     //*********ToString**********//

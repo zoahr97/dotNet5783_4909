@@ -5,7 +5,7 @@
 /// </summary>
 
 public struct OrderItem
-{
+{//int, double, bool.
     /// <summary>
     /// מספר מזהה ייחודי/מספר רץ אוטומטי
     /// </summary>
@@ -17,7 +17,7 @@ public struct OrderItem
     /// <summary>
     /// מספר מזהה של הזמנה
     /// </summary>
-    public int? OrderID { get; set; }
+    public int OrderID { get; set; }
     /// <summary>
     /// מחיר ליחידה
     /// </summary>
@@ -29,7 +29,7 @@ public struct OrderItem
     /// <summary>
     /// האם האיבר מחוק או לא
     /// </summary>
-    public bool? IsDeleted { get; set; }
+    public bool IsDeleted { get; set; }
     /***********ToString***************/
 
     public override string ToString() => $@"

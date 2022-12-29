@@ -3,9 +3,10 @@
 /// <summary>
 /// יישות מוצר
 /// </summary>
-
+//הן בישויות הנתונים(DO) והן בישויות לוגיות(BO) נהפוך לטיפוסי מתאפסים(בעזרת הוספת "?" - Nullable Value/Reference types) את טיפוסי כל התכונות למעט מזהים ותכונות מהטיפוסים הבאים: int, double, bool.
 public struct Product
 {
+    //int, double, bool.
     /// <summary>
     /// מספר מזהה של מוצר/הברקוד של המוצר
     /// </summary>
@@ -25,11 +26,11 @@ public struct Product
     /// <summary>
     /// כמות במלאי
     /// </summary>
-    public int? InStock { get; set; }
+    public int InStock { get; set; }
     /// <summary>
     /// האם האיבר מחוק או לא
     /// </summary>
-    public bool? IsDeleted { get; set; }
+    public bool IsDeleted { get; set; }
 
     /***********ToString***************/
 

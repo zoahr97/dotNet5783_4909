@@ -145,7 +145,7 @@ internal class Cart : BlApi.ICart//מימוש סל הקניות
                         {
                             //i/*nt index = Dal.Product.GetAll().FindIndex(x => x.ProductID == productid);*/
                             cart.TotalPriceCart = cart.TotalPriceCart - cart.Items[ind].TotalPrice;
-                            int? amount = cart.Items[ind].Amount;
+                            int amount = cart.Items[ind].Amount;
                             cart.Items[ind].Amount = NewAmount;
                             cart.Items[ind].TotalPrice = cart.Items[ind].Amount * cart.Items[ind].Price;
                             cart.TotalPriceCart = cart.TotalPriceCart + cart.Items[ind].TotalPrice;
@@ -165,7 +165,7 @@ internal class Cart : BlApi.ICart//מימוש סל הקניות
                     }
                     else //NewAmount < cart.Items[ind].Amount
                     {
-                        int? diffrant = cart.Items[ind].Amount - NewAmount;//הכמות המוחזרת
+                        int diffrant = cart.Items[ind].Amount - NewAmount;//הכמות המוחזרת
                         cart.TotalPriceCart = cart.TotalPriceCart - cart.Items[ind].TotalPrice;
                         //int? amount = cart.Items[ind].Amount;
                         cart.Items[ind].Amount = NewAmount;

@@ -27,7 +27,7 @@ public class OrderItem//(ישות עזר לוגית של פריט בהזמנה (
     /// <summary>
     /// (מחיר כולל של פריט בהזמנה (לפי מחיר מוצר וכמותו בהזמנה
     /// </summary>
-    public double? TotalPrice { get; set; }
+    public double TotalPrice { get; set; }
     ///// <summary>
     ///// האם האיבר נמחק או לא
     ///// </summary>

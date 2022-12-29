@@ -47,11 +47,11 @@ public class Order//ישות לוגית ראשית של הזמנה
     /// <summary>
     /// מחיר כולל של ההזמנה
     /// </summary>
-    public double? TotalOrder { get; set; }
+    public double TotalOrder { get; set; }
     /// <summary>
     /// ?האם האיבר מחוק או לא
     /// </summary>
-    public bool? IsDeleted { get; set; }
+    public bool IsDeleted { get; set; }
 
 
     //*********ToString**********//

@@ -24,11 +24,11 @@ public class Product//ישות לוגית ראשית של מוצר
     /// <summary>
     /// כמות במלאי
     /// </summary>
-    public int? InStock { get; set; }
+    public int InStock { get; set; }
     /// <summary>
     /// האם האיבר נמחק או לא
     /// </summary>
-    public bool? IsDeleted { get; set; }
+    public bool IsDeleted { get; set; }
     /**********ToString********************/
 
     public override string ToString() => $@"

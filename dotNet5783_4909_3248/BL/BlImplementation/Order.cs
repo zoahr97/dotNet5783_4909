@@ -18,20 +18,23 @@ internal class Order : BlApi.IOrder
     //תבקש רשימת הזמנות משכבת הנתונים
     //תבנה על בסיס הנתונים רשימת הזמנות מטיפוס OrderForList(ישות לוגית)
     //תחזיר את הרשימה שנבנתה
-    public IEnumerable<BO.OrderForList> GetAllOrderForList()//בקשת רשימת ההזמנות של הלקוחות
+    public IEnumerable<BO.OrderForList?> GetAllOrderForList()//בקשת רשימת ההזמנות של הלקוחות
     {
         try
         {
-            IEnumerable<DO.Order> orders = Dal.Order.GetAll();
-            IEnumerable<DO.OrderItem> orderItems = Dal.OrderItem.GetAll();
-            return orders.Select(order => new BO.OrderForList
-            {
-                OrderID = order.ID,
-                CustomerName = order.CustomerName,
-                OrderStatus = GetStatus(order),
-                AmountItems = count(order.ID),
-                TotalOrder = SumOrder(order.ID)
-            });
+
+            Func<DO.Order?, bool> myDelegate = check3;
+            IEnumerable<DO.Order?> orders = Dal.Order.GetAll(/*myDelegate*/);
+            IEnumerable<DO.OrderItem?> orderItems = Dal.OrderItem.GetAll();
+            List<BO.OrderForList?> orderForLists = new List<BO.OrderForList?>();
+            //return orders.Select(order => new BO.OrderForList
+            //{
+            //    OrderID = order.ID,
+            //    CustomerName = order.CustomerName,
+            //    OrderStatus = GetStatus(order),
+            //    AmountItems = count(order.ID),
+            //    TotalOrder = SumOrder(order.ID)
+            //});
 
             //return from DO.Order order in orders
             //       select new BO.OrderForList
@@ -42,23 +45,23 @@ internal class Order : BlApi.IOrder
             //           AmountItems = count(order.ID),
             //           TotalOrder = SumOrder(order.ID)
             //       };
+            foreach (DO.Order order in orders)
+            {
+                BO.OrderForList orderForList = new BO.OrderForList
+                {
+                    OrderID = order.ID,
+                    CustomerName = order.CustomerName,
+                    OrderStatus = GetStatus(order),
+                    AmountItems = count(order.ID),
+                    TotalOrder = SumOrder(order.ID)
+                };
+                if (orderForList.AmountItems != 0)
+                {
+                    orderForLists.Add(orderForList);
+                }
+            }
+            return orderForLists;
 
-            //foreach (DO.Order order in orders)
-            //{
-            //    BO.OrderForList orderForList = new BO.OrderForList
-            //    {
-            //        OrderID = order.ID,
-            //        CustomerName = order.CustomerName,
-            //        OrderStatus = GetStatus(order),
-            //        AmountItems = count(order.ID),
-            //        TotalOrder = SumOrder(order.ID)
-            //    };
-            //    if(orderForList.AmountItems!=0)
-            //    {
-            //        orderForLists.Add(orderForList);
-            //    }        
-            //}
-            //return orderForLists;
         }
         catch (DO.notExistElementInList ex)
         {
@@ -66,15 +69,23 @@ internal class Order : BlApi.IOrder
         }
         
     }
-    
+
+    public static bool check3(DO.Order? order)//כל ההזמנות שנשלחו
+    {
+        if (order?.DeliveryDate!= null)
+            return true;
+        else
+            return false;
+    }
+
     private int count(int id)//כמות פריטי הזמנה של הלקוח
     {
         try
         {
             int count = 0;
-            foreach (DO.OrderItem orderItem in Dal.OrderItem.GetAll())
+            foreach (DO.OrderItem? orderItem in Dal.OrderItem.GetAll())
             {
-                if (orderItem.OrderID == id)
+                if (orderItem?.OrderID == id)
                 {
                     count++;
                 }
@@ -89,11 +100,11 @@ internal class Order : BlApi.IOrder
         }
     }
   
-    public double? SumOrder(int orderid)//מתודה המחזירה את הסכום הכולל לתשלום של ההזמנה
+    public double SumOrder(int orderid)//מתודה המחזירה את הסכום הכולל לתשלום של ההזמנה
     {    
         try
         {          
-            double? sum1 = 0;
+            double sum1 = 0;
             foreach (DO.OrderItem orderItem in Dal.OrderItem.GetAll())
             {
                 if (orderItem.OrderID == orderid)
@@ -321,7 +332,7 @@ public BO.Order ShipUpdate(int orderId)//עדכון שילוח הזמנה
                     IsDeleted = oId.IsDeleted
                 };
                 Dal.Order.Update(order);
-                double? priceTemp = 0;
+                double priceTemp = 0;
                 foreach (DO.OrderItem temp in Dal.OrderItem.GetAll())
                 {
                     if ( temp.OrderID == order.ID)
