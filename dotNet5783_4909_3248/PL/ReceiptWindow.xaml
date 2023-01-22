@@ -46,7 +46,7 @@
             Height="54" Width="296" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="97,397,0,0"/>
         <TextBox x:Name="Tamountofpayment" FontSize="20" HorizontalAlignment="Left" Margin="415,397,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="214" Height="40" IsEnabled="False"  />
         <DatePicker x:Name="datePicker" HorizontalAlignment="Left" Margin="24,51,0,0" VerticalAlignment="Top" Width="221" Height="26" Background="#FFFDBEBB"/>
-        <Button x:Name="PrintButton" Content="" HorizontalAlignment="Left" Margin="661,26,0,0" VerticalAlignment="Top" Height="130" Width="119" FontSize="20" FontWeight="Bold" Click="PrintButton_Click">
+        <Button x:Name="PrintButton" Content="" HorizontalAlignment="Left" Margin="661,26,0,0" VerticalAlignment="Top" Height="130" Width="119" FontSize="20" FontWeight="Bold" Click="PrintButton_Click" BorderBrush="#FF56E0D1">
             <Button.Background>
                 <ImageBrush ImageSource="/Icons/printer.jpg" TileMode="FlipX" Stretch="UniformToFill"/>
             </Button.Background>

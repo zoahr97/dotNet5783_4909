@@ -27,11 +27,13 @@ namespace PL
             }
             return lists;
         }
-        public static ObservableCollection<BO.OrderItem> convertListToObservable(List<BO.OrderItem>list)
+        public static ObservableCollection<BO.OrderItem> convertListToObservable(List<BO.OrderItem>list,double discont=1)
         {
             ObservableCollection<BO.OrderItem> lists = new ObservableCollection<BO.OrderItem>();
             foreach (BO.OrderItem item in list)
             {
+                item.Price = discont ==1? item.Price : item.Price-item.Price *discont ;
+                item.TotalPrice = item.Price*item.Amount;
                 lists.Add(item);
             }
             return lists;

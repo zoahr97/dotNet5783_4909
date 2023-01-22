@@ -127,5 +127,16 @@ namespace PL
                 return false;
         }
 
+        private void PrintButton1_Click(object sender, RoutedEventArgs e)
+        {
+            FlowDocument doc = new FlowDocument(new Paragraph(new Run("Some text goes here")));
+            doc.Name = "FlowDoc";
+            /// Create IDocumentPaginatorSource from FlowDocument
+            IDocumentPaginatorSource p = (IDocumentPaginatorSource)doc;
+            IDocumentPaginatorSource idpSource = doc;
+            PrintDialog printDlg = new PrintDialog();
+            printDlg.PrintVisual(this, "Window Printing.");
+            MessageBox.Show("הקבלה הופקה בהצלחה!");
+        }
     }
 }

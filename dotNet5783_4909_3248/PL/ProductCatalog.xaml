@@ -18,6 +18,11 @@
             </Grid.ColumnDefinitions>
             <ComboBox x:Name="AttributeSelector" Background="AntiqueWhite"  Text="" SelectionChanged="AttributeSelector_SelectionChanged" Margin="258,101,365,283" RenderTransformOrigin="0.145,1.208" Grid.ColumnSpan="2" Grid.RowSpan="2" />
             <Label x:Name="Description" Content="Product:" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Italic" FontWeight="Bold" FontSize="23" Width="151" FontStyle="Normal" Height="50" HorizontalContentAlignment="Center" Margin="64,101,0,0" Grid.RowSpan="2"/>
+            <Button x:Name="PrintButton1" Content="" HorizontalAlignment="Left" Margin="230,26,0,0" VerticalAlignment="Top" Height="130" Width="119" FontSize="20" FontWeight="Bold" Grid.Column="1" Grid.RowSpan="2" Click="PrintButton1_Click" BorderBrush="#FF1FE5E5">
+                <Button.Background>
+                    <ImageBrush ImageSource="/Icons/printer.jpg" TileMode="FlipX" Stretch="UniformToFill"/>
+                </Button.Background>
+            </Button>
         </Grid>
         <ListView x:Name="ProductsListView"
             FontSize="20" BorderBrush="{x:Null}" FontWeight="Bold" Margin="26,209,237,43" >

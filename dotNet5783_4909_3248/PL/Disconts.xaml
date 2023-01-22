@@ -20,19 +20,19 @@
                 <ImageBrush ImageSource="/OIP (999.jpg" Stretch="Uniform" TileMode="FlipX"/>
             </Button.Background>
         </Button>
-        <Button x:Name="discont2" HorizontalAlignment="Left" Margin="375,333,0,0" VerticalAlignment="Top" Height="87" Width="188" FontSize="36" Click="discont2_Click" RenderTransformOrigin="0.335,0.481" Foreground="#FF28AE26" BorderBrush="#FF36F463">
+        <Button x:Name="discont2" HorizontalAlignment="Left" Margin="385,333,0,0" VerticalAlignment="Top" Height="87" Width="178" FontSize="36" Click="discont2_Click" RenderTransformOrigin="0.335,0.481" Foreground="#FF28AE26" BorderBrush="#FF36F463">
             <Button.Background>
                 <ImageBrush ImageSource="/50%.png" TileMode="FlipXY" Stretch="Uniform"/>
             </Button.Background>
         </Button>
-        <Button x:Name="discont3" HorizontalAlignment="Left" Margin="92,333,0,0" VerticalAlignment="Top" Height="87" Width="168" FontSize="24" Click="discont3_Click" Foreground="#FF6EE942" BorderBrush="#FF64E63E">
+        <Button x:Name="discont3" HorizontalAlignment="Left" Margin="92,333,0,0" VerticalAlignment="Top" Height="87" Width="168" FontSize="24" Click="discont3_Click" Foreground="#FF6EE942" BorderBrush="#FF64E63E" FontWeight="Bold" FontStyle="Italic">
             <Button.Background>
-                <ImageBrush ImageSource="/sale-discount-price.jpg" Stretch="UniformToFill"/>
+                <ImageBrush Stretch="UniformToFill" ImageSource="/sale-discount-price.jpg" TileMode="FlipX"/>
             </Button.Background>
         </Button>
         <Button x:Name="Managerbutton_Copy1" Content="" HorizontalAlignment="Left" Margin="170,24,0,0" VerticalAlignment="Top" Height="155" Width="319" FontSize="24" BorderBrush="#FFDBE87A" Foreground="#FF0E020D" FontFamily="Segoe UI Black" FontWeight="Bold">
             <Button.Background>
-                <ImageBrush Stretch="Fill" TileMode="FlipXY" ImageSource="/sale-5.png"/>
+                <ImageBrush Stretch="Uniform" TileMode="FlipXY" ImageSource="/R 366.png"/>
             </Button.Background>
         </Button>
         <Button x:Name="Managerbutton_Copy" Content="" HorizontalAlignment="Left" Margin="28,24,0,0" VerticalAlignment="Top" Height="101" Width="123" FontSize="24" BorderBrush="#FF4C56F3" Foreground="#FF0E020D" FontFamily="Segoe UI Black" FontWeight="Bold">

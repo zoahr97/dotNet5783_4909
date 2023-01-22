@@ -30,9 +30,10 @@ namespace PL
         ObservableCollection<BO.OrderItem> orderForLists = new ObservableCollection<BO.OrderItem>();
         public CartWindow()
         {
-            InitializeComponent();
-            Tprice.Text = cart.TotalPriceCart.ToString() + "₪";
+            InitializeComponent();   
             orderForLists= Castings.convertListToObservable(cart.Items);
+            cart.TotalPriceCart =cart.Items.Sum(x=>x.TotalPrice );
+            Tprice.Text = cart.TotalPriceCart.ToString() + "₪";
             dataGridItems.DataContext = orderForLists;
         }
 
