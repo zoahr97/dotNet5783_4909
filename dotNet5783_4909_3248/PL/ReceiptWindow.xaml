@@ -1,0 +1,56 @@
+﻿<Window x:Class="PL.ReceiptWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PL"
+        mc:Ignorable="d"
+        Title="ReceiptWindow" Height="837" Width="884">
+    <Grid Margin="35,10,37,53">
+        <Grid.Background>
+            <ImageBrush ImageSource="/Icons/51ecb04d4dcca8c4274ede3d7955.jpg"/>
+        </Grid.Background>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="13*"/>
+
+
+        </Grid.ColumnDefinitions>
+        <Label x:Name="l1" Content="Receipt" Grid.Row="0" FontSize="36" FontWeight="Bold"
+            Height="52" Width="228" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="347,47,0,0" FontFamily="David" Background="{x:Null}" FontStyle="Italic" />
+        <Label x:Name="l1_Copy" Content="Customer Name:" Grid.Row="0" FontSize="28" FontStyle="Normal" FontWeight="DemiBold"
+            Height="46" Width="231" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="137,141,0,0" />
+        <Label x:Name="l2" Content="Customer Adress:" FontSize="28" FontStyle="Normal" FontWeight="DemiBold"
+            Height="45" Width="231" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="136,257,0,0" RenderTransformOrigin="0.21,0.415"/>
+        <Label x:Name="l3" Content="Total payment:" FontSize="28" FontStyle="Normal" FontWeight="DemiBold"
+            Height="58" Width="220" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="142,318,0,0" RenderTransformOrigin="-0.278,0.422"/>
+        <Label x:Name="l4" Content="Customer Email:" FontSize="28" FontStyle="Normal" FontWeight="DemiBold"
+            Height="56" Width="216" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="137,196,0,0"/>
+        <TextBox x:Name="Tcustomername" FontSize="20"  HorizontalAlignment="Left" Margin="420,141,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="214" Height="40" IsEnabled="False" />
+        <TextBox x:Name="Tcustomeradress" FontSize="20" HorizontalAlignment="Left" Margin="420,262,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="214" Height="40" IsEnabled="False"  />
+        <TextBox x:Name="Tprice" Text="0₪" FontSize="20" HorizontalAlignment="Left" Margin="420,322,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="214" Height="40" IsEnabled="False" />
+        <Label x:Name="l3_Copy" Content="Items:" FontSize="28" FontWeight="DemiBold"
+            Height="44" Width="196" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="56,456,0,0" RenderTransformOrigin="-0.278,0.422"/>
+        <DataGrid x:Name="dataGridItems" ItemsSource="{Binding}" SelectionMode="Single" SelectionUnit="FullRow" IsReadOnly="True" AutoGenerateColumns="False"
+            CanUserReorderColumns="False" CanUserSortColumns="True" Margin="54,519,107,34">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="OrderItemID" Binding="{Binding OrderItemID}"/>
+                <DataGridTextColumn Header="ProductID" Binding="{Binding ProductID}"/>
+                <DataGridTextColumn Header="ProductName" Binding="{Binding ProductName}"/>
+                <DataGridTextColumn Header="Price" Binding="{Binding Price}"/>
+                <DataGridTextColumn Header="Amount" Binding="{Binding Amount}"/>
+                <DataGridTextColumn Header="TotalPrice" Binding="{Binding TotalPrice}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <TextBox x:Name="TEmail" FontSize="20"  HorizontalAlignment="Left" Margin="420,204,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="214" Height="40" IsEnabled="False" />
+        <Label x:Name="l4_Copy" Content="Number of payments:" FontSize="28" FontStyle="Normal" FontWeight="DemiBold"
+            Height="54" Width="296" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="97,397,0,0"/>
+        <TextBox x:Name="Tamountofpayment" FontSize="20" HorizontalAlignment="Left" Margin="415,397,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="214" Height="40" IsEnabled="False"  />
+        <DatePicker x:Name="datePicker" HorizontalAlignment="Left" Margin="24,51,0,0" VerticalAlignment="Top" Width="221" Height="26" Background="#FFFDBEBB"/>
+        <Button x:Name="PrintButton" Content="" HorizontalAlignment="Left" Margin="661,26,0,0" VerticalAlignment="Top" Height="130" Width="119" FontSize="20" FontWeight="Bold" Click="PrintButton_Click">
+            <Button.Background>
+                <ImageBrush ImageSource="/Icons/printer.jpg" TileMode="FlipX" Stretch="UniformToFill"/>
+            </Button.Background>
+        </Button>
+
+    </Grid>
+</Window>

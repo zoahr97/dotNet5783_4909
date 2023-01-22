@@ -12,29 +12,28 @@ namespace BlImplementation;
 
 internal class Order : BlApi.IOrder
 {
-    private IDal Dal = DalList.Instance;//שדה פרטי
+    private IDal Dal = DalApi.Factory.Get() ?? throw new NullReferenceException("Missing Dal");//שדה פרטי
 
     //    בקשת רשימת הזמנות(מסך מנהל)
     //תבקש רשימת הזמנות משכבת הנתונים
     //תבנה על בסיס הנתונים רשימת הזמנות מטיפוס OrderForList(ישות לוגית)
     //תחזיר את הרשימה שנבנתה
-    public IEnumerable<BO.OrderForList?> GetAllOrderForList()//בקשת רשימת ההזמנות של הלקוחות
+    public IEnumerable<BO.OrderForList?> GetAllOrderForList(Func<BO.OrderForList?, bool>? filter = null)//בקשת רשימת ההזמנות של הלקוחות
     {
         try
         {
-
             Func<DO.Order?, bool> myDelegate = check3;
             IEnumerable<DO.Order?> orders = Dal.Order.GetAll(/*myDelegate*/);
             IEnumerable<DO.OrderItem?> orderItems = Dal.OrderItem.GetAll();
             List<BO.OrderForList?> orderForLists = new List<BO.OrderForList?>();
-            //return orders.Select(order => new BO.OrderForList
-            //{
-            //    OrderID = order.ID,
-            //    CustomerName = order.CustomerName,
-            //    OrderStatus = GetStatus(order),
-            //    AmountItems = count(order.ID),
-            //    TotalOrder = SumOrder(order.ID)
-            //});
+            ////return orders.Select(order => new BO.OrderForList
+            ////{
+            ////    OrderID = order.ID,
+            ////    CustomerName = order.CustomerName,
+            ////    OrderStatus = GetStatus(order),
+            ////    AmountItems = count(order.ID),
+            ////    TotalOrder = SumOrder(order.ID)
+            ////});
 
             //return from DO.Order order in orders
             //       select new BO.OrderForList
@@ -60,8 +59,16 @@ internal class Order : BlApi.IOrder
                     orderForLists.Add(orderForList);
                 }
             }
-            return orderForLists;
-
+            //return orderForLists;
+            if (filter == null)
+            {
+                return orderForLists;
+            }
+            else
+            {
+                IEnumerable<BO.OrderForList?> p1 = (from BO.OrderForList? product in orderForLists where filter(product) select product).ToList();
+                return p1;
+            }
         }
         catch (DO.notExistElementInList ex)
         {
@@ -82,16 +89,17 @@ internal class Order : BlApi.IOrder
     {
         try
         {
-            int count = 0;
-            foreach (DO.OrderItem? orderItem in Dal.OrderItem.GetAll())
-            {
-                if (orderItem?.OrderID == id)
-                {
-                    count++;
-                }
-            }
-            //int x = Dal.OrderItem.GetListByOrderID(id).Count();
-            return count;
+            int x=Dal.OrderItem.GetAll().Where(p => p?.OrderID == id).Count();
+            //int count = 0;
+            //foreach (DO.OrderItem? orderItem in Dal.OrderItem.GetAll())
+            //{
+            //    if (orderItem?.OrderID == id)
+            //    {
+            //        count++;
+            //    }
+            //}
+            ////int x = Dal.OrderItem.GetListByOrderID(id).Count();
+            return x;
         }
         catch (DO.notExistElementInList ex)
         {
@@ -103,17 +111,19 @@ internal class Order : BlApi.IOrder
     public double SumOrder(int orderid)//מתודה המחזירה את הסכום הכולל לתשלום של ההזמנה
     {    
         try
-        {          
-            double sum1 = 0;
-            foreach (DO.OrderItem orderItem in Dal.OrderItem.GetAll())
-            {
-                if (orderItem.OrderID == orderid)
-                {
-                    sum1 += orderItem.Price * orderItem.Amount;
-                }
+        {
+            double? x = Dal.OrderItem.GetAll().Where(p => p?.OrderID == orderid).Sum(p => p?.Price * p?.Amount);
+            //double sum1 = 0;
+            //foreach (DO.OrderItem orderItem in Dal.OrderItem.GetAll())
+            //{
+            //    if (orderItem.OrderID == orderid)
+            //    {
+            //        sum1 += orderItem.Price * orderItem.Amount;
+            //    }
 
-            }
-            return sum1;
+            //}
+            double sum=Convert.ToDouble(x);
+            return sum;
         }
         catch (DO.notExistElementInList ex)
         {
@@ -254,15 +264,16 @@ public BO.Order ShipUpdate(int orderId)//עדכון שילוח הזמנה
                 };
                
                 Dal.Order.Update(order);//update the order in DO
-                double priceTemp = 0;
+                double? priceTemp = 0;
 
-                foreach (DO.OrderItem temp in Dal.OrderItem.GetAll())
+                foreach (DO.OrderItem? temp in Dal.OrderItem.GetAll())
                 {
-                    if ( temp.OrderID == order.ID)
+                    if ( temp?.OrderID == order.ID)
                     {
-                        priceTemp += temp.Price * temp.Amount;//add up all of prices in the order
+                        priceTemp += temp?.Price * temp?.Amount;//add up all of prices in the order
                     }
                 }
+                double priceTemp1=Convert.ToDouble(priceTemp);
                 return new BO.Order
                 {
                     OrderID = orderId,
@@ -272,7 +283,7 @@ public BO.Order ShipUpdate(int orderId)//עדכון שילוח הזמנה
                     OrderDate = order1.OrderDate,//  מחקתי את .value בשורה זו לבדוקק עם הערך 
                     ShipDate = DateTime.Now,
                     OrderStatus = GetStatus(order),
-                    TotalOrder = priceTemp,
+                    TotalOrder = priceTemp1,
                     DeliveryDate = null,
                     IsDeleted = order1.IsDeleted
                 };//new BO Order   
@@ -294,9 +305,9 @@ public BO.Order ShipUpdate(int orderId)//עדכון שילוח הזמנה
   //  תבדוק האם הזמנה קיימת(בשכבת נתונים) ועוד לא נשלחה
     private bool isExist1(int orderid)
     {
-        foreach(DO.Order order in Dal.Order.GetAll())
+        foreach(DO.Order?order in Dal.Order.GetAll())
         {
-            if(order.ID== orderid && order.ShipDate==null )
+            if(order?.ID == orderid && order?.ShipDate == null)
             {
                 return true;
             }
@@ -332,14 +343,15 @@ public BO.Order ShipUpdate(int orderId)//עדכון שילוח הזמנה
                     IsDeleted = oId.IsDeleted
                 };
                 Dal.Order.Update(order);
-                double priceTemp = 0;
-                foreach (DO.OrderItem temp in Dal.OrderItem.GetAll())
+                double?priceTemp = 0;
+                foreach (DO.OrderItem?temp in Dal.OrderItem.GetAll())
                 {
-                    if ( temp.OrderID == order.ID)
+                    if ( temp?.OrderID == order.ID)
                     {
-                        priceTemp += temp.Price * temp.Amount;
+                        priceTemp += temp?.Price * temp?.Amount;
                     }
                 }
+                double priceTemp1=Convert.ToDouble(priceTemp);
                 return new BO.Order
                 {
                     OrderID = orderId,
@@ -350,7 +362,7 @@ public BO.Order ShipUpdate(int orderId)//עדכון שילוח הזמנה
                     ShipDate = oId.ShipDate,
                     DeliveryDate = DateTime.Now,
                     OrderStatus = GetStatus(order),
-                    TotalOrder = priceTemp,
+                    TotalOrder = priceTemp1,
                     IsDeleted = oId.IsDeleted
                 };//new BO Order       
             }
@@ -372,11 +384,11 @@ public BO.Order ShipUpdate(int orderId)//עדכון שילוח הזמנה
     }
     private bool isExist2(int orderid)//תבדוק האם הזמנה קיימת(בשכבת נתונים), כבר נשלחו אך עוד לא סופקה
     {
-        foreach (DO.Order order in Dal.Order.GetAll())
+        foreach (DO.Order?order in Dal.Order.GetAll())
         {
-            if(order.ShipDate != null)
+            if(order?.ShipDate != null)
             {
-                if (order.ID == orderid && order.DeliveryDate == null)
+                if (order?.ID == orderid && order?.DeliveryDate == null)
                 {
                     return true;
                 }

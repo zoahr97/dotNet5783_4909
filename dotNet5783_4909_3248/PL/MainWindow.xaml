@@ -5,13 +5,48 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid Background="White">
-        <Button x:Name="ToPassWindow" Content="Product Catalog"  FontSize="25" FontWeight="Bold" FontStyle="Italic" 
-                Background="Cornsilk" Width="239" Height="88" HorizontalAlignment="Center"  VerticalAlignment="Center" Click="ToPassWindow_Click">
+        Title="MainWindow" Height="503" Width="683">
+    <Grid Margin="10,0,10,14">
+        <Grid.Background>
+            <ImageBrush ImageSource="/Icons/R2.jpg"/>
+        </Grid.Background>
+        <Button x:Name="ToPassWindow" Content="Product Catalog"  FontSize="25" FontWeight="Bold" Width="206" Height="47" HorizontalAlignment="Left"  VerticalAlignment="Top" Click="ToPassWindow_Click" Margin="85,319,0,0" Background="#FFFDE0FD">
             <Button.Effect>
                 <DropShadowEffect/>
             </Button.Effect>
         </Button>
+        <Button x:Name="Managerbutton" Content="Manager View" HorizontalAlignment="Left" Margin="84,0,0,0" VerticalAlignment="Center" Height="49" Width="207" FontSize="24" Click="Managerbutton_Click" BorderBrush="#FFAE1CDA" Foreground="#FF0E020D" FontFamily="Segoe UI Black" FontWeight="Bold" Background="#FFF4D9F0"/>
+        <Button x:Name="ToPassWindow1" Content="New order display"  FontSize="25" FontWeight="Bold" FontStyle="Italic" Width="231" Height="49" HorizontalAlignment="Left"  VerticalAlignment="Center" Margin="391,0,0,0" Click="ToPassWindow1_Click" Background="#FFFADCF5">
+            <Button.BorderBrush>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="Black"/>
+                    <GradientStop Color="White" Offset="1"/>
+                </LinearGradientBrush>
+            </Button.BorderBrush>
+            <Button.Effect>
+                <DropShadowEffect/>
+            </Button.Effect>
+        </Button>
+        <Label x:Name="l1" Content="Main Menu" Grid.Row="0" FontSize="48"
+            Height="48" Width="242" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="232,140,0,0" Background="#00000000" BorderBrush="Black" Foreground="#FF09061F" FontFamily="Miriam" FontWeight="Bold" />
+        <Button x:Name="ToPassWindow2" Content="Order Tracking"  FontSize="25" FontWeight="Bold" FontStyle="Italic" Width="225" Height="47" HorizontalAlignment="Left"  VerticalAlignment="Top" Margin="397,319,0,0" Click="ToPassWindow2_Click" Background="#FFFADFF6">
+            <Button.BorderBrush>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="Black"/>
+                    <GradientStop Color="White" Offset="1"/>
+                </LinearGradientBrush>
+            </Button.BorderBrush>
+            <Button.Effect>
+                <DropShadowEffect/>
+            </Button.Effect>
+        </Button>
+        <Label x:Name="l1_Copy1" Content="" Grid.Row="0" FontSize="48"
+            Height="71" Width="160" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,21,0,0" BorderBrush="Black" Foreground="#FF09061F" FontFamily="Miriam" FontWeight="Bold" >
+            <Label.Background>
+                <ImageBrush ImageSource="/Icons/logo5_1.jpg"/>
+            </Label.Background>
+        </Label>
+        <Label x:Name="l1_Copy3" Content="@By  _Zohar_Tamsut" Grid.Row="0" FontSize="36"
+            Height="48" Width="336" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="38,398,0,0" BorderBrush="Black" Foreground="#FF09061F" FontFamily="Miriam" FontWeight="Bold" RenderTransformOrigin="0.432,0.597" />
     </Grid>
 </Window>

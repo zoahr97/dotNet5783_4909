@@ -5,36 +5,53 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
-        Title="ProductListWindow" Height="640" Width="800">
-    <Grid x:Name="MainGrid">
+        Title="ProductListWindow" Height="747" Width="808">
+    <Grid x:Name="MainGrid" Margin="10,0,10,16">
+        <Grid.Background>
+            <ImageBrush ImageSource="/Icons/depositphotos_6027922-stock-photo-white-orchid.jpg"/>
+        </Grid.Background>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="99*"/>
-            <ColumnDefinition/>
+            <ColumnDefinition Width="0*"/>
+            <ColumnDefinition Width="383*"/>
+            <ColumnDefinition Width="4*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="43*"/>
-            <RowDefinition Height="511*"/>
-            <RowDefinition Height="Auto" MinHeight="70.06" />
+            <RowDefinition Height="13*"/>
+            <RowDefinition Height="612*"/>
+            <RowDefinition Height="Auto" MinHeight="79.04" />
         </Grid.RowDefinitions>
-        <Grid Name="UpGrid" Height="auto" Grid.Row="0" Width="auto" Margin="0,0,0,10" Grid.ColumnSpan="2">
+        <Grid Name="UpGrid" Height="auto" Grid.Row="1" Width="auto" Margin="-3,0,10,504" Grid.ColumnSpan="2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions >
-            <ComboBox Name="AttributeSelector" Background="AntiqueWhite" Grid.Column="1" HorizontalAlignment= "Stretch" VerticalAlignment="Stretch"  Text="" SelectionChanged="AttributeSelector_SelectionChanged" />
-            <Label Name="Description" Content="Product:" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Italic" FontWeight="Bold" FontSize="23" Width="400"
-                   Background="LavenderBlush" FontStyle="Normal" Height="33" HorizontalContentAlignment="Center"/>
+            <ComboBox Name="AttributeSelector" Background="AntiqueWhite" Grid.Column="1"  Text="" SelectionChanged="AttributeSelector_SelectionChanged" Margin="126,54,48,21" />
+            <Label Name="Description" Content="Product:" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Italic" FontWeight="Bold" FontSize="23" Width="100"
+                   Background="LavenderBlush" FontStyle="Normal" Height="44" HorizontalContentAlignment="Center" Margin="0,54,0,0" RenderTransformOrigin="0.717,0.648" Grid.Column="1"/>
         </Grid>
         <ListView x:Name="ProductsListView"
-                   FontSize="20" BorderBrush="{x:Null}" FontWeight="Bold" Grid.Row="1" Margin="0,0,0,60" Grid.RowSpan="2" Grid.ColumnSpan="2" MouseDoubleClick="ProductsListView_MouseDoubleClick" >
+                   FontSize="20" BorderBrush="{x:Null}" FontWeight="Bold" Grid.Row="1" Margin="22,146,50,31" MouseDoubleClick="ProductsListView_MouseDoubleClick" Grid.Column="1" >
             <ListView.View>
                 <GridView>
                     <GridViewColumn/>
                 </GridView>
             </ListView.View>
         </ListView>
-        <Button x:Name="Returnbutton" Background="Beige" Content="Prouduct Catalog"  FontStyle="Italic" Margin="47,18,0,0" Grid.Row="2" VerticalAlignment="Top" Height="40" Width="202" FontSize="24" HorizontalAlignment="Left" Click="Returnbutton_Click" />
-        <Button x:Name="Addbutton" Background="Lavender" Content="Add new Product" Grid.Row="2" HorizontalAlignment="Left" Margin="629,14,0,10" Padding="5" Width="143" Click="Addbutton_Click"/>
-      
+        <Button x:Name="Addbutton" Content="Add new product" HorizontalAlignment="Left" Margin="549,0,0,0" Grid.Row="2" VerticalAlignment="Center" Height="59" Width="167" FontSize="18" Background="#FF8FD0F0" Click="Addbutton_Click" Grid.Column="1"/>
+        <Label x:Name="l1_Copy" Content="" FontSize="48"
+            Height="103" Width="116" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="32,6,0,0" BorderBrush="Black" Foreground="#FF09061F" FontFamily="Miriam" FontWeight="Bold" Grid.Column="1" Grid.Row="1" >
+            <Label.Background>
+                <ImageBrush ImageSource="/Icons/Flower-arrangement.png" Stretch="Uniform" TileMode="FlipX"/>
+            </Label.Background>
+        </Label>
+        <Label x:Name="l1_Copy1" Content="" FontSize="48"
+            Height="83" Width="176" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="153,8,0,0" BorderBrush="Black" Foreground="#FF09061F" FontFamily="Miriam" FontWeight="Bold" Grid.Column="1" Grid.Row="1" >
+            <Label.Background>
+                <ImageBrush ImageSource="/Icons/logo5_1.jpg"/>
+            </Label.Background>
+        </Label>
+        
+        <!--<Button x:Name="Returnbutton" Background="Beige" Content="Prouduct Catalog"  FontStyle="Italic" Margin="47,18,0,0" Grid.Row="2" VerticalAlignment="Top" Height="40" Width="202" FontSize="24" HorizontalAlignment="Left" Click="Returnbutton_Click" />-->
+
     </Grid>
 </Window>

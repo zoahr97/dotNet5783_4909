@@ -15,7 +15,7 @@ public interface ICrud<T> where T : struct
     //c.
     //לעיל (אך הפרמטר לא אופציונלי - ללא ערך ברירת מחדל),
     //ונממש את המתודה עבור כל ישויות הנתונים בהתאם
-    T getbyfilter(Func<T?, bool> filter ); 
+    //T getbyfilter(Func<T?, bool> filter ); 
 
 }
 //בממשק DalApi.ICrud, במתודת בקשת אוסף, נוסיף פרמטר אופציונלי עבור פרדיקט - דלגט מטיפוס ?<Func<T?, bool, עם ערך ברירת מחדל של null

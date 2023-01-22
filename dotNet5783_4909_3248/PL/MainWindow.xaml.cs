@@ -22,14 +22,29 @@ namespace PL
     /// </summary>
     public partial class MainWindow : Window
     {
-        private IBl bl = Bl.Instance;
+        private IBl bl = BlApi.Factory.Get();
         public MainWindow()
         {
             InitializeComponent();
         }
 
-        private void ToPassWindow_Click(object sender, RoutedEventArgs e)=> new ProductListWindow().Show();
+        private void ToPassWindow_Click(object sender, RoutedEventArgs e)=> new ProductCatalog().Show();
 
+        private void Managerbutton_Click(object sender, RoutedEventArgs e)
+        {
+            new PasswordManager().Show();
+            //new ManagerView().Show();
+        }
 
+        private void ToPassWindow1_Click(object sender, RoutedEventArgs e)
+        {
+
+            new Catalog().Show();
+        }
+
+        private void ToPassWindow2_Click(object sender, RoutedEventArgs e)
+        {
+            new OrderTracking().Show();
+        }
     }
 }

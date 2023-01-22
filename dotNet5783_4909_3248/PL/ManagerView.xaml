@@ -1,0 +1,35 @@
+﻿<Window x:Class="PL.ManagerView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PL"
+        mc:Ignorable="d"
+        Title="ManagerView" Height="451" Width="584">
+    <Grid Margin="0,0,10,13">
+        <Button x:Name="ListProductbutton" Content="View products" Background="#FFFAD0F9" HorizontalAlignment="Left" Margin="59,232,0,0" VerticalAlignment="Top" Height="48" Width="189" FontFamily="Yu Gothic Medium" FontSize="24" Click="ListProductbutton_Click" FontStyle="Italic"/>
+        <TextBlock x:Name="textBlock" HorizontalAlignment="Left" TextWrapping="Wrap" Text="תצוגת מנהל" VerticalAlignment="Top" Width="146" Height="42" FontSize="24" Margin="238,138,0,0" FontWeight="Bold"/>
+        <Button x:Name="ListOrderbutton" Content="View orders" Background="#FFFCD1F5" HorizontalAlignment="Left" Margin="325,232,0,0" VerticalAlignment="Top" Height="48" Width="197" FontFamily="Yu Gothic Medium" FontSize="24" Click="ListOrderbutton_Click" FontStyle="Italic"/>
+        <Label x:Name="l1_Copy" Content="" Grid.Row="0" FontSize="48" Width="212" HorizontalAlignment="Left" Margin="10,35,0,212" BorderBrush="#FFF6E543" Foreground="#FF09061F" FontFamily="Miriam" FontWeight="Bold" RenderTransformOrigin="0.5,0.5" >
+            <Label.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="-0.697"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Label.RenderTransform>
+            <Label.Background>
+                <ImageBrush Stretch="Uniform" TileMode="None" ImageSource="/Icons/Manager-icon.png"/>
+            </Label.Background>
+        </Label>
+        <Label x:Name="l1_Copy1" Content="" Grid.Row="0" FontSize="48"
+            Height="72" Width="146" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="238,26,0,0" BorderBrush="Black" Foreground="#FF09061F" FontFamily="Miriam" FontWeight="Bold" >
+            <Label.Background>
+                <ImageBrush ImageSource="/Icons/logo5_1.jpg"/>
+            </Label.Background>
+        </Label>
+        <Button x:Name="ListOrderbutton_Copy" Content="Discounts %" Background="#FFF74975" HorizontalAlignment="Left" Margin="59,325,0,0" VerticalAlignment="Top" Height="47" Width="189" FontFamily="Yu Gothic Medium" FontSize="24" Click="ListOrderbutton_Copy_Click_1" FontWeight="Bold" FontStyle="Italic"/>
+
+    </Grid>
+</Window>

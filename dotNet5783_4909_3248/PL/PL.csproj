@@ -13,7 +13,110 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="12564024_XXL.jpg" />
+    <None Remove="1916442.png" />
+    <None Remove="36969403_s.jpg" />
+    <None Remove="50%25.png" />
+    <None Remove="51ecb04d4dcca8c4274ede3d7955.jpg" />
+    <None Remove="927cb76e5c9f5d101fb8beeb08b27b3e.jpg" />
+    <None Remove="Bin.jpg" />
+    <None Remove="c2ed2c517ff86c3f1170a3664a3d0dd5.jpg" />
+    <None Remove="Cart.jpg" />
+    <None Remove="Cat_438119_352.jpg" />
+    <None Remove="coloured-sales-background_1179-15.jpg" />
+    <None Remove="computer-icons-removebghd-500x312.png" />
+    <None Remove="depositphotos_6027922-stock-photo-white-orchid.jpg" />
+    <None Remove="Flower-arrangement.png" />
+    <None Remove="image.jpg" />
+    <None Remove="img_384859.png" />
+    <None Remove="Insta.png" />
+    <None Remove="istockphoto-1128229893-1024x1024.jpg" />
+    <None Remove="Lock.png" />
+    <None Remove="logo5_1.jpg" />
+    <None Remove="LovelyWinter-41-600x600.jpg" />
+    <None Remove="Manager-icon.png" />
+    <None Remove="manager.png" />
+    <None Remove="Manager1.png" />
+    <None Remove="OIP %281%29.jpg" />
+    <None Remove="OIP %28999.jpg" />
+    <None Remove="OIP.jpg" />
+    <None Remove="only-shushan.jpg" />
+    <None Remove="password binary.jpg" />
+    <None Remove="payments.png" />
+    <None Remove="plusz2.png" />
+    <None Remove="printer.jpg" />
+    <None Remove="qa.png" />
+    <None Remove="R %281%29.jpg" />
+    <None Remove="R %282%29.jpg" />
+    <None Remove="R %2899.png" />
+    <None Remove="R.jpg" />
+    <None Remove="R12.png" />
+    <None Remove="R2.jpg" />
+    <None Remove="sale-5.png" />
+    <None Remove="sale-balloons-12596669.jpg" />
+    <None Remove="sale-discount-price.jpg" />
+    <None Remove="shipping.png" />
+    <None Remove="stickers-belle-orchidee-blanche.jpg.jpg" />
+    <None Remove="user-offline-white.png" />
+    <None Remove="y9.gif" />
+    <None Remove="ורד.jpg" />
+    <None Remove="חמניה.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\BL\BL.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="50%.png" />
+    <Resource Include="coloured-sales-background_1179-15.jpg" />
+    <Resource Include="Icons\12564024_XXL.jpg" />
+    <Resource Include="Icons\1916442.png" />
+    <Resource Include="Icons\36969403_s.jpg" />
+    <Resource Include="Icons\51ecb04d4dcca8c4274ede3d7955.jpg" />
+    <Resource Include="Icons\927cb76e5c9f5d101fb8beeb08b27b3e.jpg" />
+    <Resource Include="Icons\c2ed2c517ff86c3f1170a3664a3d0dd5.jpg" />
+    <Resource Include="Icons\Cat_438119_352.jpg" />
+    <Resource Include="Icons\computer-icons-removebghd-500x312.png" />
+    <Resource Include="Icons\depositphotos_6027922-stock-photo-white-orchid.jpg" />
+    <Resource Include="Icons\img_384859.png" />
+    <Resource Include="Icons\Insta.png" />
+    <Resource Include="Icons\Lock.png" />
+    <Resource Include="Icons\Flower-arrangement.png" />
+    <Resource Include="Icons\istockphoto-1128229893-1024x1024.jpg" />
+    <Resource Include="Icons\logo5_1.jpg" />
+    <Resource Include="Icons\LovelyWinter-41-600x600.jpg" />
+    <Resource Include="Icons\Manager-icon.png" />
+    <Resource Include="Icons\manager.png" />
+    <Resource Include="Icons\Manager1.png" />
+    <Resource Include="Icons\OIP %281%29.jpg" />
+    <Resource Include="Icons\OIP.jpg" />
+    <Resource Include="istockphoto-1128229893-1024x1024.jpg" />
+    <Resource Include="OIP (999.jpg" />
+    <Resource Include="only-shushan.jpg" />
+    <Resource Include="Icons\password binary.jpg" />
+    <Resource Include="Icons\payments.png" />
+    <Resource Include="Icons\plusz2.png" />
+    <Resource Include="Icons\qa.png" />
+    <Resource Include="Icons\R %281%29.jpg" />
+    <Resource Include="Icons\R %282%29.jpg" />
+    <Resource Include="Icons\R.jpg" />
+    <Resource Include="Icons\R12.png" />
+    <Resource Include="Icons\R2.jpg" />
+    <Resource Include="Icons\shipping.png" />
+    <Resource Include="Icons\Cart.jpg" />
+    <Resource Include="Icons\printer.jpg" />
+    <Resource Include="Icons\image.jpg" />
+    <Resource Include="Icons\Bin.jpg" />
+    <Resource Include="Icons\stickers-belle-orchidee-blanche.jpg.jpg" />
+    <Resource Include="Icons\user-offline-white.png" />
+    <Resource Include="Icons\ורד.jpg" />
+    <Resource Include="Icons\חמניה.jpg" />
+    <Resource Include="R (99.png" />
+    <Resource Include="sale-5.png" />
+    <Resource Include="sale-balloons-12596669.jpg" />
+    <Resource Include="sale-discount-price.jpg" />
+    <Resource Include="y9.gif" />
   </ItemGroup>
   
 

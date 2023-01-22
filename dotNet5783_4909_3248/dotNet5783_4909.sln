@@ -8,17 +8,32 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DalList", "DalList\DalList.csproj", "{D71DF422-406E-42F4-8400-02B24FE69899}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DalTest", "DalTest\DalTest.csproj", "{E25928F1-4147-4763-B15A-B059154FEC5E}"
+	ProjectSection(ProjectDependencies) = postProject
+		{7FDCA94E-8775-486F-BB54-86554B9F13C2} = {7FDCA94E-8775-486F-BB54-86554B9F13C2}
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BL", "BL\BL.csproj", "{78551E40-3593-4DCC-A548-89F3AAD0E2C6}"
+	ProjectSection(ProjectDependencies) = postProject
+		{7FDCA94E-8775-486F-BB54-86554B9F13C2} = {7FDCA94E-8775-486F-BB54-86554B9F13C2}
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlTest", "BlTest\BlTest.csproj", "{4A82AA7B-949E-4B8B-BE50-E65029DE3371}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "xml", "xml", "{05597F17-0692-49AD-9EC8-45716AF841A7}"
 	ProjectSection(SolutionItems) = preProject
 		..\xml\dal-config.xml = ..\xml\dal-config.xml
+		OrderItems.xml = OrderItems.xml
+		orderconfig.xml = orderconfig.xml
+		orderitemconfig.xml = orderitemconfig.xml
+		Products.xml = Products.xml
+		Orders.xml = Orders.xml
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PL", "PL\PL.csproj", "{5D447AF5-87B0-48DE-9428-B897D7B9D8E7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PL", "PL\PL.csproj", "{5D447AF5-87B0-48DE-9428-B897D7B9D8E7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DalXml", "DalXml\DalXml.csproj", "{7FDCA94E-8775-486F-BB54-86554B9F13C2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProgramXml", "ProgramXml\ProgramXml.csproj", "{6EF08D75-0C41-4E31-8FB9-C5D42966CC45}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -50,6 +65,14 @@ Global
 		{5D447AF5-87B0-48DE-9428-B897D7B9D8E7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5D447AF5-87B0-48DE-9428-B897D7B9D8E7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5D447AF5-87B0-48DE-9428-B897D7B9D8E7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7FDCA94E-8775-486F-BB54-86554B9F13C2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7FDCA94E-8775-486F-BB54-86554B9F13C2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7FDCA94E-8775-486F-BB54-86554B9F13C2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7FDCA94E-8775-486F-BB54-86554B9F13C2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6EF08D75-0C41-4E31-8FB9-C5D42966CC45}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6EF08D75-0C41-4E31-8FB9-C5D42966CC45}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6EF08D75-0C41-4E31-8FB9-C5D42966CC45}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6EF08D75-0C41-4E31-8FB9-C5D42966CC45}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

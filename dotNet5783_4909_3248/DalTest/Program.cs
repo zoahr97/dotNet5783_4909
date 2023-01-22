@@ -11,8 +11,8 @@ using System.Diagnostics.Metrics;
 namespace Dal;
 public class Program//התוכנית הראשית
 {
-    //static private DalApi.IDal myP = DalApi.Factory.Get() ?? throw new NullReferenceException("Missing Dal");
-    public static IDal myP = DalList.Instance;
+    public static DalApi.IDal myP = DalApi.Factory.Get() ?? throw new NullReferenceException("Missing Dal");
+    //public static IDal myP = DalList.Instance;
     public static void MenuProduct()//תת תפריט של מוצר
     {
         Random random = new Random();
@@ -23,11 +23,11 @@ public class Program//התוכנית הראשית
             int category = random.Next(0, 7);
             Product p = new Product();
             Console.WriteLine("enter values to add object:");
-            p.ProductID =int.Parse(Console.ReadLine()); 
+            p.ProductID = GetNumberFromUser();
             p.ProductName = Console.ReadLine();
             p.category = (Enums.CATEGORY)category;
-            p.Price = double.Parse(Console.ReadLine());
-            p.InStock = int.Parse(Console.ReadLine());
+            p.Price = GetNumberFromUser1();
+            p.InStock = GetNumberFromUser();
             p.IsDeleted = false;
             try
             {
@@ -73,11 +73,11 @@ public class Program//התוכנית הראשית
             Product p1 = new Product();
             Console.WriteLine("enter values to update object:");
             int category = random.Next(0, 7);
-            p1.ProductID = int.Parse(Console.ReadLine());
+            p1.ProductID = GetNumberFromUser();
             p1.ProductName = Console.ReadLine();
             p1.category = (Enums.CATEGORY)category;
-            p1.Price = double.Parse(Console.ReadLine());
-            p1.InStock = int.Parse(Console.ReadLine());
+            p1.Price = GetNumberFromUser1();
+            p1.InStock = GetNumberFromUser();
             p1.IsDeleted = false;
             try
             {
@@ -101,19 +101,19 @@ public class Program//התוכנית הראשית
                 Console.WriteLine(ex.Message);
             }
         }
-        if(choice == 'f')//מתודת בקשה של אובייקט בודד
-        {
-            try
-            {
-                Func<Product?, bool> myDelegate = check1;
-                Console.WriteLine(myP.Product.getbyfilter(myDelegate).ToString());
-            }
-            catch(DoesntExistException ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
+        //if(choice == 'f')//מתודת בקשה של אובייקט בודד
+        //{
+        //    try
+        //    {
+        //        Func<Product?, bool> myDelegate = check1;
+        //        Console.WriteLine(myP.Product.getbyfilter(myDelegate).ToString());
+        //    }
+        //    catch(DoesntExistException ex)
+        //    {
+        //        Console.WriteLine(ex.Message);
+        //    }
             
-        }
+        //}
     }
 
     public static void MenuOrderItem()//תת תפריט של פריט בהזמנה
@@ -205,18 +205,18 @@ public class Program//התוכנית הראשית
                 Console.WriteLine(ex.Message);
             }
         }
-        if (choice == 'f')//מתודת בקשה של אובייקט בודד
-        {
-            try
-            {
-                Func<OrderItem?, bool> myDelegate = check2;
-                Console.WriteLine(myP.OrderItem.getbyfilter(myDelegate).ToString());
-            }
-            catch(DoesntExistException ex)
-            {
-                Console.WriteLine(ex.Message);
-            }   
-        }
+        //if (choice == 'f')//מתודת בקשה של אובייקט בודד
+        //{
+        //    try
+        //    {
+        //        Func<OrderItem?, bool> myDelegate = check2;
+        //        Console.WriteLine(myP.OrderItem.getbyfilter(myDelegate).ToString());
+        //    }
+        //    catch(DoesntExistException ex)
+        //    {
+        //        Console.WriteLine(ex.Message);
+        //    }   
+        //}
 
     }
 
@@ -308,18 +308,18 @@ public class Program//התוכנית הראשית
                 Console.WriteLine(ex.Message);
             }
         }
-        if (choice == 'f')//מתודת בקשה של אובייקט בודד
-        {
-            try
-            {
-                Func<Order?, bool> myDelegate = check3;
-                Console.WriteLine(myP.Order.getbyfilter(myDelegate).ToString());
-            }
-            catch(DoesntExistException ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
-        }
+        //if (choice == 'f')//מתודת בקשה של אובייקט בודד
+        //{
+        //    try
+        //    {
+        //        Func<Order?, bool> myDelegate = check3;
+        //        Console.WriteLine(myP.Order.getbyfilter(myDelegate).ToString());
+        //    }
+        //    catch(DoesntExistException ex)
+        //    {
+        //        Console.WriteLine(ex.Message);
+        //    }
+        //}
 
     }
 
@@ -392,7 +392,7 @@ public class Program//התוכנית הראשית
         for (int i = 0; i < 30; i++)
         {
             Console.WriteLine("Enter your choice from 0-3:");
-            int ch = int.Parse(Console.ReadLine());
+            int ch = GetNumberFromUser();
             if (ch == 0)
             {
                 return;

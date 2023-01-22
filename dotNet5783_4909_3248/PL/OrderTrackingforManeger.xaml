@@ -1,0 +1,25 @@
+﻿<Window x:Class="PL.OrderTrackingforManeger"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PL"
+        mc:Ignorable="d"
+        Title="OrderTrackingforManeger" Height="450" Width="800">
+    <Grid Margin="10,10,0,0">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="305*"/>
+            <RowDefinition Height="119*"/>
+        </Grid.RowDefinitions>
+        <Button x:Name="startTimerButton" Content="Start" 
+                Margin="34,25,34,31" FontSize="42" Click="startTimerButton_Click" Grid.Row="1"/>
+        <Button x:Name="stopTimerButton" Content="Stop" Grid.Column="1" 
+                Margin="123,15,29,20" FontSize="42" Click="stopTimerButton_Click" Grid.Row="1"/>
+        <TextBlock x:Name="timerTextBlock"  Text="00:00:00" 
+                   Grid.ColumnSpan="2" FontSize="96" TextAlignment="Center" Foreground="#FF37F10E" Margin="176,49,176,61"/>
+    </Grid>
+</Window>

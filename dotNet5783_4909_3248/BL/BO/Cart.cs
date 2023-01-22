@@ -23,7 +23,7 @@ public class Cart//ישות לוגית ראשית של סל הקניות
     /// <summary>
     /// רשימת פרטי הזמנה
     /// </summary>  
-    public List<BO.OrderItem> Items { get; set; }
+    public List<BO.OrderItem>Items{ get; set; }
 
     /// <summary>
     /// סל הקניות /מחיר כולל של סל ההזמנה

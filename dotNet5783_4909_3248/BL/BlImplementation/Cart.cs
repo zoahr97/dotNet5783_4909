@@ -15,9 +15,9 @@ namespace BlImplementation;
 
 internal class Cart : BlApi.ICart//מימוש סל הקניות
 {
-    private IDal Dal = DalList.Instance;//שדה פרטי
+    private IDal Dal = DalApi.Factory.Get() ?? throw new NullReferenceException("Missing Dal");//שדה פרטי
 
-    public BO.Cart AddProductToCart(int productId, BO.Cart cart)//הוספת מוצר לסל הקניות
+    public BO.Cart AddProductToCart(int productId, BO.Cart cart,double discont=1)//הוספת מוצר לסל הקניות
     {
         try
         {
@@ -34,7 +34,7 @@ internal class Cart : BlApi.ICart//מימוש סל הקניות
                             OrderItemID = p.ProductID,
                             ProductID = p.ProductID,
                             ProductName = p.ProductName,
-                            Price = p.Price,
+                            Price = discont==1?p.Price: p.Price- p.Price * discont,
                             Amount = 1,
                             TotalPrice = p.Price,
                             /*IsDeleted = false,*///בד"כ תמיד יהיה false
@@ -46,7 +46,7 @@ internal class Cart : BlApi.ICart//מימוש סל הקניות
                             ProductID = p.ProductID,
                             ProductName = p.ProductName,
                             category = p.category,
-                            Price = p.Price,
+                            Price = p.Price ,
                             InStock = p.InStock - 1,
                             IsDeleted = p.IsDeleted//בדר"כ תמיד יהיה false
                         };
@@ -77,7 +77,7 @@ internal class Cart : BlApi.ICart//מימוש סל הקניות
                         ProductID = p.ProductID,
                         ProductName = p.ProductName,
                         category = p.category,
-                        Price = p.Price,
+                        Price = p.Price ,
                         InStock = p.InStock - 1,
                         IsDeleted = p.IsDeleted//בדר"כ תמיד יהיה false
                     };
@@ -208,7 +208,7 @@ internal class Cart : BlApi.ICart//מימוש סל הקניות
     //באישור\ביצוע ההזמנה, המוצרים שבהזמנה צריכים לרדת מהמלאי, לכן: תְּבַצֵּעַ ניסיון בקשות מוצרים מתאימים משכבת הנתונים ובקשות עדכון מוצרים אלה לאחר עדכון המלאי
     //תזרוק חריגה מתאימה במקרה של בעיה כלשהי (לפי הבדיקות כנ"ל)
    
-    public void CartPayment(BO.Cart? cart)
+    public void CartPayment(BO.Cart cart)
     {
         //בדיקת תקינות
         //1/שם וכתובת קונה לא ריקים
@@ -253,6 +253,9 @@ internal class Cart : BlApi.ICart//מימוש סל הקניות
                     Amount = t.Amount,
                     IsDeleted = false
                 };
+                //DO.Product p = Dal.Product.GetById(t.ProductID);//get matching product
+                //p.InStock -= t.Amount;//subtract the amount of products in stock
+                //Dal.Product.Update(p);//update product in DO
                 Dal.OrderItem.Add(new_order_item);
             }
             catch (DO.DoesntExistException ex)
@@ -260,6 +263,18 @@ internal class Cart : BlApi.ICart//מימוש סל הקניות
                 throw new BO.DoesntExistException("Cannot make a new order item", ex);
             }
         }
+
+    }
+    public int amount(int id,BO.Cart cart)
+    {
+        foreach (BO.OrderItem orderItem in cart.Items )
+        {
+            if(orderItem .ProductID == id)
+            {
+                return orderItem .Amount;
+            }
+        } 
+        return 0;
     }
 }
 

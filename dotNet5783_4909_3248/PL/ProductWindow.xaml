@@ -6,10 +6,13 @@
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
         Title="ProductWindow" Height="450" Width="800">
-    <Grid>
+    <Grid Margin="10,0,10,12">
+        <Grid.Background>
+            <ImageBrush ImageSource="/Icons/depositphotos_6027922-stock-photo-white-orchid.jpg" Stretch="UniformToFill"/>
+        </Grid.Background>
         <Grid.RowDefinitions>
-            <RowDefinition Height="60"/>
-            <RowDefinition Height="60"/>
+            <RowDefinition Height="58"/>
+            <RowDefinition Height="62"/>
             <RowDefinition Height="60"/>
             <RowDefinition Height="60"/>
             <RowDefinition Height="60"/>
@@ -18,27 +21,31 @@
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions >
-        <Label Name="l1" Content="ID:" Grid.Row="0" FontSize="28" FontStyle="Normal" FontWeight="DemiBold"
-               Height="45" Width="50" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="276,10,0,0" />
+        <Label Name="l1" Content="ID:" FontSize="28" FontStyle="Normal" FontWeight="DemiBold"
+               Height="44" Width="50" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="276,0,0,0" />
         <Label Name="l2" Content="Name:" FontSize="28" FontStyle="Normal" FontWeight="DemiBold"
                Height="45" Width="116" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Row="2" Margin="259,5,0,0" RenderTransformOrigin="0.21,0.415"/>
         <Label Name="l3" Content="Price:" FontSize="28" FontStyle="Normal" FontWeight="DemiBold"
                Height="44" Width="78" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Row="3" Margin="262,0,0,0" RenderTransformOrigin="-0.278,0.422"/>
         <Label Name="l4" Content="Category:" FontSize="28" FontStyle="Normal" FontWeight="DemiBold"
-               Height="45" Width="144" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Row="1" Margin="245,5,0,0"/>
+               Height="44" Width="144" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Row="1" Margin="245,0,0,0"/>
         <Label Name="l5" Content="In Stock:" FontSize="28" FontStyle="Normal" FontWeight="DemiBold"
                Height="45" Width="116" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Row="4" Margin="259,6,0,0"/>
 
-        <ComboBox Name="CategoryBox" Text="None" Grid.Column="1" HorizontalAlignment="Left" Margin="16,12,0,0" Grid.Row="1" VerticalAlignment="Top" Width="202" Height="40" SelectionChanged="ComboBox_SelectionChanged"/>
-        <TextBox x:Name="Tid" Grid.Column="1" FontSize="20" MaxLength="9" HorizontalAlignment="Left" Margin="10,0,0,0" TextWrapping="Wrap"  VerticalAlignment="Center" Width="214" Height="40" TextChanged="Tid_TextChanged"/>
-        <TextBox Name="Tname" Grid.Column="1" FontSize="20" HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Row="2" TextWrapping="Wrap"  VerticalAlignment="Center" Width="214" Height="40" TextChanged="Tname_TextChanged"  />
-        <TextBox Name="Tprice"  Grid.Column="1" Text=" 0" FontSize="20" HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Row="3" TextWrapping="Wrap" VerticalAlignment="Center" Width="214" Height="40" TextChanged="Tprice_TextChanged" />
-        <TextBox Name="Tinstock" Grid.Column="1" Text=" 0" FontSize="20" MaxLength="4" HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Row="4" TextWrapping="Wrap" VerticalAlignment="Center" Width="214" Height="40" TextChanged="Tinstock_TextChanged" />
+        <ComboBox Name="CategoryBox"  Text="{Binding Path = category}" Grid.Column="1" HorizontalAlignment="Left" Margin="16,0,0,0" Grid.Row="1" VerticalAlignment="Center" Width="202" Height="40"/>
+        <TextBox x:Name="Tid" Text="{Binding Path = ProductID}" Grid.Column="1" FontSize="20" MaxLength="9" HorizontalAlignment="Left" Margin="10,0,0,0" TextWrapping="Wrap"  VerticalAlignment="Center" Width="214" Height="40" TextChanged="Tid_TextChanged"/>
+        <TextBox Name="Tname"  Text="{Binding Path = ProductName}" Grid.Column="1" FontSize="20" HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Row="2" TextWrapping="Wrap"  VerticalAlignment="Center" Width="214" Height="40" TextChanged="Tname_TextChanged"  />
+        <TextBox Name="Tprice"  Text="{Binding Path = Price}" Grid.Column="1"  FontSize="20" HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Row="3" TextWrapping="Wrap" VerticalAlignment="Center" Width="214" Height="40" TextChanged="Tprice_TextChanged" />
+        <TextBox Name="Tinstock"  Text="{Binding Path = InStock}" Grid.Column="1"  FontSize="20" MaxLength="4" HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Row="4" TextWrapping="Wrap" VerticalAlignment="Center" Width="214" Height="40" TextChanged="Tinstock_TextChanged" />
         <Button x:Name="AddButton" Content="Add" FontSize="27" FontStyle="Italic" 
                 HorizontalAlignment="Left" Margin="30,76,0,-71" Grid.Row="4" Width="140" Background="AliceBlue" Click="AddButton_Click" Grid.Column="1"/>
-        <Button x:Name="ToProductList"  Content="Product Catalog" FontSize="27" FontStyle="Italic" 
-                HorizontalAlignment="Left" Margin="32,104,0,-106" Grid.Row="4" Width="226" Background="AliceBlue" Click="ToProductList_Click" />
         <Button x:Name="UpDateButton"  Content="UpDate" FontSize="27" FontStyle="Italic" 
                 HorizontalAlignment="Left" Margin="200,76,0,-71" Grid.Row="4" Width="171" Background="AliceBlue" Click="UpdateButton_Click" Grid.Column="1" />
+        <Label x:Name="l1_Copy1" Content="" FontSize="48"
+            Height="42" Width="108" HorizontalAlignment="Left" VerticalAlignment="Top" BorderBrush="Black" Foreground="#FF09061F" FontFamily="Miriam" FontWeight="Bold" Margin="106,1,0,0" >
+            <Label.Background>
+                <ImageBrush ImageSource="/Icons/logo5_1.jpg"/>
+            </Label.Background>
+        </Label>
     </Grid>
 </Window>

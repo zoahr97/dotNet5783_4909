@@ -12,7 +12,7 @@ namespace Dal;
 public class DataSource//מחלקת מקור מידע
 {
     static readonly Random R = new Random();
-
+    public static IDal dal = InstanceXml.Instance;
     internal static DataSource s_instance { get; } = new DataSource();
     private static DataSource? instance;
     private static readonly object key = new();
@@ -64,7 +64,6 @@ public class DataSource//מחלקת מקור מידע
     private void AddProduct()//הוספת מוצרים לרשימת המוצרים
     {
         string[] NameOfProduct = { "Anemone", "Sunflower", "Narcissus", "Anthurium", " Orchid", "Nurit", "Gozmania", "Savyon", "Roses", "Chrysanthemum" };
-
         for (int i = 0; i < 10; i++)//הוספת עשרה מוצרים לרשימת המוצרים
         {
             Product Prod = new Product

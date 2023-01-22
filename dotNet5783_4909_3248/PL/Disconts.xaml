@@ -1,0 +1,45 @@
+﻿<Window x:Class="PL.Disconts"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PL"
+        mc:Ignorable="d"
+        Title="Disconts" Height="492" Width="669" Background="White">
+    <Grid Margin="28,10,27,12">
+        <Grid.Background>
+            <ImageBrush TileMode="FlipX"/>
+        </Grid.Background>
+        <Button x:Name="discont1" HorizontalAlignment="Left" Margin="385,207,0,0" VerticalAlignment="Top" Height="93" Width="178" FontSize="24" Click="discont1_Click" RenderTransformOrigin="0.239,0.653" Foreground="#FF5AE658" BorderBrush="#FF2EDF3F">
+            <Button.Background>
+                <ImageBrush ImageSource="/R (99.png" Stretch="Uniform" TileMode="FlipX"/>
+            </Button.Background>
+        </Button>
+        <Button x:Name="Addbutton_Copy1" HorizontalAlignment="Left" Margin="92,207,0,0" VerticalAlignment="Top" Height="93" Width="168" FontSize="24" Click="Addbutton_Copy1_Click" Foreground="#FFC0123E" BorderBrush="#FFE0123F">
+            <Button.Background>
+                <ImageBrush ImageSource="/OIP (999.jpg" Stretch="Uniform" TileMode="FlipX"/>
+            </Button.Background>
+        </Button>
+        <Button x:Name="discont2" HorizontalAlignment="Left" Margin="375,333,0,0" VerticalAlignment="Top" Height="87" Width="188" FontSize="36" Click="discont2_Click" RenderTransformOrigin="0.335,0.481" Foreground="#FF28AE26" BorderBrush="#FF36F463">
+            <Button.Background>
+                <ImageBrush ImageSource="/50%.png" TileMode="FlipXY" Stretch="Uniform"/>
+            </Button.Background>
+        </Button>
+        <Button x:Name="discont3" HorizontalAlignment="Left" Margin="92,333,0,0" VerticalAlignment="Top" Height="87" Width="168" FontSize="24" Click="discont3_Click" Foreground="#FF6EE942" BorderBrush="#FF64E63E">
+            <Button.Background>
+                <ImageBrush ImageSource="/sale-discount-price.jpg" Stretch="UniformToFill"/>
+            </Button.Background>
+        </Button>
+        <Button x:Name="Managerbutton_Copy1" Content="" HorizontalAlignment="Left" Margin="170,24,0,0" VerticalAlignment="Top" Height="155" Width="319" FontSize="24" BorderBrush="#FFDBE87A" Foreground="#FF0E020D" FontFamily="Segoe UI Black" FontWeight="Bold">
+            <Button.Background>
+                <ImageBrush Stretch="Fill" TileMode="FlipXY" ImageSource="/sale-5.png"/>
+            </Button.Background>
+        </Button>
+        <Button x:Name="Managerbutton_Copy" Content="" HorizontalAlignment="Left" Margin="28,24,0,0" VerticalAlignment="Top" Height="101" Width="123" FontSize="24" BorderBrush="#FF4C56F3" Foreground="#FF0E020D" FontFamily="Segoe UI Black" FontWeight="Bold">
+            <Button.Background>
+                <ImageBrush Stretch="Uniform" TileMode="FlipX" ImageSource="/Icons/Manager1.png"/>
+            </Button.Background>
+        </Button>
+
+    </Grid>
+</Window>

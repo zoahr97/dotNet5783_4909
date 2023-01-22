@@ -2,6 +2,7 @@
 using BlImplementation;
 using BO;
 using Dal;
+using DalApi;
 using DO;
 using System.Collections.Generic;
 
@@ -9,8 +10,8 @@ namespace BlTest;
 
 class Program
 {
-    public static IBl bl = new Bl();
-    //public static BlApi.IBl bl = BlApi.Factory.Get();
+    //public static IBl bl = new Bl();
+    public static BlApi.IBl bl = BlApi.Factory.Get();
     public static void MenuProduct()//תת תפריט של מוצר
     {
         Random random = new Random();
@@ -55,33 +56,33 @@ class Program
         if(choice=='c')//הוספת מוצר
         {
             BO.Product? p = new BO.Product();
-            Console.WriteLine("Enter proudctId of new product:");
-            p.ProductID= /*GetNumberFromUser("Enter proudctId of new product:")*/int.Parse(Console.ReadLine());
+            //Console.WriteLine("Enter proudctId of new product:");
+            p.ProductID= GetNumberFromUser("Enter proudctId of new product:")/*int.Parse(Console.ReadLine())*/;
             Console.WriteLine("Enter name of product:");
             p.ProductName = Console.ReadLine();
             Console.WriteLine("Enter price of Product");
-            double price = /*GetNumberFromUser1()*/ double.Parse(Console.ReadLine());
+            double price = GetNumberFromUser1() /*double.Parse(Console.ReadLine())*/;
             while (price <= 0)
             {
-                Console.WriteLine("Invalid input,enter again!!");
-                price = /*GetNumberFromUser1("Invalid input,enter again!!")*/ double.Parse(Console.ReadLine());
+                //Console.WriteLine("Invalid input,enter again!!");
+                price = GetNumberFromUser1("Invalid input,enter again!!") /*double.Parse(Console.ReadLine())*/;
             }
             p.Price = price;
-            Console.WriteLine("Enter category of new product:");
+            //Console.WriteLine("Enter category of new product:");
 
-            int category = /*GetNumberFromUser("Enter category of new product:")*/int.Parse(Console.ReadLine());
+            int category = GetNumberFromUser("Enter category of new product:")/*int.Parse(Console.ReadLine())*/;
             while (category < 0 || category > 6)
             {
-                Console.WriteLine("Invalid input,enter again!!");
-                category = /*GetNumberFromUser("Invalid input,enter again!!")*/int.Parse(Console.ReadLine());
+                //Console.WriteLine("Invalid input,enter again!!");
+                category = GetNumberFromUser("Invalid input,enter again!!")/*int.Parse(Console.ReadLine())*/;
             }
             p.category = (BO.Enums.CATEGORY)category;
-            Console.WriteLine("Enter In stock:");
-            int InStock = /*GetNumberFromUser("Enter In stock:")*/int.Parse(Console.ReadLine());
+            //Console.WriteLine("Enter In stock:");
+            int InStock = GetNumberFromUser("Enter In stock:")/*int.Parse(Console.ReadLine())*/;
             while (InStock < 0)
             {
-                Console.WriteLine("Invalid input,enter again!!");
-                InStock =/* GetNumberFromUser("Invalid input,enter again!!")*/int.Parse(Console.ReadLine());
+                //Console.WriteLine("Invalid input,enter again!!");
+                InStock = GetNumberFromUser("Invalid input,enter again!!")/*int.Parse(Console.ReadLine())*/;
             }
             p.InStock = InStock;
             p.IsDeleted = false;
@@ -311,7 +312,9 @@ class Program
 
             if (choice == 'c')//הדפסת כל המוצרים הקיימים בחנות/קטלוג המוצרים ,יעזור לקונה לבחור איזה מוצר הוא רוצה להוסיף לסל הקניות
             {
-                foreach (DO.Product? product in Dal.DalList.Instance.Product.GetAll())
+                 IDal Dal = DalApi.Factory.Get() ?? throw new NullReferenceException("Missing Dal");//שדה פרטי
+
+                foreach (DO.Product? product in Dal.Product.GetAll())
                 {
                     Console.WriteLine(product.ToString());
                 }

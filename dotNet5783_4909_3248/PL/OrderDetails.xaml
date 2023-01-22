@@ -1,0 +1,118 @@
+﻿<Window x:Class="PL.OrderDetails"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PL"
+        mc:Ignorable="d"
+        Title="OrderDetails" Height="715" Width="655">
+    <Window.Background>
+        <ImageBrush ImageSource="/Icons/51ecb04d4dcca8c4274ede3d7955.jpg"/>
+    </Window.Background>
+    <Grid Margin="26,33,10,34">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="55"/>
+            <RowDefinition Height="56"/>
+            <RowDefinition Height="53"/>
+            <RowDefinition Height="56"/>
+            <RowDefinition Height="46"/>
+            <RowDefinition Height="51"/>
+            <RowDefinition Height="51"/>
+            <RowDefinition Height="57"/>
+            <RowDefinition Height="226"/>
+            <RowDefinition Height="66"/>
+
+
+
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="416*"/>
+            <ColumnDefinition Width="413*"/>
+        </Grid.ColumnDefinitions >
+        <Label Name="l1" Content="Order ID:" FontSize="22" FontStyle="Normal" FontWeight="DemiBold"
+               Height="35" Width="137" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="64,0,0,0" />
+        <Label Name="l2" Content="Customer Name:" FontSize="22" FontStyle="Normal" FontWeight="DemiBold"
+               Height="34" Width="175" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Row="2" Margin="73,0,0,0" RenderTransformOrigin="0.21,0.415"/>
+        <Label Name="l3" Content="Customer Adress:" FontSize="24" FontStyle="Normal" FontWeight="DemiBold"
+               Height="40" Width="200" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Row="3" RenderTransformOrigin="-0.278,0.422" Margin="73,10,0,0">
+            <Label.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform AngleY="0"/>
+                    <RotateTransform/>
+                    <TranslateTransform Y="0"/>
+                </TransformGroup>
+            </Label.RenderTransform>
+        </Label>
+        <Label Name="l4" Content=" Order Status :" FontSize="22" FontStyle="Normal" FontWeight="DemiBold"
+               Height="40" Width="168" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Row="1" Margin="64,6,0,0"/>
+        <Label Name="l5" Content=" Order Date:" FontSize="22" FontStyle="Normal" FontWeight="DemiBold"
+               Height="46" Width="159" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Row="4" Margin="73,0,0,0"/>
+        <Label Name="l6"  Content=" Ship Date:" FontSize="22" FontStyle="Normal" FontWeight="DemiBold"
+               Height="38" Width="150" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Row="5" Margin="89,0,0,0"/>
+
+        <Label Name="l7" Content=" Delivery Date:" FontSize="22" FontStyle="Normal" FontWeight="DemiBold"
+               Height="43" Width="165" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="6" RenderTransformOrigin="0.5,0.5">
+            <Label.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="0.066"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Label.RenderTransform>
+        </Label>
+
+        <Label Name="l8" Content=" Total Order:" FontSize="22" FontStyle="Normal" FontWeight="DemiBold"
+               Height="44" Width="137" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="7" RenderTransformOrigin="-0.117,2.157"/>
+        <Label Name="l9" Content=" items:" FontSize="22" FontStyle="Normal" FontWeight="DemiBold"
+               Height="51" Width="116" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Row="8" Margin="109,33,0,0"/>
+
+        <ComboBox x:Name="orderstatus" Text="{Binding Path = OrderStatus}" Grid.Column="1" HorizontalAlignment="Left" Margin="16,0,0,0" Grid.Row="1" VerticalAlignment="Center" Width="202" Height="40" IsEnabled="False" />
+        <TextBox x:Name="Torderid" Text="{Binding Path = OrderID}" Grid.Column="1" FontSize="20" MaxLength="9" HorizontalAlignment="Left" Margin="16,0,0,0" TextWrapping="Wrap"  VerticalAlignment="Center" Width="202" Height="34" IsEnabled="False"/>
+        <TextBox x:Name="TcustomerName"  Text="{Binding Path = CustomerName}" Grid.Column="1" FontSize="20" HorizontalAlignment="Left" Margin="16,0,0,0" Grid.Row="2" TextWrapping="Wrap"  VerticalAlignment="Center" Width="214" Height="30" IsEnabled="False"/>
+        <TextBox x:Name="TcustomerAdress"  Text="{Binding Path = CustomerAdress}" Grid.Column="1"  FontSize="20" HorizontalAlignment="Left" Margin="16,0,0,0" Grid.Row="3" TextWrapping="Wrap" VerticalAlignment="Center" Width="262" Height="30" IsEnabled="False"/>
+        <TextBox x:Name="TtotalOrd" Text="{Binding Path = TotalOrder}" Grid.Column="1" FontSize="20" HorizontalAlignment="Left" Margin="16,10,0,0" Grid.Row="7" TextWrapping="Wrap" VerticalAlignment="Top" Width="233" Height="40" IsEnabled="False"/>
+        <DatePicker x:Name="datePicker" SelectedDate ="{Binding Path =OrderDate}" Grid.Column="1" HorizontalAlignment="Left" Margin="16,0,0,0" Grid.Row="4" VerticalAlignment="Center" Height="24" Width="162" IsEnabled="False"/>
+        <DatePicker x:Name="datePicker1" SelectedDate="{Binding Path =ShipDate}" Grid.Column="1" HorizontalAlignment="Left" Margin="16,0,0,0" Grid.Row="5" VerticalAlignment="Center" Height="31" Width="162" IsEnabled="False" SelectedDateFormat="Short" FirstDayOfWeek="Tuesday"/>
+        <DatePicker x:Name="datePicker2" SelectedDate="{Binding Path = DeliveryDate}" Grid.Column="1" HorizontalAlignment="Left" Margin="16,0,0,0" Grid.Row="6" VerticalAlignment="Center" Height="24" Width="162" IsEnabled="False"/>
+        <Button x:Name="updateshipbutton" Grid.Column="1" Content="עדכן שילוח הזמנה" HorizontalAlignment="Left" Margin="195,0,0,0" Grid.Row="5" VerticalAlignment="Center" Height="27" Width="103" RenderTransformOrigin="0.409,0.641" Background="#FFF2F4C4" Click="updateshipbutton_Click">
+            <Button.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="0.049"/>
+                    <TranslateTransform X="0.059" Y="0.139"/>
+                </TransformGroup>
+            </Button.RenderTransform>
+        </Button>
+        <Button x:Name="deliverybutton" Grid.Column="1" Content="עדכן מסירת הזמנה" HorizontalAlignment="Left" Margin="196,10,0,0" Grid.Row="6" VerticalAlignment="Top" Height="27" Width="102" Background="#FFF9F7B3" Click="deliverybutton_Click"/>
+        <ListView x:Name="listViewitems" Grid.Column="1" Grid.Row="8" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="16,10,10,25">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+
+
+
+
+
+
+
+
+
+    </Grid>
+</Window>
+<!--OrderID = id,
+                    CustomerName = ord.CustomerName,
+                    CustomerEmail = ord.CustomerEmail,
+                    CustomerAdress = ord.CustomerAdress,
+                    OrderStatus = GetStatus(ord),
+                    OrderDate = ord.OrderDate,
+                    ShipDate = ord.ShipDate,
+                    DeliveryDate = ord.DeliveryDate,
+                    TotalOrder = SumOrder(id),
+                    IsDeleted = ord.IsDeleted,
+                    Items = GetListOrderItemById(id)-->

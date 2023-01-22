@@ -7,10 +7,11 @@ namespace BlApi;
 
 public interface ICart//הצהרת פעולות על סל הקניות
 {
-    public BO.Cart AddProductToCart(int productId,BO.Cart cart);//הוספת מוצר לסל הקניות
+    public BO.Cart AddProductToCart(int productId,BO.Cart cart, double discont = 1);//הוספת מוצר לסל הקניות
     public BO.Cart UpdateAmountProuductInCart(BO.Cart myCart,int id,int NewAmount);//עדכון כמות של מוצר בסל הקניות
     //public void MakeOrder(BO.Cart myCart);//אישור סל להזמנה /ביצוע הזמנה
-    public void CartPayment(BO.Cart? cart);//אישור סל להזמנה /ביצוע הזמנה
+    public void CartPayment(BO.Cart cart);//אישור סל להזמנה /ביצוע הזמנה
+    public int amount(int id, BO.Cart cart);//תוספת
 }
 
 

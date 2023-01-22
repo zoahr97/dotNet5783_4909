@@ -1,7 +1,10 @@
 ﻿using BlApi;
 using BlImplementation;
+using BO;
+using DO;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Security.Cryptography;
@@ -26,7 +29,7 @@ namespace PL
     /// </summary>
     public partial class ProductWindow : Window
     {
-        private IBl bl = Bl.Instance;
+        private IBl bl = BlApi.Factory.Get();
         private BO.Product p = new BO.Product();
         public ProductWindow()
         {
@@ -45,13 +48,50 @@ namespace PL
             Tname.IsEnabled=false;
             try
             {
-                BO.Product product = new BO.Product() { category = BO.Enums.CATEGORY.Blank };
-                product= bl.Product.ManagerDetailsProduct(id);
-                Tid.Text = product.ProductID.ToString();
-                Tname.Text = product.ProductName;
-                Tprice.Text = product.Price.ToString();
-                Tinstock.Text=product.InStock.ToString();
-                CategoryBox.SelectedItem = (BO.Enums.CATEGORY?)product.category;
+                BO.Product product = new BO.Product() { category = BO.Enums.CATEGORY.None};
+                if (Disconts.flag == true)
+                {
+                    product = bl.Product.ManagerDetailsProduct(id, 0.3);
+                    CategoryBox.IsEnabled = false;
+                    Tinstock.IsEnabled = false;
+                    Tprice.IsEnabled = false;
+                    UpDateButton.IsEnabled = false;
+                }
+                else
+                {
+                    if (Disconts.flag1 == true)
+                    {
+                        product = bl.Product.ManagerDetailsProduct(id, 0.5);
+                        CategoryBox.IsEnabled = false;
+                        Tinstock.IsEnabled = false;
+                        Tprice.IsEnabled = false;
+                        UpDateButton.IsEnabled = false;
+                    }
+                    else
+                    {
+                        if (Disconts.flag2 == true)
+                        {
+                            product = bl.Product.ManagerDetailsProduct(id, 0.7);
+                            CategoryBox.IsEnabled = false;
+                            Tinstock.IsEnabled = false;
+                            Tprice.IsEnabled = false;
+                            UpDateButton.IsEnabled = false;
+                        }
+                        else
+                        {
+                            product = bl.Product.ManagerDetailsProduct(id);
+                            UpDateButton.IsEnabled = true;
+                        }
+                    }
+                   
+                }
+                
+                DataContext = product;
+                //Tid.Text = product.ProductID.ToString();
+                //Tname.Text = product.ProductName;
+                //Tprice.Text = product.Price.ToString();
+                //Tinstock.Text=product.InStock.ToString();
+                //CategoryBox.SelectedItem = (BO.Enums.CATEGORY?)product.category;
             }
             catch(BO.DoesntExistException ex)
             {
@@ -100,20 +140,28 @@ namespace PL
                 
             }
         }
-        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            p.category = (BO.Enums.CATEGORY)CategoryBox.SelectedItem;//save the category picked
+        //private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        //{
+        //    p.category = (BO.Enums.CATEGORY)CategoryBox.SelectedItem;//save the category picked
+        //}
 
-        }
-        
         private void AddButton_Click(object sender, RoutedEventArgs e)
-        {
-           
+        { 
             p.IsDeleted = false;
             try
             {
-                bl.Product.AddProduct(p);
-                clean();
+                p.category = CategoryBox.SelectedIndex == -1 ? null :(BO.Enums.CATEGORY)CategoryBox.SelectedItem;
+                if(p.category == null)
+                {
+                    MessageBox.Show("חובה לבחור קטגוריית מוצר");
+                }
+                else
+                {   
+                    bl.Product.AddProduct(p);
+                    //new ProductListWindow().Show();
+                    this.Close();
+                    //clean();
+                }    
             }
             catch (BO.AlreadyExistException ex)
             {
@@ -133,8 +181,15 @@ namespace PL
         {
            try
             {
+                p.category = CategoryBox.SelectedIndex == -1 ? null : (BO.Enums.CATEGORY)CategoryBox.SelectedItem;
+                if (p.category == null)
+                {
+                    MessageBox.Show("חובה לבחור קטגוריית מוצר");
+                }
                 bl!.Product.UpdateProduct(p);
                 clean();
+                //new ProductListWindow().Show();
+                //Close();
             }
             catch (BO.DoesntExistException ex)
             {
