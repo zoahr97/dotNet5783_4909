@@ -3,23 +3,60 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:PL"
+        xmlns:converter ="namespace:Castings"
+        xmlns:local ="clr-namespace:PL"
         mc:Ignorable="d"
-        Title="OrderTrackingforManeger" Height="450" Width="800">
-    <Grid Margin="10,10,0,0">
+        Title="OrderTrackingforManeger" Height="600" Width="770"
+        DataContext="{Binding ordersForList,RelativeSource={RelativeSource Self}}">
+    <Window.Resources>
+        <!--<converter:StatusToBackgroundColourConverter x:Key = "convertStatusBackground" />-->
+        <local:statusToProgressBarConverter x:Key="statusToProgressBar"/>
+    </Window.Resources>
+    <Grid Name="OrderGrid" Height="auto" Grid.Row="0" Grid.Column="1" Width="auto" Margin="10,10,23,16">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="455*"/>
         </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="305*"/>
-            <RowDefinition Height="119*"/>
-        </Grid.RowDefinitions>
-        <Button x:Name="startTimerButton" Content="Start" 
-                Margin="34,25,34,31" FontSize="42" Click="startTimerButton_Click" Grid.Row="1"/>
-        <Button x:Name="stopTimerButton" Content="Stop" Grid.Column="1" 
-                Margin="123,15,29,20" FontSize="42" Click="stopTimerButton_Click" Grid.Row="1"/>
-        <TextBlock x:Name="timerTextBlock"  Text="00:00:00" 
-                   Grid.ColumnSpan="2" FontSize="96" TextAlignment="Center" Foreground="#FF37F10E" Margin="176,49,176,61"/>
+        <DataGrid x:Name="DataGridForOrders"  ItemsSource="{Binding}" SelectionMode="Single" SelectionUnit="FullRow" IsReadOnly="True" AutoGenerateColumns="False"
+            Margin="35,108,59,134" CanUserReorderColumns="False" CanUserSortColumns="True" MouseDoubleClick="DataGridForOrders_MouseDoubleClick">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="ID" Binding="{Binding OrderID}"/>
+                <DataGridTextColumn Header="Customer Name" Binding="{Binding CustomerName}"/>
+                <DataGridTextColumn Header="Amount Of Items" Binding="{Binding AmountItems}"/>
+                <DataGridTextColumn Header="Total Price" Binding="{Binding TotalOrder}"/>
+                <DataGridTextColumn Header="Status" Binding="{Binding OrderStatus}">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType = "TextBlock" >
+                            <Setter Property = "Block.Background" Value = "{Binding}"/>
+                            <Style.Triggers >
+                                <DataTrigger Binding = "{Binding OrderStatus }" Value = "ConfirmOrder" >
+                                    <Setter Property = "Background" Value = "Yellow" />
+                                </DataTrigger >
+                                <DataTrigger Binding = "{Binding OrderStatus}" Value = "SentOrder">
+                                    <Setter Property = "Background" Value = "SkyBlue"  />
+                                </DataTrigger >
+                                <DataTrigger Binding = "{Binding OrderStatus}" Value = "ProvidedOrder">
+                                    <Setter Property = "Background" Value = "LawnGreen"    />
+                                </DataTrigger >
+                            </Style.Triggers >
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn >
+                <DataGridTemplateColumn Header = "ProgressBar" MinWidth = "5" Width="*"  >
+                    <DataGridTemplateColumn.CellTemplate >
+                        <DataTemplate >
+                            <ProgressBar x:Name = "progressBarStatus" Height = "12" Value = "{Binding OrderStatus, Converter={StaticResource statusToProgressBar}}" >
+                            </ProgressBar >
+                        </DataTemplate >
+                    </DataGridTemplateColumn.CellTemplate >
+                </DataGridTemplateColumn >
+            </DataGrid.Columns>
+        </DataGrid>
+        <Button x:Name="StartTracking" Content="Start Tracking" HorizontalAlignment="Left" Margin="532,46,0,0" VerticalAlignment="Top" Height="35" Width="146" FontSize="20" RenderTransformOrigin="0.547,0.682" Click="StartTracking_Click" Background="#FF3BF78A"/>
+        <Button x:Name="StopTracking" Content="Stop Tracking" HorizontalAlignment="Left" Margin="368,46,0,0" VerticalAlignment="Top" Height="35" Width="132" FontSize="20" RenderTransformOrigin="0.547,0.682" Click="StopTracking_Click" Background="#FFF4F651"/>
+        <Button x:Name="cart" Content="" HorizontalAlignment="Left" Margin="570,443,0,0" VerticalAlignment="Top" Height="93" Width="145" FontSize="20" RenderTransformOrigin="0.547,0.682" BorderBrush="#FFEE4848" Click="cart_Click">
+            <Button.Background>
+                <ImageBrush ImageSource="/istockphoto-1128229893-1024x1024.jpg" Stretch="UniformToFill" TileMode="FlipX"/>
+            </Button.Background>
+        </Button>
     </Grid>
 </Window>

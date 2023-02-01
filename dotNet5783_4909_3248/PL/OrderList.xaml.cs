@@ -30,8 +30,7 @@ namespace PL
             InitializeComponent();
             try
             {
-                orderForLists = Castings.convertIenumerableToObservable(bl.Order.GetAllOrderForList());
-                //DataGridForOrder.ItemsSource = bl.Order.GetAllOrderForList();
+                orderForLists = Castings.convertIenumerableToObservable(bl.Order.GetAllOrderForList().OrderBy(x=>x?.OrderID));       
                 DataGridForOrder.DataContext = orderForLists;
             }
             catch (BO.notExistElementInList ex)
@@ -43,7 +42,7 @@ namespace PL
         private void comboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
                 Func<BO.OrderForList?, bool>? mydelegate = SelectorCategory;//ע"י ביטוי למבדה
-                DataGridForOrder.ItemsSource = bl.Order.GetAllOrderForList(mydelegate); 
+                DataGridForOrder.ItemsSource = bl.Order.GetAllOrderForList(mydelegate).OrderBy (x=>x?.OrderID); 
         }
         private bool SelectorCategory(BO.OrderForList? p)
         {
@@ -67,17 +66,7 @@ namespace PL
             {
                 MessageBox.Show(ex.Message);
             }
-            DataGridForOrder.DataContext = orderForLists;
-            //Close();
-        }
-
-        //private void button1_Click(object sender, RoutedEventArgs e)
-        //{
-        //    if (comboBox.SelectedIndex != -1)
-        //    {
-        //        comboBox.SelectedIndex = 3;
-        //        DataGridForOrder.ItemsSource = bl.Order.GetAllOrderForList();
-        //    }
-        //}
+            DataGridForOrder.DataContext = orderForLists;         
+        }     
     }
 }

@@ -4,7 +4,6 @@ using DO;
 
 namespace Dal;
 //הפיכת מחלקת DalList לסינגלטון
-/*internal*/
 internal sealed class DalList : IDal//מימוש תכונות שהוגדרו בממשק ואתחול שלהן IDal
 {
     public static IDal Instance { get; } = new DalList();//מופע של מחלקת dalList
@@ -12,7 +11,7 @@ internal sealed class DalList : IDal//מימוש תכונות שהוגדרו ב�
     public IOrderItem OrderItem => new DalOrderItem();
     public IOrder Order => new DalOrder();
     private DalList() { }
-    //נהפוך את הרשאת בנאי מופע המחלקה ל-private
+    
 }
 
 

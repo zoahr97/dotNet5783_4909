@@ -30,6 +30,7 @@
             </Label.Background>
         </Label>
         <Button x:Name="ListOrderbutton_Copy" Content="Discounts %" Background="#FFF74975" HorizontalAlignment="Left" Margin="59,325,0,0" VerticalAlignment="Top" Height="47" Width="189" FontFamily="Yu Gothic Medium" FontSize="24" Click="ListOrderbutton_Copy_Click_1" FontWeight="Bold" FontStyle="Italic"/>
+        <Button x:Name="ListOrderbutton_Copy1" Content="Order Tracking" Background="#FFFCD1F5" HorizontalAlignment="Left" Margin="325,324,0,0" VerticalAlignment="Top" Height="48" Width="207" FontFamily="Yu Gothic Medium" FontSize="24" FontStyle="Italic" Click="ListOrderbutton_Copy1_Click"/>
 
     </Grid>
 </Window>

@@ -12,21 +12,32 @@ namespace Dal;
 internal class Order : IOrder
 {
     const string s_products = "C:\\Users\\User\\source\\repos\\zoahr97\\dotNet5783_4909_3248\\dotNet5783_4909_3248\\Orders"; //Linq to XML
-
-
     static DO.Order? getStudent(XElement s)
     {
-        return s.ToIntNullable("ID") is null ? null : new DO.Order()
+        DO.Order order = new DO.Order();
+        order.ID = (int)s.Element("ID")!;
+        order.CustomerName = (string)s.Element("CustomerName")!;
+        order.CustomerEmail = (string)s.Element("CustomerEmail")!;
+        order.CustomerAdress = (string)s.Element("CustomerAdress")!;
+        order.OrderDate = (DateTime)s.Element("OrderDate")!;
+        if ((string)s.Element("ShipDate")! == "")
         {
-            ID = (int)s.Element("ID")!,
-            CustomerName = (string)s.Element("CustomerName")!,
-            CustomerEmail = (string)s.Element("CustomerEmail")!,
-            CustomerAdress = (string)s.Element("CustomerAdress")!,
-            OrderDate = (DateTime)s.Element("OrderDate")!,
-            ShipDate = (DateTime)s.Element("ShipDate")!,
-            DeliveryDate = (DateTime)s.Element("DeliveryDate")!,
-            IsDeleted = (bool)s.Element("IsDeleted")!
-        };
+            order.ShipDate = null ;
+        }
+        else
+        {
+            order.ShipDate = (DateTime)s.Element("ShipDate")!;
+        }
+        if ((string)s.Element("DeliveryDate")! == "")
+        {
+            order.DeliveryDate = null;
+        }
+        else
+        {
+            order.DeliveryDate = (DateTime)s.Element("ShipDate")!;
+        }
+        order.IsDeleted = (bool)s.Element("IsDeleted")!;
+        return order;
     }
 
     static IEnumerable<XElement> createStudentElement(DO.Order? product)
@@ -54,12 +65,25 @@ internal class Order : IOrder
 
     public int Add(DO.Order student)
     {
+        if (student.ID == 0)
+        {
+            //student.ID = Config.f2();
+            ////Config.Delete1(student.ID);
+            //Config.f1(student.ID);
+            student.ID = Config.f2();
+            int x = Config.f2();
+            Config.Delete1(x);
+            int x1 = ++x;
+            Config.f1(x1);
+            student.ShipDate = null;
+            student.DeliveryDate = null;
+        }
         XElement studentsRootElem = XMLTools.LoadListFromXMLElement(s_products);
 
         if (XMLTools.LoadListFromXMLElement(s_products)?.Elements()
             .FirstOrDefault(st => (int)st.Element("ID")! == student.ID) is not null)
             throw new Exception("id already exist");
-
+        
         studentsRootElem.Add(new XElement("Order", createStudentElement(student)));
         XMLTools.SaveListToXMLElement(studentsRootElem, s_products);
 
@@ -84,3 +108,14 @@ internal class Order : IOrder
         Add(doStudent);
     }
 }
+//return s.ToIntNullable("ID") is null ? null : new DO.Order()
+//{
+//    ID = (int)s.Element("ID")!,
+//    CustomerName = (string)s.Element("CustomerName")!,
+//    CustomerEmail = (string)s.Element("CustomerEmail")!,
+//    CustomerAdress = (string)s.Element("CustomerAdress")!,
+//    OrderDate = (DateTime)s.Element("OrderDate")!,
+//    ShipDate = (DateTime)s.Element("ShipDate") /*== null ? DateTime.Now : (DateTime)s.Element("ShipDate")*/!,
+//    DeliveryDate = (DateTime)s.Element("DeliveryDate") /*== null ? DateTime.Now : (DateTime)s.Element("DeliveryDate")*/!,
+//    IsDeleted = (bool)s.Element("IsDeleted")!
+//};

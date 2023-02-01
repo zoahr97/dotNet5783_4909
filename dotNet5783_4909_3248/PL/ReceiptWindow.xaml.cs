@@ -27,16 +27,19 @@ namespace PL
         private IBl bl = BlApi.Factory.Get();
         public Cart cart = Catalog.cart;
 
-        public ReceiptWindow(int amount)
+        public ReceiptWindow(int amount,int AmountItem)
         {
             InitializeComponent();
             Tcustomername.Text = cart?.CustomerName?.ToString();
             TEmail.Text = cart?.CustomerEmail?.ToString();
             Tcustomeradress.Text = cart?.CustomerAdress?.ToString();
-            Tprice.Text =cart?.TotalPriceCart.ToString();
+            Tprice.Text =cart?.TotalPriceCart.ToString()+ "₪";
             Tamountofpayment.Text =amount.ToString();
-            dataGridItems.ItemsSource = cart?.Items;
+            Tcustomername_Copy.Text = AmountItem.ToString();
+            dataGridItems.ItemsSource = cart?.Items.OrderBy (x=>x?.TotalPrice);
             datePicker.Text = DateTime.Now.ToLongDateString();
+            int id=bl.Order.GetAllOrderForList().Last().OrderID;
+            Tcustomername_Copy1.Text = id.ToString();  
         }
 
         private void PrintButton_Click(object sender, RoutedEventArgs e)

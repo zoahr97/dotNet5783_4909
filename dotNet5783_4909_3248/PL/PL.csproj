@@ -61,6 +61,7 @@
     <None Remove="shipping.png" />
     <None Remove="stickers-belle-orchidee-blanche.jpg.jpg" />
     <None Remove="user-offline-white.png" />
+    <None Remove="W_960_sell-online.png" />
     <None Remove="y9.gif" />
     <None Remove="ורד.jpg" />
     <None Remove="חמניה.jpg" />
@@ -122,6 +123,7 @@
     <Resource Include="sale-5.png" />
     <Resource Include="sale-balloons-12596669.jpg" />
     <Resource Include="sale-discount-price.jpg" />
+    <Resource Include="W_960_sell-online.png" />
     <Resource Include="y9.gif" />
   </ItemGroup>
   

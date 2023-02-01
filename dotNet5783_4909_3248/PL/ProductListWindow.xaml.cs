@@ -21,8 +21,7 @@ namespace PL
 {
     /// <summary>
     /// Interaction logic for ProductListWindow.xaml
-    /// </summary>
-   
+    /// </summary>  
     public partial class ProductListWindow : Window
     {
         
@@ -33,26 +32,25 @@ namespace PL
             InitializeComponent();
             try
             {
-
                 if (Disconts.flag == true)
                 {
-                    ProductsListView.ItemsSource = bl.Product.GetProductsForList(null,0.3);
+                    ProductsListView.ItemsSource = bl.Product.GetProductsForList(null,0.3).OrderBy(x => x?.Price);
                 }
                 else
                 {
                     if (Disconts.flag1 == true)
                     {
-                        ProductsListView.ItemsSource = bl.Product.GetProductsForList(null, 0.5);
+                        ProductsListView.ItemsSource = bl.Product.GetProductsForList(null, 0.5).OrderBy(x => x?.Price);
                     }
                     else
                     {
                         if (Disconts.flag2 == true)
                         {
-                            ProductsListView.ItemsSource = bl.Product.GetProductsForList(null, 0.7);
+                            ProductsListView.ItemsSource = bl.Product.GetProductsForList(null, 0.7).OrderBy(x => x?.Price);
                         }
                         else
                         {
-                            ProductsListView.ItemsSource = bl.Product.GetProductsForList();
+                            ProductsListView.ItemsSource = bl.Product.GetProductsForList().OrderBy(x=>x?.Price);
                         }
                     }
                     
@@ -72,52 +70,49 @@ namespace PL
             {
                 if (Disconts.flag == true)
                 {
-                    ProductsListView.ItemsSource = bl.Product.GetProductsForList(null,0.3);
+                    ProductsListView.ItemsSource = bl.Product.GetProductsForList(null,0.3).OrderBy(x => x?.Price);
                 }
                 else
                 {
                     if (Disconts.flag1 == true)
                     {
-                        ProductsListView.ItemsSource = bl.Product.GetProductsForList(null, 0.5);
+                        ProductsListView.ItemsSource = bl.Product.GetProductsForList(null, 0.5).OrderBy(x => x?.Price);
                     }
                     else
                     {
                         if (Disconts.flag2 == true)
                         {
-                            ProductsListView.ItemsSource = bl.Product.GetProductsForList(null, 0.7);
+                            ProductsListView.ItemsSource = bl.Product.GetProductsForList(null, 0.7).OrderBy(x => x?.Price);
                         }
                         else
                         {
-                            ProductsListView.ItemsSource = bl.Product.GetProductsForList();
+                            ProductsListView.ItemsSource = bl.Product.GetProductsForList().OrderBy(x => x?.Price);
                         }
-                    }
-                    
-                }
-                
-                   
+                    }                
+                }        
             }
             else
             {
-                Func<BO.ProductForList?, bool>? mydelegate = SelectorCategory;//
+                Func<BO.ProductForList?, bool>? mydelegate = SelectorCategory;
                 if (Disconts.flag == true)
-                {                                                            //ע"י ביטוי למבדה
-                    ProductsListView.ItemsSource = bl.Product.GetProductsForList(mydelegate,0.3);
+                {                                                           
+                    ProductsListView.ItemsSource = bl.Product.GetProductsForList(mydelegate,0.3).OrderBy(x => x?.Price);
                 }
                 else
                 {
                     if (Disconts.flag1 == true)
                     {
-                        ProductsListView.ItemsSource = bl.Product.GetProductsForList(mydelegate, 0.5);
+                        ProductsListView.ItemsSource = bl.Product.GetProductsForList(mydelegate, 0.5).OrderBy(x => x?.Price);
                     }
                     else
                     {
                         if (Disconts.flag2 == true)
                         {
-                            ProductsListView.ItemsSource = bl.Product.GetProductsForList(mydelegate, 0.7);
+                            ProductsListView.ItemsSource = bl.Product.GetProductsForList(mydelegate, 0.7).OrderBy(x => x?.Price);
                         }
                         else
                         {
-                            ProductsListView.ItemsSource = bl.Product.GetProductsForList(mydelegate);
+                            ProductsListView.ItemsSource = bl.Product.GetProductsForList(mydelegate).OrderBy(x => x?.Price);
                         }
                     }
                    
@@ -157,20 +152,17 @@ namespace PL
                         }
                         else
                         {
-                            productForLists = Castings.convertIenumerableToObservable(bl?.Product.GetProductsForList()!);
+                            ProductsListView.ItemsSource = Castings.convertIenumerableToObservable(bl?.Product.GetProductsForList()!.OrderBy(x => x?.Price));
                         }
-                    }
-                    
-                }
-               
-                    
+                    }    
+                }         
             }
             catch (BO.notExistElementInList ex)
             {
                 MessageBox.Show(ex.Message);
             }
             ProductsListView.ItemsSource = productForLists;
-            //this.Close();
+           
         }
 
         private void ProductsListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
@@ -199,38 +191,17 @@ namespace PL
                         }
                         else
                         {
-                            productForLists = Castings.convertIenumerableToObservable(bl?.Product.GetProductsForList()!);
+                            productForLists = Castings.convertIenumerableToObservable(bl?.Product.GetProductsForList()!.OrderBy(x => x?.Price));
                         }
-                    }
-                    
+                    }                 
                 }
-                
-
             }
             catch (BO.notExistElementInList ex)
             {
                 MessageBox.Show(ex.Message);
             }
             ProductsListView.ItemsSource = productForLists;
-            //Close();
         }
 
-        //private void Addbutton_Copy_Click(object sender, RoutedEventArgs e)
-        //{
-        //    try
-        //    {
-        //        flag = true;
-        //        ProductsListView.ItemsSource = bl.Product.GetProductsForList(null,0.3);
-        //    }
-        //    catch (BO.notExistElementInList ex)
-        //    {
-        //        Console.WriteLine(ex.Message);
-        //    }
-        //}
-
-        //private void Addbutton_Copy1_Click(object sender, RoutedEventArgs e)
-        //{
-        //    Disconts.flag  = false;
-        //}
     }
 }

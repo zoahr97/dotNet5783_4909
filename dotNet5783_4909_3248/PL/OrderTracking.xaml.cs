@@ -27,8 +27,8 @@ namespace PL
         {
             InitializeComponent();
             int?[] arr = orderid();
-            CategoryBoxid.ItemsSource = arr; 
-            CategoryBox1.ItemsSource = Enum.GetValues(typeof(BO.Enums.OrderStatus ));
+            CategoryBoxid.ItemsSource = arr.OrderBy(x => x); 
+            CategoryBox1.ItemsSource = Enum.GetValues(typeof(BO.Enums.OrderStatus));
         }
         public int?[] orderid()
         {
@@ -47,7 +47,7 @@ namespace PL
             int id=Convert.ToInt16 (CategoryBoxid.SelectedValue.ToString());
             BO .OrderTracking orderTracking = new BO.OrderTracking ();
             orderTracking = bl.Order.OrderTracking(id);
-            CategoryBox1.SelectedItem  = (BO.Enums.OrderStatus ?)orderTracking.OrderStatus;
+            CategoryBox1.SelectedItem  = (BO.Enums.OrderStatus?)orderTracking.OrderStatus;
             ordertrackingListView.ItemsSource = orderTracking.tracking;
            
         }

@@ -16,7 +16,7 @@
 
         </Grid.ColumnDefinitions>
         <Label x:Name="l1" Content="Receipt" Grid.Row="0" FontSize="36" FontWeight="Bold"
-            Height="52" Width="228" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="347,47,0,0" FontFamily="David" Background="{x:Null}" FontStyle="Italic" />
+            Height="52" Width="228" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="347,26,0,0" FontFamily="David" Background="{x:Null}" FontStyle="Italic" RenderTransformOrigin="0.502,-0.006" />
         <Label x:Name="l1_Copy" Content="Customer Name:" Grid.Row="0" FontSize="28" FontStyle="Normal" FontWeight="DemiBold"
             Height="46" Width="231" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="137,141,0,0" />
         <Label x:Name="l2" Content="Customer Adress:" FontSize="28" FontStyle="Normal" FontWeight="DemiBold"
@@ -29,7 +29,7 @@
         <TextBox x:Name="Tcustomeradress" FontSize="20" HorizontalAlignment="Left" Margin="420,262,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="214" Height="40" IsEnabled="False"  />
         <TextBox x:Name="Tprice" Text="0₪" FontSize="20" HorizontalAlignment="Left" Margin="420,322,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="214" Height="40" IsEnabled="False" />
         <Label x:Name="l3_Copy" Content="Items:" FontSize="28" FontWeight="DemiBold"
-            Height="44" Width="196" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="56,456,0,0" RenderTransformOrigin="-0.278,0.422"/>
+            Height="44" Width="107" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="56,470,0,0" RenderTransformOrigin="-0.278,0.422"/>
         <DataGrid x:Name="dataGridItems" ItemsSource="{Binding}" SelectionMode="Single" SelectionUnit="FullRow" IsReadOnly="True" AutoGenerateColumns="False"
             CanUserReorderColumns="False" CanUserSortColumns="True" Margin="54,519,107,34">
             <DataGrid.Columns>
@@ -43,14 +43,20 @@
         </DataGrid>
         <TextBox x:Name="TEmail" FontSize="20"  HorizontalAlignment="Left" Margin="420,204,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="214" Height="40" IsEnabled="False" />
         <Label x:Name="l4_Copy" Content="Number of payments:" FontSize="28" FontStyle="Normal" FontWeight="DemiBold"
-            Height="54" Width="296" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="97,397,0,0"/>
-        <TextBox x:Name="Tamountofpayment" FontSize="20" HorizontalAlignment="Left" Margin="415,397,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="214" Height="40" IsEnabled="False"  />
+            Height="54" Width="286" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="120,372,0,0"/>
+        <TextBox x:Name="Tamountofpayment" FontSize="20" HorizontalAlignment="Left" Margin="425,379,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="155" Height="40" IsEnabled="False"  />
         <DatePicker x:Name="datePicker" HorizontalAlignment="Left" Margin="24,51,0,0" VerticalAlignment="Top" Width="221" Height="26" Background="#FFFDBEBB"/>
         <Button x:Name="PrintButton" Content="" HorizontalAlignment="Left" Margin="661,26,0,0" VerticalAlignment="Top" Height="130" Width="119" FontSize="20" FontWeight="Bold" Click="PrintButton_Click" BorderBrush="#FF56E0D1">
             <Button.Background>
                 <ImageBrush ImageSource="/Icons/printer.jpg" TileMode="FlipX" Stretch="UniformToFill"/>
             </Button.Background>
         </Button>
+        <TextBox x:Name="Tcustomername_Copy" FontSize="20"  HorizontalAlignment="Left" Margin="425,435,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="155" Height="40" IsEnabled="False" />
+        <Label x:Name="l4_Copy1" Content="Amount of items:" FontSize="28" FontStyle="Normal" FontWeight="DemiBold"
+            Height="54" Width="243" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="163,421,0,0"/>
+        <TextBox x:Name="Tcustomername_Copy1" FontSize="20"  HorizontalAlignment="Left" Margin="420,91,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="155" Height="40" IsEnabled="False" />
+        <Label x:Name="l4_Copy2" Content="Order id:" FontSize="28" FontStyle="Normal" FontWeight="DemiBold"
+            Height="54" Width="147" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="137,91,0,0"/>
 
     </Grid>
 </Window>

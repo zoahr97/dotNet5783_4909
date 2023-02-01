@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 namespace Dal;
 using DalApi;
 using DO;
+using System.Security.Cryptography;
 using System.Xml.Linq;
 
 internal class OrderItem : IOrderItem
@@ -50,7 +51,17 @@ internal class OrderItem : IOrderItem
     public int Add(DO.OrderItem student)
     {
         XElement studentsRootElem = XMLTools.LoadListFromXMLElement(s_products);
-
+        if (student.ID == 0)
+        {
+            //student.ID = Config.f5();
+            //Config.Delete(student.ID);
+            //Config.f(student.ID);
+            student.ID = Config.f5();
+            int x = Config.f5();
+            Config.Delete(x);
+            int x1 = ++x;
+            Config.f(x1);
+        }  
         if (XMLTools.LoadListFromXMLElement(s_products)?.Elements()
             .FirstOrDefault(st => (int)st.Element("ID")! == student.ID) is not null)
             throw new Exception("id already exist");

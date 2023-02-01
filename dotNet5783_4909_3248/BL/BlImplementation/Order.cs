@@ -8,6 +8,8 @@ using System.Collections.Generic;
 using System.Collections;
 using BlApi;
 using System.Linq;
+using System;
+
 namespace BlImplementation;
 
 internal class Order : BlApi.IOrder
@@ -26,24 +28,7 @@ internal class Order : BlApi.IOrder
             IEnumerable<DO.Order?> orders = Dal.Order.GetAll(/*myDelegate*/);
             IEnumerable<DO.OrderItem?> orderItems = Dal.OrderItem.GetAll();
             List<BO.OrderForList?> orderForLists = new List<BO.OrderForList?>();
-            ////return orders.Select(order => new BO.OrderForList
-            ////{
-            ////    OrderID = order.ID,
-            ////    CustomerName = order.CustomerName,
-            ////    OrderStatus = GetStatus(order),
-            ////    AmountItems = count(order.ID),
-            ////    TotalOrder = SumOrder(order.ID)
-            ////});
-
-            //return from DO.Order order in orders
-            //       select new BO.OrderForList
-            //       {
-            //           OrderID = order.ID,
-            //           CustomerName = order.CustomerName,
-            //           OrderStatus = GetStatus(order),
-            //           AmountItems = count(order.ID),
-            //           TotalOrder = SumOrder(order.ID)
-            //       };
+           
             foreach (DO.Order order in orders)
             {
                 BO.OrderForList orderForList = new BO.OrderForList
@@ -54,12 +39,12 @@ internal class Order : BlApi.IOrder
                     AmountItems = count(order.ID),
                     TotalOrder = SumOrder(order.ID)
                 };
-                if (orderForList.AmountItems != 0)
-                {
+                //if (orderForList.AmountItems != 0)
+                //{
                     orderForLists.Add(orderForList);
-                }
+                //}
             }
-            //return orderForLists;
+           
             if (filter == null)
             {
                 return orderForLists;
@@ -90,15 +75,6 @@ internal class Order : BlApi.IOrder
         try
         {
             int x=Dal.OrderItem.GetAll().Where(p => p?.OrderID == id).Count();
-            //int count = 0;
-            //foreach (DO.OrderItem? orderItem in Dal.OrderItem.GetAll())
-            //{
-            //    if (orderItem?.OrderID == id)
-            //    {
-            //        count++;
-            //    }
-            //}
-            ////int x = Dal.OrderItem.GetListByOrderID(id).Count();
             return x;
         }
         catch (DO.notExistElementInList ex)
@@ -113,15 +89,6 @@ internal class Order : BlApi.IOrder
         try
         {
             double? x = Dal.OrderItem.GetAll().Where(p => p?.OrderID == orderid).Sum(p => p?.Price * p?.Amount);
-            //double sum1 = 0;
-            //foreach (DO.OrderItem orderItem in Dal.OrderItem.GetAll())
-            //{
-            //    if (orderItem.OrderID == orderid)
-            //    {
-            //        sum1 += orderItem.Price * orderItem.Amount;
-            //    }
-
-            //}
             double sum=Convert.ToDouble(x);
             return sum;
         }
@@ -144,10 +111,9 @@ internal class Order : BlApi.IOrder
         {
             return BO.Enums.OrderStatus.ConfirmOrder;
         }
-        //return order.DeliveryDate != null ? BO.Enums.OrderStatus.ProvidedOrder : order.ShipDate != null ?
-        //    BO.Enums.OrderStatus.SentOrder : BO.Enums.OrderStatus.ConfirmOrder;
+       
     }
-    //GetListOrderItemById ללא ביטוי לינק
+  
     private List<BO.OrderItem> GetListOrderItemById(int id)//מתודה המחזירה את רשימת פרטי הזמנה ששייכים להזמנה של הלקוח
     {
         List<BO.OrderItem> list = new List<BO.OrderItem>();
@@ -164,7 +130,7 @@ internal class Order : BlApi.IOrder
                     Price = o.Price,
                     Amount = o.Amount,
                     TotalPrice = o.Price * o.Amount,
-                    /*IsDeleted= o.IsDeleted*/ //תוספת              
+                                 
                 };
                 list.Add(item);
             }
@@ -213,7 +179,7 @@ internal class Order : BlApi.IOrder
                     IsDeleted = ord.IsDeleted,
                     Items = GetListOrderItemById(id)
                     
-                };//new BO Orde
+                };
                 if(p.TotalOrder!=0)
                 {
                     return p;
@@ -467,88 +433,6 @@ public BO.Order ShipUpdate(int orderId)//עדכון שילוח הזמנה
 
 
 
-//public bool isExist(List<BO.OrderForList> list,int id)//מתודה הבודקת האם ההזמנה קיימת ברשימת ההזמנות
-//{
-//    foreach (BO.OrderForList orderForList in list)
-//    {
-//        if (orderForList.OrderID==id)
-//        {
-//            return true;
-//        }
-//    }
-//    return false;
-//}
-
-
-
-
-
-
-//if(!isExist5(id))
-//{
-//    throw new BO.DoesntExistException("Order does not exist in the customers order list !!");
-//}
-//private bool isExist5(int orderid)
-//{
-//    foreach (DO.Order order in Dal.Order.GetAll())
-//    {
-//        if (order.ID == orderid )
-//        {
-//            return true;
-//        }
-//    }
-//    return false;
-//}
-
-
-
-
-//    מעקב הזמנה(מסך ניהול הזמנה של מנהל)
-//תקבל מספר הזמנה
-//תבדוק האם הזמנה קיימת(בשכבת נתונים)
-//תחזיר מופע של מעקב הזמנה OrderTracking(ישות לוגית) שנוסף למזהה הזמנה ומצב נוכחי שלה, יכיל רשימה של צמדים תאריך ותיאור מילולי של מצב - על כל שינוי במצב(ההזמנה נוצרה, ההזמנה שֻלְּחָה, ההזמנה סופקה)
-//תחזיר את האובייקט הנ"ל
-//תזרוק חריגה מתאימה במקרה של בעיה כלשהי(לפי הבדיקות והניסיונות כנ"ל)
-
-//public OrderTracking GetOrderTracking(int orderId)
-//{
-//    OrderTracking ot = new();//create new order tracking
-//    ot.trackings = new();
-//    foreach (DO.Order? item in Dal.Order.GetAll())//go over all orders in DO
-//    {
-//        if (item?.ID == orderId)//if order exists 
-//        {
-//            ot.OrderID = orderId;//save id
-//            if (item?.DeliveryDate != null)//if order delivered 
-//            {
-//                ot.OrderStatus = BO.Enums.OrderStatus.SentOrder;//save status
-//                ot.trackings.Add(Tuple.Create(item?.OrderDate ?? throw new BO.UnfoundException(), "The order has been created\n"));//save tracking
-//                ot.trackings.Add(Tuple.Create(item?.ShipDate ?? throw new BO.UnfoundException(), "The order has been shipped\n"));//save tracking
-//                ot.trackings.Add(Tuple.Create(DateTime.Now, "The order has been delivered\n"));//save tracking
-//                return ot;
-//            }
-//            if (item?.ShipDate != null)//if order shipped 
-//            {
-//                ot.OrderStatus = BO.Enums.OrderStatusSentOrder;//save status
-//                ot.trackings.Add(Tuple.Create(item?.OrderDate ?? throw new BO.UnfoundException(), "The order has been created\n"));//save tracking
-//                ot.trackings.Add(Tuple.Create(DateTime.Now, "The order has been shipped\n"));//save tracking
-//                //ot.Tracking.Add(Tuple.Create(null, "The order has been delivered\n"));//save tracking
-//                return ot;
-//            }
-//            if (item?.OrderDate == DateTime.Now)//if order created now
-//            {
-//                ot.OrderStatus = BO.Enums.OrderStatusConfirmOrder;//save status
-//                ot.trackings.Add(Tuple.Create(DateTime.Now, "The order has been created\n"));//save tracking
-//                //ot.Tracking.Add(Tuple.Create (item?.ShipDate??throw new BO.UnfoundException(), "The order has been shipped\n"));//save tracking
-//                //ot.Tracking.Add(Tuple.Create(item?.DeliveryDate ?? throw new BO.UnfoundException(), "The order has been delivered\n" ));//save tracking
-//                return ot;
-//            }
-
-
-//        }
-//    }
-//    throw new BO.UnfoundException("Order does not exist\n");//order does not exist
-//}//get order id, check if exists, and build strings of dates and status in DO orders
 
 
 
@@ -565,44 +449,3 @@ public BO.Order ShipUpdate(int orderId)//עדכון שילוח הזמנה
 
 
 
-
-
-
-
-
-
-
-//}
-//public BO.Order GetBoOrder(int id)
-//{
-//    if (id < 0)//id is negative
-//    {
-//        throw new BO.IdNotExistException();
-//    }
-//    DO.Order ord = DOList.Order.GetById(id);//get right DO Order
-//    double priceTemp = 0;
-//    foreach (DO.OrderItem o in DOList.OrderItem.GetAll())
-//    {
-//        if (o.IsDeleted == false && o.OrderID == id)
-//        {
-//            priceTemp += o.Price;//add up all of prices in the order
-//        }
-//    }
-//    if (ord.IsDeleted == false && ord.ID == id)//if exists 
-//    {
-//        return new BO.Order
-//        {
-//            ID = id,
-//            CostumerAddress = ord.CostumerAddress,
-//            CostumerEmail = ord.CostumerEmail,
-//            CostumerName = ord.CostumerName,
-//            OrderDate = ord.OrderDate.Value,
-//            ShipDate = ord.ShipDate.Value,
-//            DeliveryDate = ord.DeliveryDate.Value,
-//            Status = GetStatus(ord),
-//            TotalPrice = priceTemp,
-//            IsDeleted = ord.IsDeleted
-//        };//new BO Order
-//    }
-//    throw new BO.UnfoundException("Order does not exist\n");
-//}//get order number, check if exists, update date in DO order, and return BO order that has been "shipped"

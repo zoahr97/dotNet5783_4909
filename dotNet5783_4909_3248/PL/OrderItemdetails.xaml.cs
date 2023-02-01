@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -35,14 +36,28 @@ namespace PL
             Tamount.Text =orderItem?.Amount.ToString();
             TtotalPrice.Text =orderItem?.TotalPrice.ToString();           
         }
-
+        public static bool IsNumber(string num)
+        {
+            string pattern = @"\b[1-9-0\s]+$";
+            Regex reg = new Regex(pattern);
+            return reg.IsMatch(num);
+        }
         private void updatebutton_Click(object sender, RoutedEventArgs e)
         {
             try
             {
                 int id = Convert.ToInt32(TproductId.Text);
-                int amount = Convert.ToInt32(Tamount.Text);
-                bl.Cart.UpdateAmountProuductInCart(cart, id, amount);
+                if(IsNumber(Tamount.Text))
+                {
+                    int amount = Convert.ToInt32(Tamount.Text);
+                    bl.Cart.UpdateAmountProuductInCart(cart, id, amount);
+                }
+                else
+                {
+                    Tamount.Text = "";
+                    MessageBox.Show("כמות חייבת להיות ערך מספרי!");
+                    return;
+                }
                 this.Close();
                 new CartWindow().Show();
             }

@@ -40,19 +40,10 @@ namespace PL
                 BO.Order order = new BO.Order();
                 order=bl.Order.GetBoOrder(orderid);
                 DataContext = order;
-                //Torderid.Text=order.OrderID.ToString();
-                //TcustomerAdress.Text= order.CustomerAdress==null ? "" : order.CustomerAdress.ToString();
-                //TcustomerName.Text = order.CustomerName==null ?"": order.CustomerName.ToString();
-                //datePicker2.Text=order.DeliveryDate.ToString();
-                //datePicker1.Text=order.ShipDate.ToString();
-                //datePicker.Text=order.OrderDate.ToString();
-                //TtotalOrd.Text = order.TotalOrder.ToString() + "₪";
-                //orderstatus.SelectedItem=(BO.Enums.OrderStatus?)order.OrderStatus;
                 listViewitems.ItemsSource = order.Items;
                 if (order.ShipDate  != null )
                 {
-                    datePicker1.Visibility = Visibility.Visible ;
-                    //datePicker1.IsEnabled = true;
+                    datePicker1.Visibility = Visibility.Visible ;                 
                     updateshipbutton.Visibility = Visibility.Hidden ;
                 }
                 else
@@ -62,21 +53,13 @@ namespace PL
 
                 if (order.DeliveryDate != null)
                 {
-                    datePicker2.Visibility = Visibility.Visible ;
-                    //datePicker2.IsEnabled = true;
+                    datePicker2.Visibility = Visibility.Visible ;                  
                     deliverybutton.Visibility = Visibility.Hidden ;
                 }
                 else
                 {
                     datePicker2.Visibility =Visibility.Hidden ;
-                }
-                //BO.Product product = new BO.Product() { category = BO.Enums.CATEGORY.Blank };
-                //product = bl.Product.ManagerDetailsProduct(id);
-                //Tid.Text = product.ProductID.ToString();
-                //Tname.Text = product.ProductName;
-                //Tprice.Text = product.Price.ToString();
-                //Tinstock.Text = product.InStock.ToString();
-                //CategoryBox.SelectedItem = (BO.Enums.CATEGORY?)product.category;
+                }   
             }
             catch (BO.DoesntExistException ex)
             {

@@ -46,7 +46,7 @@
                 <ImageBrush ImageSource="/Icons/logo5_1.jpg"/>
             </Label.Background>
         </Label>
-        <Label x:Name="l1_Copy3" Content="@By  _Zohar_Tamsut" Grid.Row="0" FontSize="36"
-            Height="48" Width="336" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="38,398,0,0" BorderBrush="Black" Foreground="#FF09061F" FontFamily="Miriam" FontWeight="Bold" RenderTransformOrigin="0.432,0.597" />
+        <Label x:Name="l1_Copy3" Content="@By-Zohar_Tamsut-0586913524" Grid.Row="0" FontSize="24"
+            Height="41" Width="371" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="264,382,0,0" BorderBrush="Black" Foreground="#FF09061F" FontFamily="Yu Gothic" RenderTransformOrigin="0.432,0.597" FontWeight="Bold" />
     </Grid>
 </Window>

@@ -18,7 +18,7 @@
         <Label x:Name="l3" Content=" Order Status:" Grid.Row="0" FontSize="28" FontStyle="Normal" FontWeight="DemiBold"
             Height="40" Width="185" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="133,265,0,0" />
         <ListView x:Name="ordertrackingListView"
-            FontSize="20" BorderBrush="{x:Null}" FontWeight="Bold" Margin="94,327,153,105" Background="#FFF1FFFD"  >
+            FontSize="20" BorderBrush="{x:Null}" FontWeight="Bold" Margin="94,327,153,105" Background="White"  >
             <ListView.View>
                 <GridView>
                     <GridViewColumn/>

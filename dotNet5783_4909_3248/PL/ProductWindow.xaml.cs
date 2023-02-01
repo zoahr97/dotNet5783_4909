@@ -38,6 +38,7 @@ namespace PL
             CategoryBox.SelectedIndex = 7;
             UpDateButton.Visibility = Visibility.Hidden;
         }
+
         public ProductWindow(int id )
         {
             InitializeComponent();
@@ -82,16 +83,9 @@ namespace PL
                             product = bl.Product.ManagerDetailsProduct(id);
                             UpDateButton.IsEnabled = true;
                         }
-                    }
-                   
-                }
-                
-                DataContext = product;
-                //Tid.Text = product.ProductID.ToString();
-                //Tname.Text = product.ProductName;
-                //Tprice.Text = product.Price.ToString();
-                //Tinstock.Text=product.InStock.ToString();
-                //CategoryBox.SelectedItem = (BO.Enums.CATEGORY?)product.category;
+                    }                   
+                }               
+                DataContext = product;      
             }
             catch(BO.DoesntExistException ex)
             {
@@ -140,11 +134,25 @@ namespace PL
                 
             }
         }
-        //private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        //{
-        //    p.category = (BO.Enums.CATEGORY)CategoryBox.SelectedItem;//save the category picked
-        //}
-
+        
+        public static bool IsNumber(string num)
+        {
+            string pattern = @"\b[1-9-0\s]+$";
+            Regex reg = new Regex(pattern);
+            return reg.IsMatch(num);
+        }
+        public static bool IsHebrew(string word)
+        {
+            string pattern = @"\b[א-ת-\s ]+$";
+            Regex reg = new Regex(pattern);
+            return reg.IsMatch(word);
+        }
+        public static bool IsEnglish(string word)
+        {
+            string pattern = @"\b[a-z-A-Z\s ]+$";
+            Regex reg = new Regex(pattern);
+            return reg.IsMatch(word);
+        }
         private void AddButton_Click(object sender, RoutedEventArgs e)
         { 
             p.IsDeleted = false;
@@ -157,10 +165,21 @@ namespace PL
                 }
                 else
                 {   
-                    bl.Product.AddProduct(p);
-                    //new ProductListWindow().Show();
-                    this.Close();
-                    //clean();
+                    if(IsNumber(Tid.Text )&& (IsHebrew(Tname.Text)|| IsEnglish(Tname.Text))&& IsNumber(Tprice.Text)&& IsNumber(Tinstock.Text)&& CategoryBox.SelectedIndex!=-1)
+                    {
+                        bl.Product.AddProduct(p);
+                        this.Close();
+                    }
+                    else
+                    {
+                        Tid.Text = "";
+                        Tname.Text = "";
+                        Tprice.Text = "";
+                        Tinstock.Text = "";
+                        CategoryBox.SelectedIndex = -1;
+                        MessageBox.Show("חובה להכניס פרטי מוצר תקינים!!");
+
+                    }
                 }    
             }
             catch (BO.AlreadyExistException ex)
@@ -186,10 +205,22 @@ namespace PL
                 {
                     MessageBox.Show("חובה לבחור קטגוריית מוצר");
                 }
-                bl!.Product.UpdateProduct(p);
+                if ( (IsHebrew(Tname.Text) || IsEnglish(Tname.Text)) && IsNumber(Tprice.Text) && IsNumber(Tinstock.Text) && CategoryBox.SelectedIndex != -1)
+                {
+                    bl!.Product.UpdateProduct(p);
+                    this.Close();
+                }
+                else
+                {
+                    Tname.Text = "";
+                    Tprice.Text = "";
+                    Tinstock.Text = "";
+                    CategoryBox.SelectedIndex = -1;
+                    MessageBox.Show("חובה להכניס פרטי מוצר תקינים!!");
+
+                }
                 clean();
-                //new ProductListWindow().Show();
-                //Close();
+                
             }
             catch (BO.DoesntExistException ex)
             {

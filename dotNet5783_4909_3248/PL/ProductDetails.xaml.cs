@@ -71,13 +71,7 @@ namespace PL
                 else
                 {
                     checkBox.IsChecked= false;
-                }
-                //Tid.Text =product.ProductID .ToString ();
-                //Tname.Text = product.ProductName;
-                //Tprice.Text = product.Price.ToString() + "₪";
-                //TIsStock.Text = product.IsStock .ToString();
-                //TamountIncart.Text =product.AmountInCartOfCostumer.ToString();
-                //CategoryBox.SelectedItem = (BO.Enums.CATEGORY?)product.category;     
+                }                  
             }
             catch (BO.DoesntExistException ex)
             {

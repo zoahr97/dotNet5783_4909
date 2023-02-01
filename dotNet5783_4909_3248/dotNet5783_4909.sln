@@ -22,18 +22,18 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "xml", "xml", "{05597F17-0692-49AD-9EC8-45716AF841A7}"
 	ProjectSection(SolutionItems) = preProject
 		..\xml\dal-config.xml = ..\xml\dal-config.xml
-		OrderItems.xml = OrderItems.xml
 		orderconfig.xml = orderconfig.xml
 		orderitemconfig.xml = orderitemconfig.xml
-		Products.xml = Products.xml
+		OrderItems.xml = OrderItems.xml
 		Orders.xml = Orders.xml
+		Products.xml = Products.xml
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PL", "PL\PL.csproj", "{5D447AF5-87B0-48DE-9428-B897D7B9D8E7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DalXml", "DalXml\DalXml.csproj", "{7FDCA94E-8775-486F-BB54-86554B9F13C2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DalXml", "DalXml\DalXml.csproj", "{7FDCA94E-8775-486F-BB54-86554B9F13C2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProgramXml", "ProgramXml\ProgramXml.csproj", "{6EF08D75-0C41-4E31-8FB9-C5D42966CC45}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProgramXml", "ProgramXml\ProgramXml.csproj", "{6EF08D75-0C41-4E31-8FB9-C5D42966CC45}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -29,23 +29,23 @@ namespace PL
             {
                 if (Disconts.flag == true)
                 {
-                    ProductsListView.ItemsSource = bl.Product.GetProductsForList(null,0.3);
+                    ProductsListView.ItemsSource = bl.Product.GetProductsForList(null,0.3).OrderBy(x => x?.Price);
                 }
                 else
                 {
                     if (Disconts.flag1 == true)
                     {
-                        ProductsListView.ItemsSource = bl.Product.GetProductsForList(null, 0.5);
+                        ProductsListView.ItemsSource = bl.Product.GetProductsForList(null, 0.5).OrderBy(x => x?.Price);
                     }
                     else
                     {
                         if (Disconts.flag2 == true)
                         {
-                            ProductsListView.ItemsSource = bl.Product.GetProductsForList(null, 0.7);
+                            ProductsListView.ItemsSource = bl.Product.GetProductsForList(null, 0.7).OrderBy(x => x?.Price);
                         }
                         else
                         {
-                            ProductsListView.ItemsSource = bl.Product.GetProductsForList();
+                            ProductsListView.ItemsSource = bl.Product.GetProductsForList().OrderBy(x=>x?.Price);
                         }
                     }
                     
@@ -66,23 +66,23 @@ namespace PL
             {
                 if (Disconts.flag == true)
                 {
-                    ProductsListView.ItemsSource = bl.Product.GetProductsForList(null,0.3);
+                    ProductsListView.ItemsSource = bl.Product.GetProductsForList(null,0.3).OrderBy(x => x?.Price);
                 }
                 else
                 {
                     if (Disconts.flag1 == true)
                     {
-                        ProductsListView.ItemsSource = bl.Product.GetProductsForList(null, 0.5);
+                        ProductsListView.ItemsSource = bl.Product.GetProductsForList(null, 0.5).OrderBy(x => x?.Price);
                     }
                     else
                     {
                         if (Disconts.flag2 == true)
                         {
-                            ProductsListView.ItemsSource = bl.Product.GetProductsForList(null, 0.7);
+                            ProductsListView.ItemsSource = bl.Product.GetProductsForList(null, 0.7).OrderBy(x => x?.Price);
                         }
                         else
                         {
-                            ProductsListView.ItemsSource = bl.Product.GetProductsForList();
+                            ProductsListView.ItemsSource = bl.Product.GetProductsForList().OrderBy(x => x?.Price);
                         }
                     }
                     
@@ -94,23 +94,23 @@ namespace PL
                 Func<BO.ProductForList?, bool>? mydelegate = SelectorCategory;//ע"י ביטוי למבדה
                 if (Disconts.flag == true)
                 {
-                    ProductsListView.ItemsSource = bl.Product.GetProductsForList(mydelegate,0.3);
+                    ProductsListView.ItemsSource = bl.Product.GetProductsForList(mydelegate,0.3).OrderBy(x => x?.Price);
                 }
                 else
                 {
                     if (Disconts.flag1 == true)
                     {
-                        ProductsListView.ItemsSource = bl.Product.GetProductsForList(mydelegate, 0.5);
+                        ProductsListView.ItemsSource = bl.Product.GetProductsForList(mydelegate, 0.5).OrderBy(x => x?.Price);
                     }
                     else
                     {
                         if (Disconts.flag2 == true)
                         {
-                            ProductsListView.ItemsSource = bl.Product.GetProductsForList(mydelegate, 0.7);
+                            ProductsListView.ItemsSource = bl.Product.GetProductsForList(mydelegate, 0.7).OrderBy(x => x?.Price);
                         }
                         else
                         {
-                            ProductsListView.ItemsSource = bl.Product.GetProductsForList(mydelegate);
+                            ProductsListView.ItemsSource = bl.Product.GetProductsForList(mydelegate).OrderBy(x => x?.Price);
                         }
                     }
                     

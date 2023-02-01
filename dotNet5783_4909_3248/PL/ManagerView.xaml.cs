@@ -43,5 +43,10 @@ namespace PL
         {
             new Disconts().Show(); 
         }
+
+        private void ListOrderbutton_Copy1_Click(object sender, RoutedEventArgs e)
+        {
+            new OrderTrackingforManeger().Show();
+        }
     }
 }
