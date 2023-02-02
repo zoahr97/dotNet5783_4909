@@ -6,18 +6,18 @@
         xmlns:converter ="namespace:Castings"
         xmlns:local ="clr-namespace:PL"
         mc:Ignorable="d"
-        Title="OrderTrackingforManeger" Height="600" Width="770"
+        Title="OrderTrackingforManeger" Height="620" Width="718"
         DataContext="{Binding ordersForList,RelativeSource={RelativeSource Self}}">
     <Window.Resources>
         <!--<converter:StatusToBackgroundColourConverter x:Key = "convertStatusBackground" />-->
         <local:statusToProgressBarConverter x:Key="statusToProgressBar"/>
     </Window.Resources>
-    <Grid Name="OrderGrid" Height="auto" Grid.Row="0" Grid.Column="1" Width="auto" Margin="10,10,23,16">
+    <Grid Name="OrderGrid" Height="auto" Grid.Row="0" Grid.Column="1" Width="auto" Margin="10,10,39,14">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="455*"/>
         </Grid.ColumnDefinitions>
         <DataGrid x:Name="DataGridForOrders"  ItemsSource="{Binding}" SelectionMode="Single" SelectionUnit="FullRow" IsReadOnly="True" AutoGenerateColumns="False"
-            Margin="35,108,59,134" CanUserReorderColumns="False" CanUserSortColumns="True" MouseDoubleClick="DataGridForOrders_MouseDoubleClick">
+            Margin="47,125,17,130" CanUserReorderColumns="False" CanUserSortColumns="True" MouseDoubleClick="DataGridForOrders_MouseDoubleClick">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="ID" Binding="{Binding OrderID}"/>
                 <DataGridTextColumn Header="Customer Name" Binding="{Binding CustomerName}"/>
@@ -51,12 +51,46 @@
                 </DataGridTemplateColumn >
             </DataGrid.Columns>
         </DataGrid>
-        <Button x:Name="StartTracking" Content="Start Tracking" HorizontalAlignment="Left" Margin="532,46,0,0" VerticalAlignment="Top" Height="35" Width="146" FontSize="20" RenderTransformOrigin="0.547,0.682" Click="StartTracking_Click" Background="#FF3BF78A"/>
-        <Button x:Name="StopTracking" Content="Stop Tracking" HorizontalAlignment="Left" Margin="368,46,0,0" VerticalAlignment="Top" Height="35" Width="132" FontSize="20" RenderTransformOrigin="0.547,0.682" Click="StopTracking_Click" Background="#FFF4F651"/>
-        <Button x:Name="cart" Content="" HorizontalAlignment="Left" Margin="570,443,0,0" VerticalAlignment="Top" Height="93" Width="145" FontSize="20" RenderTransformOrigin="0.547,0.682" BorderBrush="#FFEE4848" Click="cart_Click">
+        <Button x:Name="StartTracking" Content="" HorizontalAlignment="Left" Margin="582,64,0,0" VerticalAlignment="Top" Height="35" Width="70" FontSize="20" RenderTransformOrigin="0.547,0.682" Click="StartTracking_Click" Foreground="#FFE35A5A" BorderBrush="#FF3BCB11">
+            <Button.Background>
+                <ImageBrush ImageSource="/88-889543_980-x-980-3-start-icon-png-free.png" Stretch="Uniform" TileMode="Tile"/>
+            </Button.Background>
+        </Button>
+        <Button x:Name="StopTracking" Content="" HorizontalAlignment="Left" Margin="476,64,0,0" VerticalAlignment="Top" Height="35" Width="74" FontSize="20" RenderTransformOrigin="0.547,0.682" Click="StopTracking_Click" BorderBrush="#FFF13019">
+            <Button.Background>
+                <ImageBrush ImageSource="/stop-circle-outline.png" Stretch="Uniform" TileMode="FlipX"/>
+            </Button.Background>
+        </Button>
+        <Button x:Name="cart" Content="" HorizontalAlignment="Left" Margin="507,467,0,0" VerticalAlignment="Top" Height="87" Width="145" FontSize="20" RenderTransformOrigin="0.547,0.682" BorderBrush="#FFEE4848" Click="cart_Click">
             <Button.Background>
                 <ImageBrush ImageSource="/istockphoto-1128229893-1024x1024.jpg" Stretch="UniformToFill" TileMode="FlipX"/>
             </Button.Background>
         </Button>
+        <Label x:Name="l1_Copy" Content="" Grid.Row="0" FontSize="48" Width="170" HorizontalAlignment="Left" Margin="45,-3,0,472" BorderBrush="#FFF6E543" Foreground="#FF09061F" FontFamily="Miriam" FontWeight="Bold" RenderTransformOrigin="0.5,0.5" >
+            <Label.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="-0.697"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Label.RenderTransform>
+            <Label.Background>
+                <ImageBrush Stretch="Uniform" TileMode="FlipX" ImageSource="/images.jpg"/>
+            </Label.Background>
+        </Label>
+        <Label x:Name="l1_Copy1" Content="" Grid.Row="0" FontSize="48" Width="170" HorizontalAlignment="Left" Margin="45,-3,0,472" BorderBrush="#FFF6E543" Foreground="#FF09061F" FontFamily="Miriam" FontWeight="Bold" RenderTransformOrigin="0.5,0.5" >
+            <Label.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="-0.697"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Label.RenderTransform>
+            <Label.Background>
+                <ImageBrush Stretch="Uniform" TileMode="FlipX" ImageSource="/images.jpg"/>
+            </Label.Background>
+        </Label>
     </Grid>
 </Window>

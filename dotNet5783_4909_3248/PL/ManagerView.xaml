@@ -7,10 +7,13 @@
         mc:Ignorable="d"
         Title="ManagerView" Height="451" Width="584">
     <Grid Margin="0,0,10,13">
-        <Button x:Name="ListProductbutton" Content="View products" Background="#FFFAD0F9" HorizontalAlignment="Left" Margin="59,232,0,0" VerticalAlignment="Top" Height="48" Width="189" FontFamily="Yu Gothic Medium" FontSize="24" Click="ListProductbutton_Click" FontStyle="Italic"/>
-        <TextBlock x:Name="textBlock" HorizontalAlignment="Left" TextWrapping="Wrap" Text="תצוגת מנהל" VerticalAlignment="Top" Width="146" Height="42" FontSize="24" Margin="238,138,0,0" FontWeight="Bold"/>
-        <Button x:Name="ListOrderbutton" Content="View orders" Background="#FFFCD1F5" HorizontalAlignment="Left" Margin="325,232,0,0" VerticalAlignment="Top" Height="48" Width="197" FontFamily="Yu Gothic Medium" FontSize="24" Click="ListOrderbutton_Click" FontStyle="Italic"/>
-        <Label x:Name="l1_Copy" Content="" Grid.Row="0" FontSize="48" Width="212" HorizontalAlignment="Left" Margin="10,35,0,212" BorderBrush="#FFF6E543" Foreground="#FF09061F" FontFamily="Miriam" FontWeight="Bold" RenderTransformOrigin="0.5,0.5" >
+        <Grid.Background>
+            <ImageBrush ImageSource="/Icons/c2ed2c517ff86c3f1170a3664a3d0dd5.jpg"/>
+        </Grid.Background>
+        <Button x:Name="ListProductbutton" Content="View products" Background="#FFFDF8FD" HorizontalAlignment="Left" Margin="59,232,0,0" VerticalAlignment="Top" Height="48" Width="189" FontFamily="Yu Gothic Medium" FontSize="24" Click="ListProductbutton_Click" FontStyle="Italic"/>
+        <TextBlock x:Name="textBlock" HorizontalAlignment="Left" TextWrapping="Wrap" Text="תצוגת מנהל" VerticalAlignment="Top" Width="146" Height="42" FontSize="24" Margin="237,99,0,0" FontWeight="Bold"/>
+        <Button x:Name="ListOrderbutton" Content="View orders" Background="#FFFDF8FD" HorizontalAlignment="Left" Margin="325,232,0,0" VerticalAlignment="Top" Height="48" Width="197" FontFamily="Yu Gothic Medium" FontSize="24" Click="ListOrderbutton_Click" FontStyle="Italic"/>
+        <Label x:Name="l1_Copy" Content="" Grid.Row="0" FontSize="48" Width="160" HorizontalAlignment="Left" Margin="3,14,0,281" BorderBrush="#FFF6E543" Foreground="#FF09061F" FontFamily="Miriam" FontWeight="Bold" RenderTransformOrigin="0.5,0.5" >
             <Label.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform/>
@@ -24,13 +27,13 @@
             </Label.Background>
         </Label>
         <Label x:Name="l1_Copy1" Content="" Grid.Row="0" FontSize="48"
-            Height="72" Width="146" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="238,26,0,0" BorderBrush="Black" Foreground="#FF09061F" FontFamily="Miriam" FontWeight="Bold" >
+            Height="52" Width="140" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="230,24,0,0" BorderBrush="Black" Foreground="#FF09061F" FontFamily="Miriam" FontWeight="Bold" >
             <Label.Background>
                 <ImageBrush ImageSource="/Icons/logo5_1.jpg"/>
             </Label.Background>
         </Label>
-        <Button x:Name="ListOrderbutton_Copy" Content="Discounts %" Background="#FFF74975" HorizontalAlignment="Left" Margin="59,325,0,0" VerticalAlignment="Top" Height="47" Width="189" FontFamily="Yu Gothic Medium" FontSize="24" Click="ListOrderbutton_Copy_Click_1" FontWeight="Bold" FontStyle="Italic"/>
-        <Button x:Name="ListOrderbutton_Copy1" Content="Order Tracking" Background="#FFFCD1F5" HorizontalAlignment="Left" Margin="325,324,0,0" VerticalAlignment="Top" Height="48" Width="207" FontFamily="Yu Gothic Medium" FontSize="24" FontStyle="Italic" Click="ListOrderbutton_Copy1_Click"/>
+        <Button x:Name="ListOrderbutton_Copy" Content="Discounts %" Background="#FFFFF6FF" HorizontalAlignment="Left" Margin="59,325,0,0" VerticalAlignment="Top" Height="47" Width="189" FontFamily="Yu Gothic Medium" FontSize="24" Click="ListOrderbutton_Copy_Click_1" FontWeight="Bold" FontStyle="Italic"/>
+        <Button x:Name="ListOrderbutton_Copy1" Content="Order Tracking" Background="#FFFDF8FD" HorizontalAlignment="Left" Margin="325,324,0,0" VerticalAlignment="Top" Height="48" Width="207" FontFamily="Yu Gothic Medium" FontSize="24" FontStyle="Italic" Click="ListOrderbutton_Copy1_Click"/>
 
     </Grid>
 </Window>

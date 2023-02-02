@@ -568,4 +568,28 @@
     <Amount>3</Amount>
     <IsDeleted>false</IsDeleted>
   </OrderItem>
+  <OrderItem>
+    <ID>1071</ID>
+    <ProductID>128</ProductID>
+    <OrderID>133</OrderID>
+    <Price>139.99</Price>
+    <Amount>5</Amount>
+    <IsDeleted>false</IsDeleted>
+  </OrderItem>
+  <OrderItem>
+    <ID>1072</ID>
+    <ProductID>366</ProductID>
+    <OrderID>133</OrderID>
+    <Price>190</Price>
+    <Amount>4</Amount>
+    <IsDeleted>false</IsDeleted>
+  </OrderItem>
+  <OrderItem>
+    <ID>1073</ID>
+    <ProductID>713</ProductID>
+    <OrderID>133</OrderID>
+    <Price>35.99</Price>
+    <Amount>4</Amount>
+    <IsDeleted>false</IsDeleted>
+  </OrderItem>
 </OrderItems>

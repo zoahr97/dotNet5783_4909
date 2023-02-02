@@ -71,7 +71,7 @@
                 <ColumnDefinition Width="391*"/>
             </Grid.ColumnDefinitions>
             <ComboBox x:Name="AttributeSelector1" Background="AntiqueWhite"  Text="" Margin="91,2,37,2" SelectionChanged="AttributeSelector1_SelectionChanged" Grid.Column="2" />
-            <Label x:Name="Description1" Content="Product:" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Italic" FontWeight="Bold" FontSize="23" Width="153" FontStyle="Normal" Height="35" HorizontalContentAlignment="Center" Margin="168,2,0,0" Grid.ColumnSpan="2" Grid.Column="1" Grid.RowSpan="2"/>
+            <Label x:Name="Description1" Content="Product:" HorizontalAlignment="Left" VerticalAlignment="Center" FontFamily="Italic" FontWeight="Bold" FontSize="23" Width="156" FontStyle="Normal" Height="37" HorizontalContentAlignment="Center" Margin="168,0,0,0" Grid.ColumnSpan="2" Grid.Column="1"/>
         </Grid>
         <Label x:Name="l1_Copy" Content="" Grid.Row="0" FontSize="48"
             Height="105" Width="111" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="24,28,0,0" BorderBrush="Black" Foreground="#FF09061F" FontFamily="Miriam" FontWeight="Bold" Grid.Column="1" >

@@ -8,7 +8,7 @@
         Title="ProductWindow" Height="450" Width="800">
     <Grid Margin="10,0,10,12">
         <Grid.Background>
-            <ImageBrush ImageSource="/Icons/depositphotos_6027922-stock-photo-white-orchid.jpg" Stretch="UniformToFill"/>
+            <ImageBrush ImageSource="/Icons/c2ed2c517ff86c3f1170a3664a3d0dd5.jpg" Stretch="UniformToFill"/>
         </Grid.Background>
         <Grid.RowDefinitions>
             <RowDefinition Height="58"/>

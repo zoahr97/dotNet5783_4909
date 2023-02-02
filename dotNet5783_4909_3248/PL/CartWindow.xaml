@@ -46,7 +46,7 @@
         </DataGrid>
         <TextBox x:Name="TEmail" FontSize="20"  HorizontalAlignment="Left" Margin="166,72,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="214" Height="40" Grid.Column="2" />
         <Button x:Name="EmptyCartButton" Content="ריקון הסל" HorizontalAlignment="Left" Margin="34,549,0,0" VerticalAlignment="Top" Height="51" Width="182" FontSize="20" FontWeight="Bold" Background="#FFECD1EE" Grid.Column="1" Click="EmptyCartButton_Click" Grid.ColumnSpan="2"/>
-        <Button x:Name="MakePayment" Content="ביצוע תשלום" HorizontalAlignment="Left" Margin="335,549,0,0" VerticalAlignment="Top" Height="51" Width="185" FontSize="20" FontWeight="Bold" Background="#FFECD1EE" Grid.Column="2" Click="MakePayment_Click" Grid.ColumnSpan="2"/>
+        <Button x:Name="MakePayment" Content="ביצוע תשלום" HorizontalAlignment="Left" Margin="335,549,0,0" VerticalAlignment="Top" Height="51" Width="185" FontSize="20" FontWeight="Bold" Background="#FFF1D6F3" Grid.Column="2" Click="MakePayment_Click" Grid.ColumnSpan="2"/>
         <Label x:Name="l1_Copy" Content="Customer Name:" Grid.Row="0" FontSize="28" FontStyle="Normal" FontWeight="DemiBold"
             Height="45" Width="231" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="67,10,0,0" Grid.Column="1" Grid.ColumnSpan="2" />
         <Label x:Name="l1_Copy1" Content="Customer details:" Grid.Row="0" FontSize="32" FontStyle="Italic" FontWeight="Bold"

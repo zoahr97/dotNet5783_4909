@@ -9,14 +9,6 @@
     <IsDeleted>false</IsDeleted>
   </Product>
   <Product>
-    <ProductID>915</ProductID>
-    <ProductName>Anthurium</ProductName>
-    <category>MultiSeason</category>
-    <Price>90</Price>
-    <InStock>107</InStock>
-    <IsDeleted>false</IsDeleted>
-  </Product>
-  <Product>
     <ProductID>358</ProductID>
     <ProductName>Anthurium</ProductName>
     <category>Spring</category>
@@ -33,35 +25,11 @@
     <IsDeleted>false</IsDeleted>
   </Product>
   <Product>
-    <ProductID>338</ProductID>
-    <ProductName>Anthurium</ProductName>
-    <category>Summer</category>
-    <Price>45</Price>
-    <InStock>60</InStock>
-    <IsDeleted>false</IsDeleted>
-  </Product>
-  <Product>
     <ProductID>681</ProductID>
     <ProductName>Anemone</ProductName>
     <category>Spring</category>
     <Price>60</Price>
     <InStock>91</InStock>
-    <IsDeleted>false</IsDeleted>
-  </Product>
-  <Product>
-    <ProductID>273</ProductID>
-    <ProductName>Chrysanthemum</ProductName>
-    <category>Spring</category>
-    <Price>30</Price>
-    <InStock>66</InStock>
-    <IsDeleted>false</IsDeleted>
-  </Product>
-  <Product>
-    <ProductID>434</ProductID>
-    <ProductName>Anthurium</ProductName>
-    <category>Summer</category>
-    <Price>105</Price>
-    <InStock>65</InStock>
     <IsDeleted>false</IsDeleted>
   </Product>
   <Product>
@@ -73,27 +41,227 @@
     <IsDeleted>false</IsDeleted>
   </Product>
   <Product>
-    <ProductID>899</ProductID>
-    <ProductName>זוהר</ProductName>
-    <category>BiSeasonal</category>
-    <Price>80</Price>
-    <InStock>35</InStock>
-    <IsDeleted>false</IsDeleted>
-  </Product>
-  <Product>
     <ProductID>996</ProductID>
     <ProductName>כלנית</ProductName>
-    <category>MultiSeason</category>
+    <category>Winter</category>
     <Price>150</Price>
     <InStock>81</InStock>
     <IsDeleted>false</IsDeleted>
   </Product>
   <Product>
+    <ProductID>954</ProductID>
+    <ProductName>סחלב</ProductName>
+    <category>BiSeasonal</category>
+    <Price>130</Price>
+    <InStock>190</InStock>
+    <IsDeleted>false</IsDeleted>
+  </Product>
+  <Product>
+    <ProductID>386</ProductID>
+    <ProductName>קקטוס</ProductName>
+    <category>MultiSeason</category>
+    <Price>170</Price>
+    <InStock>100</InStock>
+    <IsDeleted>false</IsDeleted>
+  </Product>
+  <Product>
+    <ProductID>788</ProductID>
+    <ProductName>גבסנית</ProductName>
+    <category>SingleSeason</category>
+    <Price>180.99</Price>
+    <InStock>170</InStock>
+    <IsDeleted>false</IsDeleted>
+  </Product>
+  <Product>
+    <ProductID>547</ProductID>
+    <ProductName>חרצית</ProductName>
+    <category>MultiSeason</category>
+    <Price>70.99</Price>
+    <InStock>250</InStock>
+    <IsDeleted>false</IsDeleted>
+  </Product>
+  <Product>
+    <ProductID>138</ProductID>
+    <ProductName>סייפן</ProductName>
+    <category>Winter</category>
+    <Price>130.99</Price>
+    <InStock>98</InStock>
+    <IsDeleted>false</IsDeleted>
+  </Product>
+  <Product>
+    <ProductID>714</ProductID>
+    <ProductName>חבצלת החוף</ProductName>
+    <category>BiSeasonal</category>
+    <Price>50.99</Price>
+    <InStock>100</InStock>
+    <IsDeleted>false</IsDeleted>
+  </Product>
+  <Product>
+    <ProductID>936</ProductID>
+    <ProductName>רקפת</ProductName>
+    <category>SingleSeason</category>
+    <Price>139.99</Price>
+    <InStock>120</InStock>
+    <IsDeleted>false</IsDeleted>
+  </Product>
+  <Product>
+    <ProductID>321</ProductID>
+    <ProductName>ציפורני חתול</ProductName>
+    <category>Winter</category>
+    <Price>120.99</Price>
+    <InStock>80</InStock>
+    <IsDeleted>false</IsDeleted>
+  </Product>
+  <Product>
+    <ProductID>348</ProductID>
+    <ProductName>צבעוני</ProductName>
+    <category>Fall</category>
+    <Price>139</Price>
+    <InStock>178</InStock>
+    <IsDeleted>false</IsDeleted>
+  </Product>
+  <Product>
+    <ProductID>182</ProductID>
+    <ProductName>סיגלית</ProductName>
+    <category>BiSeasonal</category>
+    <Price>189</Price>
+    <InStock>100</InStock>
+    <IsDeleted>false</IsDeleted>
+  </Product>
+  <Product>
+    <ProductID>367</ProductID>
+    <ProductName>שושנה</ProductName>
+    <category>Winter</category>
+    <Price>100</Price>
+    <InStock>123</InStock>
+    <IsDeleted>false</IsDeleted>
+  </Product>
+  <Product>
+    <ProductID>725</ProductID>
+    <ProductName>דגנית</ProductName>
+    <category>MultiSeason</category>
+    <Price>129</Price>
+    <InStock>398</InStock>
+    <IsDeleted>false</IsDeleted>
+  </Product>
+  <Product>
+    <ProductID>349</ProductID>
+    <ProductName>רותם</ProductName>
+    <category>SingleSeason</category>
+    <Price>17.99</Price>
+    <InStock>100</InStock>
+    <IsDeleted>false</IsDeleted>
+  </Product>
+  <Product>
+    <ProductID>721</ProductID>
+    <ProductName>לוטם</ProductName>
+    <category>MultiSeason</category>
+    <Price>150</Price>
+    <InStock>100</InStock>
+    <IsDeleted>false</IsDeleted>
+  </Product>
+  <Product>
+    <ProductID>368</ProductID>
+    <ProductName>אירוס</ProductName>
+    <category>Winter</category>
+    <Price>75.99</Price>
+    <InStock>120</InStock>
+    <IsDeleted>false</IsDeleted>
+  </Product>
+  <Product>
+    <ProductID>315</ProductID>
+    <ProductName>פרג</ProductName>
+    <category>Winter</category>
+    <Price>37.99</Price>
+    <InStock>177</InStock>
+    <IsDeleted>false</IsDeleted>
+  </Product>
+  <Product>
+    <ProductID>128</ProductID>
+    <ProductName>יקינטון</ProductName>
+    <category>Summer</category>
+    <Price>139.99</Price>
+    <InStock>175</InStock>
+    <IsDeleted>false</IsDeleted>
+  </Product>
+  <Product>
+    <ProductID>713</ProductID>
+    <ProductName>יסמין</ProductName>
+    <category>MultiSeason</category>
+    <Price>35.99</Price>
+    <InStock>96</InStock>
+    <IsDeleted>false</IsDeleted>
+  </Product>
+  <Product>
+    <ProductID>366</ProductID>
+    <ProductName>ציפור גן עדן</ProductName>
+    <category>MultiSeason</category>
+    <Price>100</Price>
+    <InStock>166</InStock>
+    <IsDeleted>false</IsDeleted>
+  </Product>
+  <Product>
+    <ProductID>134</ProductID>
+    <ProductName>צוף</ProductName>
+    <category>MultiSeason</category>
+    <Price>25.99</Price>
+    <InStock>25</InStock>
+    <IsDeleted>false</IsDeleted>
+  </Product>
+  <Product>
     <ProductID>900</ProductID>
-    <ProductName>Chrysanthemum</ProductName>
+    <ProductName>אדמונית</ProductName>
+    <category>MultiSeason</category>
+    <Price>28.99</Price>
+    <InStock>25</InStock>
+    <IsDeleted>false</IsDeleted>
+  </Product>
+  <Product>
+    <ProductID>273</ProductID>
+    <ProductName>אביבית</ProductName>
+    <category>MultiSeason</category>
+    <Price>36.99</Price>
+    <InStock>25</InStock>
+    <IsDeleted>false</IsDeleted>
+  </Product>
+  <Product>
+    <ProductID>434</ProductID>
+    <ProductName>IVI</ProductName>
+    <category>MultiSeason</category>
+    <Price>23.99</Price>
+    <InStock>25</InStock>
+    <IsDeleted>false</IsDeleted>
+  </Product>
+  <Product>
+    <ProductID>899</ProductID>
+    <ProductName>דרדרית</ProductName>
+    <category>MultiSeason</category>
+    <Price>19.99</Price>
+    <InStock>25</InStock>
+    <IsDeleted>false</IsDeleted>
+  </Product>
+  <Product>
+    <ProductID>338</ProductID>
+    <ProductName>כפתור החולות</ProductName>
+    <category>MultiSeason</category>
+    <Price>20.99</Price>
+    <InStock>25</InStock>
+    <IsDeleted>false</IsDeleted>
+  </Product>
+  <Product>
+    <ProductID>235</ProductID>
+    <ProductName>שושן צחור</ProductName>
     <category>Spring</category>
-    <Price>15</Price>
-    <InStock>47</InStock>
+    <Price>128</Price>
+    <InStock>170</InStock>
+    <IsDeleted>false</IsDeleted>
+  </Product>
+  <Product>
+    <ProductID>915</ProductID>
+    <ProductName>איריס</ProductName>
+    <category>MultiSeason</category>
+    <Price>9.99</Price>
+    <InStock>19</InStock>
     <IsDeleted>false</IsDeleted>
   </Product>
 </Products>

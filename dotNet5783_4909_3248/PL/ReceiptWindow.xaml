@@ -18,20 +18,20 @@
         <Label x:Name="l1" Content="Receipt" Grid.Row="0" FontSize="36" FontWeight="Bold"
             Height="52" Width="228" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="347,26,0,0" FontFamily="David" Background="{x:Null}" FontStyle="Italic" RenderTransformOrigin="0.502,-0.006" />
         <Label x:Name="l1_Copy" Content="Customer Name:" Grid.Row="0" FontSize="28" FontStyle="Normal" FontWeight="DemiBold"
-            Height="46" Width="231" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="137,141,0,0" />
+            Height="46" Width="231" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="125,141,0,0" RenderTransformOrigin="0.424,0.585" />
         <Label x:Name="l2" Content="Customer Adress:" FontSize="28" FontStyle="Normal" FontWeight="DemiBold"
-            Height="45" Width="231" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="136,257,0,0" RenderTransformOrigin="0.21,0.415"/>
+            Height="44" Width="230" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="120,260,0,0" RenderTransformOrigin="0.21,0.415"/>
         <Label x:Name="l3" Content="Total payment:" FontSize="28" FontStyle="Normal" FontWeight="DemiBold"
-            Height="58" Width="220" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="142,318,0,0" RenderTransformOrigin="-0.278,0.422"/>
+            Height="58" Width="220" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="125,313,0,0" RenderTransformOrigin="-0.278,0.422"/>
         <Label x:Name="l4" Content="Customer Email:" FontSize="28" FontStyle="Normal" FontWeight="DemiBold"
-            Height="56" Width="216" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="137,196,0,0"/>
+            Height="56" Width="216" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="125,199,0,0"/>
         <TextBox x:Name="Tcustomername" FontSize="20"  HorizontalAlignment="Left" Margin="420,141,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="214" Height="40" IsEnabled="False" />
         <TextBox x:Name="Tcustomeradress" FontSize="20" HorizontalAlignment="Left" Margin="420,262,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="214" Height="40" IsEnabled="False"  />
         <TextBox x:Name="Tprice" Text="0₪" FontSize="20" HorizontalAlignment="Left" Margin="420,322,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="214" Height="40" IsEnabled="False" />
         <Label x:Name="l3_Copy" Content="Items:" FontSize="28" FontWeight="DemiBold"
             Height="44" Width="107" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="56,470,0,0" RenderTransformOrigin="-0.278,0.422"/>
         <DataGrid x:Name="dataGridItems" ItemsSource="{Binding}" SelectionMode="Single" SelectionUnit="FullRow" IsReadOnly="True" AutoGenerateColumns="False"
-            CanUserReorderColumns="False" CanUserSortColumns="True" Margin="54,519,107,34">
+            CanUserReorderColumns="False" CanUserSortColumns="True" Margin="54,519,107,34" Background="#FFFFFBFA" Foreground="#FFF62525">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="OrderItemID" Binding="{Binding OrderItemID}"/>
                 <DataGridTextColumn Header="ProductID" Binding="{Binding ProductID}"/>
@@ -53,10 +53,10 @@
         </Button>
         <TextBox x:Name="Tcustomername_Copy" FontSize="20"  HorizontalAlignment="Left" Margin="425,435,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="155" Height="40" IsEnabled="False" />
         <Label x:Name="l4_Copy1" Content="Amount of items:" FontSize="28" FontStyle="Normal" FontWeight="DemiBold"
-            Height="54" Width="243" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="163,421,0,0"/>
+            Height="54" Width="243" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="125,421,0,0"/>
         <TextBox x:Name="Tcustomername_Copy1" FontSize="20"  HorizontalAlignment="Left" Margin="420,91,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="155" Height="40" IsEnabled="False" />
         <Label x:Name="l4_Copy2" Content="Order id:" FontSize="28" FontStyle="Normal" FontWeight="DemiBold"
-            Height="54" Width="147" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="137,91,0,0"/>
+            Height="54" Width="147" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="125,91,0,0" RenderTransformOrigin="0.42,0.43"/>
 
     </Grid>
 </Window>

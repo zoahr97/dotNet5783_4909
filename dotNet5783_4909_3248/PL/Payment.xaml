@@ -7,6 +7,9 @@
         mc:Ignorable="d"
         Title="Payment" Height="680" Width="858">
     <Grid Margin="13,0,10,26">
+        <Grid.Background>
+            <ImageBrush/>
+        </Grid.Background>
         <Label x:Name="l1" Content="Credit number:" Grid.Row="0" FontSize="28" FontStyle="Normal" FontWeight="DemiBold"
             Height="52" Width="228" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="181,104,0,0" />
         <Label x:Name="l2" Content="Validity:" FontSize="28" FontStyle="Normal" FontWeight="DemiBold"

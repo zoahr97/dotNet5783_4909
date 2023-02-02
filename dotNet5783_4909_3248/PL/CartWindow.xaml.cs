@@ -141,17 +141,7 @@ namespace PL
                     MessageBox.Show("כתובת מייל אינה תקינה!!");
                     return;
                 }
-
-                if (IsHebrew(Tcustomeradress.Text)  || IsEnglish(Tcustomeradress.Text))
-                {
-                    cart.CustomerAdress = Tcustomeradress.Text;
-                }
-                else
-                {
-                    Tcustomeradress.Text = "";
-                    MessageBox.Show("כתובת הלקוח חייב להיות בעברית או באנגלית!!");
-                    return;
-                }
+                cart.CustomerAdress = Tcustomeradress.Text;
                 new Payment().Show();
                 this.Close();
             }    

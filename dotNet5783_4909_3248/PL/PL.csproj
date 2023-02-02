@@ -19,6 +19,7 @@
     <None Remove="50%25.png" />
     <None Remove="51ecb04d4dcca8c4274ede3d7955.jpg" />
     <None Remove="70 %25 הנחה.png" />
+    <None Remove="88-889543_980-x-980-3-start-icon-png-free.png" />
     <None Remove="927cb76e5c9f5d101fb8beeb08b27b3e.jpg" />
     <None Remove="Bin.jpg" />
     <None Remove="c2ed2c517ff86c3f1170a3664a3d0dd5.jpg" />
@@ -29,6 +30,7 @@
     <None Remove="depositphotos_6027922-stock-photo-white-orchid.jpg" />
     <None Remove="Flower-arrangement.png" />
     <None Remove="image.jpg" />
+    <None Remove="images.jpg" />
     <None Remove="img_384859.png" />
     <None Remove="Insta.png" />
     <None Remove="istockphoto-1128229893-1024x1024.jpg" />
@@ -55,14 +57,12 @@
     <None Remove="R.jpg" />
     <None Remove="R12.png" />
     <None Remove="R2.jpg" />
-    <None Remove="sale-5.png" />
-    <None Remove="sale-balloons-12596669.jpg" />
     <None Remove="sale-discount-price.jpg" />
     <None Remove="shipping.png" />
     <None Remove="stickers-belle-orchidee-blanche.jpg.jpg" />
+    <None Remove="stop-circle-outline.png" />
     <None Remove="user-offline-white.png" />
     <None Remove="W_960_sell-online.png" />
-    <None Remove="y9.gif" />
     <None Remove="ורד.jpg" />
     <None Remove="חמניה.jpg" />
   </ItemGroup>
@@ -74,6 +74,7 @@
   <ItemGroup>
     <Resource Include="50%.png" />
     <Resource Include="70 % הנחה.png" />
+    <Resource Include="88-889543_980-x-980-3-start-icon-png-free.png" />
     <Resource Include="coloured-sales-background_1179-15.jpg" />
     <Resource Include="Icons\12564024_XXL.jpg" />
     <Resource Include="Icons\1916442.png" />
@@ -96,6 +97,7 @@
     <Resource Include="Icons\Manager1.png" />
     <Resource Include="Icons\OIP %281%29.jpg" />
     <Resource Include="Icons\OIP.jpg" />
+    <Resource Include="images.jpg" />
     <Resource Include="istockphoto-1128229893-1024x1024.jpg" />
     <Resource Include="OIP (999.jpg" />
     <Resource Include="OIP 87.jpg" />
@@ -120,11 +122,9 @@
     <Resource Include="Icons\חמניה.jpg" />
     <Resource Include="R (99.png" />
     <Resource Include="R 366.png" />
-    <Resource Include="sale-5.png" />
-    <Resource Include="sale-balloons-12596669.jpg" />
     <Resource Include="sale-discount-price.jpg" />
+    <Resource Include="stop-circle-outline.png" />
     <Resource Include="W_960_sell-online.png" />
-    <Resource Include="y9.gif" />
   </ItemGroup>
   
 

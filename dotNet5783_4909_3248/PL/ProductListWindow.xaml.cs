@@ -161,7 +161,7 @@ namespace PL
             {
                 MessageBox.Show(ex.Message);
             }
-            ProductsListView.ItemsSource = productForLists;
+            //ProductsListView.ItemsSource = productForLists;
            
         }
 
